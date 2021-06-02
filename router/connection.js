@@ -61,6 +61,30 @@ let execute = {
 		  sql.close();
 		}
 	},
+	command : (rsqlqry)=>{			
+		return new Promise((resolve,reject)=>{
+			try {
+				const pool1 = new sql.ConnectionPool(config, err => {
+				  new sql.Request(pool1)
+				  .query(sqlqry, (err, result) => {
+						sql.close();
+						if(err){
+							reject(err);		  
+						}else{
+							resolve(result);
+						}					
+				  })  
+				})
+				pool1.on('error', err => {
+					sql.close();
+					reject(err);
+				})
+			  } catch (error) {
+					sql.close();
+					reject(error);
+			  }
+		})
+	},
 	start:()=>{
 		console.log('intentando iniciar la conexión...')
 		//const sql = require('mssql')

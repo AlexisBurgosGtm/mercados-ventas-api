@@ -38,6 +38,7 @@ router.post("/nuevo", async(req,res)=>{
     
     const {sucursal,tipo,codusuario,usuario,clave,coddoc,telefono} = req.body;
         
+    
     let qry ='';let qryV ='';
 
     qry = `INSERT INTO ME_USUARIOS 

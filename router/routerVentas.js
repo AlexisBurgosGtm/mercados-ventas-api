@@ -2,6 +2,48 @@ const execute = require('./connection');
 const express = require('express');
 const router = express.Router();
 
+//EDICION DEL PEDIDO
+router.post('/loadpedido',async(req,res)=>{
+
+    const {sucursal, usuario, coddoc, correlativo} = req.body;
+
+    let qrydel = `DELETE FROM ME_TEMP_VENTAS 
+            WHERE CODSUCURSAL='${sucursal}' 
+            AND USUARIO='${usuario}'; `
+
+    let qry='';
+    qry = `INSERT INTO ME_TEMP_VENTAS 
+            (EMPNIT,CODPROD,DESPROD,CODMEDIDA,CANTIDAD,EQUIVALE,TOTALUNIDADES,COSTO,PRECIO,TOTALCOSTO,TOTALPRECIO,EXENTO,USUARIO,TIPOPRECIO,CODSUCURSAL) 
+        SELECT EMP_NIT AS EMPNIT, CODPROD, DESCRIPCION AS DESPROD, 
+        CODMEDIDA, CANTIDAD, EQUIVALE, CANTIDADINV AS TOTALUNIDADES, 
+        COSTO, PRECIO, TOTALCOSTO, TOTALPRECIO, 0 AS EXENTO, '${usuario}' AS USUARIO, TIPOPRECIO, '${sucursal}' AS CODSUCURSAL 
+        FROM ME_DOCPRODUCTOS
+        WHERE CODSUCURSAL='${sucursal}' 
+        AND CODDOC='${coddoc}' 
+        AND DOC_NUMERO='${correlativo}'; `
+
+    execute.Query(res,qrydel + qry);
+
+})
+
+
+router.post('/eliminarpedidocargado',async(req,res)=>{
+
+    const {sucursal,coddoc,correlativo} = req.body;
+
+    let qry = `DELETE FROM ME_DOCUMENTOS 
+    WHERE CODSUCURSAL='${sucursal}' 
+    AND CODDOC='${coddoc}' AND DOC_NUMERO='${correlativo}'
+    AND DOC_ESTATUS='O'; `
+    let qryprods = `DELETE FROM ME_DOCPRODUCTOS 
+        WHERE CODSUCURSAL='${sucursal}' AND CODDOC='${coddoc}' 
+        AND DOC_NUMERO='${correlativo}' ;`
+
+    execute.Query(res, qry + qryprods);
+
+})
+
+
 // VENTANA DE VENTAS
 ///////////////////////////////////////
 router.get("/json", async(req,res)=>{
@@ -12,6 +54,7 @@ router.get("/json", async(req,res)=>{
     execute.Query(res,qry);
 
 })
+
 // VENTAS BUSCAR PRODUCTO POR DESCRIPCION
 router.get("/buscarproducto", async(req,res)=>{
     
@@ -19,8 +62,10 @@ router.get("/buscarproducto", async(req,res)=>{
     // app= sucusal
     // K= CAMBIO DE PRODUCTO
 
-    let campoprecio = '';
+    let qry ='';
 
+    let campoprecio = '';
+    let equ = '<>0'; //equivalente diferente a cero para que jale todos
     switch (tipoprecio) {
         case 'P':
             campoprecio = 'ME_PRECIOS.PRECIO';        
@@ -35,20 +80,25 @@ router.get("/buscarproducto", async(req,res)=>{
             campoprecio = 'ME_PRECIOS.OFERTA';
             break;
         case 'K':
-            campoprecio = '0.01'
+            campoprecio = '0.01';
+            equ = '=1'; //equivalente =1 para que solo me jale las unidades
+
             break;
         default:
             campoprecio = 'ME_PRECIOS.PRECIO';
             break;
     }
-    let qry ='';
     
-    qry = `SELECT TOP 20 ME_Productos.CODPROD, ME_Productos.DESPROD, ME_Precios.CODMEDIDA, ME_Precios.EQUIVALE, ME_Precios.COSTO, ${campoprecio} AS PRECIO, ME_Marcas.DESMARCA, 0 AS EXENTO, ISNULL(ME_PRODUCTOS.EXISTENCIA,0) AS EXISTENCIA
+    
+    qry = `SELECT TOP 20 ME_Productos.CODPROD, ME_Productos.DESPROD, ME_Precios.CODMEDIDA, 
+                ME_Precios.EQUIVALE, ME_Precios.COSTO, ${campoprecio} AS PRECIO, 
+                ME_Marcas.DESMARCA, 0 AS EXENTO, ISNULL(ME_PRODUCTOS.EXISTENCIA,0) AS EXISTENCIA
             FROM ME_Productos LEFT OUTER JOIN
-            ME_Marcas ON ME_Productos.CODSUCURSAL = ME_Marcas.CODSUCURSAL AND ME_Productos.CODMARCA = ME_Marcas.CODMARCA LEFT OUTER JOIN
-            ME_Precios ON ME_Productos.CODSUCURSAL = ME_Precios.CODSUCURSAL AND ME_Productos.CODPROD = ME_Precios.CODPROD
-            WHERE (ME_Productos.DESPROD LIKE '%${filtro}%') AND (ME_Productos.CODSUCURSAL = '${app}') 
-                        OR (ME_Productos.CODPROD = '${filtro}') AND (ME_Productos.CODSUCURSAL = '${app}')` 
+                ME_Marcas ON ME_Productos.CODSUCURSAL = ME_Marcas.CODSUCURSAL AND ME_Productos.CODMARCA = ME_Marcas.CODMARCA LEFT OUTER JOIN
+                ME_Precios ON ME_Productos.CODSUCURSAL = ME_Precios.CODSUCURSAL AND ME_Productos.CODPROD = ME_Precios.CODPROD
+            WHERE (ME_Productos.DESPROD LIKE '%${filtro}%') AND (ME_Productos.CODSUCURSAL = '${app}') AND (ME_Precios.EQUIVALE ${equ}) 
+                OR (ME_Productos.CODPROD = '${filtro}') AND (ME_Productos.CODSUCURSAL = '${app}') AND (ME_Precios.EQUIVALE ${equ})
+            ORDER BY ME_Precios.CODPROD, ME_Precios.CODMEDIDA` 
     
         
     execute.Query(res,qry);
@@ -88,6 +138,8 @@ router.get("/tempVentas", async(req,res)=>{
             ME_TEMP_VENTAS.CODMEDIDA, 
             ME_TEMP_VENTAS.CANTIDAD, 
             ME_TEMP_VENTAS.EQUIVALE,
+            ME_TEMP_VENTAS.COSTO,
+            ME_TEMP_VENTAS.TOTALCOSTO,  
             ME_TEMP_VENTAS.PRECIO, 
             ME_TEMP_VENTAS.TOTALPRECIO
                 FROM ME_TEMP_VENTAS 
@@ -392,7 +444,7 @@ router.post("/totalventadia", async(req,res)=>{
     let qry = '';
     qry = `SELECT COUNT(DOC_NUMERO) AS PEDIDOS, ISNULL(SUM(DOC_TOTALVENTA),0) AS IMPORTE
             FROM ME_Documentos
-            WHERE (CODSUCURSAL = '${sucursal}') AND (DOC_FECHA = '${fecha}') AND (CODVEN = ${codven}) AND (DOC_ESTATUS<>'A')`
+            WHERE (CODSUCURSAL ='${sucursal}') AND (DOC_FECHA = '${fecha}') AND (CODVEN = ${codven}) AND (DOC_ESTATUS<>'A')`
     
     execute.Query(res,qry);
 });
@@ -402,7 +454,7 @@ router.post("/listapedidos", async(req,res)=>{
     const {sucursal,codven,fecha}  = req.body;
     
     let qry = '';
-    qry = `SELECT CODDOC, DOC_NUMERO AS CORRELATIVO, DOC_NOMREF AS NOMCLIE, DOC_DIRENTREGA AS DIRCLIE, '' AS DESMUNI, ISNULL(DOC_TOTALVENTA,0) AS IMPORTE, DOC_FECHA AS FECHA, LAT, LONG, DOC_OBS AS OBS, DOC_MATSOLI AS DIRENTREGA, DOC_ESTATUS AS ST
+    qry = `SELECT CODDOC, DOC_NUMERO AS CORRELATIVO, NITCLIE AS CODCLIE, DOC_NOMREF AS NOMCLIE, DOC_DIRENTREGA AS DIRCLIE, '' AS DESMUNI, ISNULL(DOC_TOTALVENTA,0) AS IMPORTE, DOC_FECHA AS FECHA, LAT, LONG, DOC_OBS AS OBS, DOC_MATSOLI AS DIRENTREGA, DOC_ESTATUS AS ST
             FROM ME_Documentos
             WHERE (CODSUCURSAL = '${sucursal}') AND (DOC_FECHA = '${fecha}') AND (CODVEN = ${codven}) AND (DOC_ESTATUS<>'A')`
 

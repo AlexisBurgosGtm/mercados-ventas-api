@@ -2,6 +2,18 @@ const execute = require('./connection');
 const express = require('express');
 const router = express.Router();
 
+router.post("/updatecorrelativo", async(req,res)=>{
+    const {sucursal,coddoc,correlativo} = req.body;
+        
+    let qry ='';
+
+    qry = `UPDATE ME_TIPODOCUMENTOS SET CORRELATIVO=${correlativo} 
+            WHERE CODSUCURSAL='${sucursal}' AND CODDOC='${coddoc}' `     
+  
+    execute.Query(res,qry);
+
+});
+
 
 router.post("/documentosvendedores", async(req,res)=>{
     const {sucursal} = req.body;
