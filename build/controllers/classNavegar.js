@@ -164,7 +164,8 @@ let classNavegar = {
                     //actualiza la ubicación del empleado
                     await classEmpleados.updateMyLocation();
 
-                    classNavegar.ventasMapaClientes();
+                    //classNavegar.ventasMapaClientes();
+                    classNavegar.inicioVendedorListado();
              
     },
     inicioVendedorListado :async ()=>{
