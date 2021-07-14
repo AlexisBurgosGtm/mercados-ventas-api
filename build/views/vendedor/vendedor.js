@@ -301,6 +301,7 @@ async function getHistorialCliente(codigo,nit,nombre){
 
 };
 
+
 async function setRecordatorioVisita(codigo, nit, nombre, direccion){
     
     await funciones.hablar(`¿Quieres establecer el recordatorio de visita a ${nombre}`);

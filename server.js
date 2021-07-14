@@ -95,6 +95,10 @@ app.use("*",function(req,res){
 // SOCKET HANDLER
 io.on('connection', function(socket){
   
+  socket.on('avisos', (tipo,mensaje)=>{
+    io.emit('avisos', tipo, mensaje);
+  });
+
   socket.on('noticias nueva', (msg,usuario)=>{
     io.emit('noticias nueva', msg,usuario);
   });

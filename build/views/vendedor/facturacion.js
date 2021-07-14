@@ -114,13 +114,10 @@ function getView(){
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover table-striped"><!--mt-5-->
-                                <thead>
+                                <thead class="bg-trans-gradient text-white">
                                     <tr>
-                                        <th class="border-top-0 table-scale-border-bottom fw-700">Producto</th>
-                                        <th class="text-right border-top-0 table-scale-border-bottom fw-700">Medida</th>
-                                        <th class="text-center border-top-0 table-scale-border-bottom fw-700">Cant.</th>
-                                        <th class="text-right border-top-0 table-scale-border-bottom fw-700">Subtotal</th>
-                                        <th class="text-center border-top-0 table-scale-border-bottom fw-700"></th>
+                                        <th class="">Producto</th>
+                                        <th class="">Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tblGridTempVentas"></tbody>
@@ -526,105 +523,6 @@ function getView(){
                     </div>
                 </div>`
         },
-        modalCantidadCalculadora :()=>{
-            return `
-            <div class="modal fade" id="ModalCantidad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <label class="modal-title text-danger h3" id="">Nueva Cantidad</label>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-
-                            <div class="row">
-                                <div class="col-2">
-                                    <h1 class="text-danger fw-700">Cant:</h1>
-                                </div>
-                                <div class="col-8 text-center">
-                                    <h1 class="text-danger fw-700" id="lbCalcTotal">0</h1>
-                                </div>
-                                <div class="col-2"></div>
-                            </div>
-                            
-                            <br>
-
-                            <div class="row">
-                                <div class="col-4">
-                                    <button class="btn btn-xl btn-circle btn-info" id="btnCalc1">1</button>
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-xl btn-circle btn-info" id="btnCalc2">2</button>
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-xl btn-circle btn-info" id="btnCalc3">3</button>
-                                </div>
-                            </div>
-                            
-                            <br>
-
-                            <div class="row">
-                                <div class="col-4">
-                                    <button class="btn btn-xl btn-circle btn-info" id="btnCalc4">4</button>
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-xl btn-circle btn-info" id="btnCalc5">5</button>
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-xl btn-circle btn-info" id="btnCalc6">6</button>
-                                </div>
-                            </div>
-                            
-                            <br>
-
-                            <div class="row">
-                                <div class="col-4">
-                                    <button class="btn btn-xl btn-circle btn-info" id="btnCalc7">7</button>
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-xl btn-circle btn-info" id="btnCalc8">8</button>
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-xl btn-circle btn-info" id="btnCalc9">9</button>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-4">
-                            
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-xl btn-circle btn-info" id="btnCalc0">0</button>
-                                </div>
-                                <div class="col-4">
-                            
-                                </div>
-                            </div>
-
-                            <br><br><br>
-
-                            <div class="row">
-                                <div class="col-4">
-                                    <button class="btn btn-danger btn-lg" data-dismiss="modal">Cancelar</button>
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-primary btn-lg" id="btnCalcLimpiar">Limpiar</button>
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-success btn-lg" data-dismiss="modal" id="btnCalcAceptar">Aceptar</button>
-                                </div>
-                            </div>
-                        
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-            `
-        },
         modalCantidadProducto:()=>{
             return `
             <div class="modal fade" id="ModalCantidadProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -688,6 +586,55 @@ function getView(){
                 </div>
             </div>
             `
+        },
+        modalCambiarCantidadProducto :()=>{
+            return `
+                <div class="modal fade" id="modalCambiarCantidadProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-md" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <label class="modal-title text-info h3" id="">Cambiar cantidad de producto</label>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                </button>
+                            </div>
+                
+                            <div class="modal-body shadow">
+                                    <div class="">            
+                                        
+                                        <div class="form-group">
+                                            <label>Nueva cantidad:</label>
+                                            <input type="number" class="form-control border-info shadow col-10" id="txtCantNuevaCant">
+                                        </div>                                                             
+                                            
+                                    </div>
+                                    
+                                    <br>
+            
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <button class="btn btn-secondary btn-lg  btn-pills btn-block waves-effect waves-themed" data-dismiss="modal" id="">
+                                                <i class="fal fa-times mr-1"></i>
+                                                Cancelar
+                                            </button>                                
+                                        </div>
+            
+                                        <div class="col-1"></div>
+            
+                                        <div class="col-5">
+                                            <button class="btn btn-success btn-lg btn-pills btn-block waves-effect waves-themed" id="btnCantGuardar">
+                                                <i class="fal fa-check mr-1"></i>Aceptar
+                                            </button>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                            
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>`
         }
     }
 
@@ -706,7 +653,7 @@ function getView(){
     let containerModalesVentas = document.getElementById('containerModalesVentas');
     containerModalesVentas.innerHTML = view.modalBusquedaProductos() 
                                         + view.modalCantidadProducto()
-                                        + view.modalCantidadCalculadora();
+                                        + view.modalCambiarCantidadProducto();
 
 };
 
@@ -859,14 +806,33 @@ async function iniciarVistaVentas(nit,nombre,direccion){
     fcnCargarComboTipoPrecio();
   
     // inicializa la calculadora de cantidad
-    iniciarModalCantidad();
+    //iniciarModalCantidad();
+    addEventsModalCambioCantidad();
 
     //carga los datos del cliente
     document.getElementById('txtNit').value = nit;
     document.getElementById('txtNombre').value = nombre;
     document.getElementById('txtDireccion').value = direccion;
     
+    //inicia los eventos de la ventana Cantidad al agregar productos
     fcnIniciarModalCantidadProductos();
+
+};
+
+function addEventsModalCambioCantidad(){
+ 
+
+    document.getElementById('btnCantGuardar').addEventListener('click',()=>{
+        let nuevacantidad = Number(document.getElementById('txtCantNuevaCant').value);
+        if(nuevacantidad>0){
+            fcnUpdateTempRow(GlobalSelectedId,nuevacantidad)
+            .then(()=>{
+                $('#modalCambiarCantidadProducto').modal('hide');
+            })
+        }else{
+            funciones.AvisoError('Escriba una cantidad válida')
+        }  
+    }) 
 
 };
 
@@ -919,141 +885,86 @@ function fcnIniciarModalCantidadProductos(){
 
 };
 
-function iniciarModalCantidad(){
-    let total = document.getElementById('lbCalcTotal');
-    total.innerText = "";
-    let btnCalcAceptar = document.getElementById('btnCalcAceptar');
-    let btnCalcLimpiar = document.getElementById('btnCalcLimpiar');
-    let b0 = document.getElementById('btnCalc0');
-    let b1 = document.getElementById('btnCalc1');
-    let b2 = document.getElementById('btnCalc2');
-    let b3 = document.getElementById('btnCalc3');
-    let b4 = document.getElementById('btnCalc4');
-    let b5 = document.getElementById('btnCalc5');
-    let b6 = document.getElementById('btnCalc6');
-    let b7 = document.getElementById('btnCalc7');
-    let b8 = document.getElementById('btnCalc8');
-    let b9 = document.getElementById('btnCalc9');
 
-    b0.addEventListener('click',()=>{total.innerText = total.innerText + "0"})
-    b1.addEventListener('click',()=>{total.innerText = total.innerText + "1"})
-    b2.addEventListener('click',()=>{total.innerText = total.innerText + "2"})
-    b3.addEventListener('click',()=>{total.innerText = total.innerText + "3"})
-    b4.addEventListener('click',()=>{total.innerText = total.innerText + "4"})
-    b5.addEventListener('click',()=>{total.innerText = total.innerText + "5"})
-    b6.addEventListener('click',()=>{total.innerText = total.innerText + "6"})
-    b7.addEventListener('click',()=>{total.innerText = total.innerText + "7"})
-    b8.addEventListener('click',()=>{total.innerText = total.innerText + "8"})
-    b9.addEventListener('click',()=>{total.innerText = total.innerText + "9"})
-    btnCalcLimpiar.addEventListener('click',()=>{total.innerText = ""})
 
-    btnCalcAceptar.addEventListener('click',async ()=>{
-        let n = Number(total.innerText);
-        fcnUpdateTempRow(GlobalSelectedId,n)
-        .then(async()=>{
-            //await fcnCargarTotal('txtTotalVenta','txtTotalVentaCobro');      
-            await fcnCargarGridTempVentas('tblGridTempVentas');
-        })
-        total.innerText = "";
+
+function fcnBusquedaProducto(idFiltro,idTablaResultado,idTipoPrecio){
+    
+    let cmbTipoPrecio = document.getElementById(idTipoPrecio);
+
+    let filtro = document.getElementById(idFiltro).value;
+    
+    let tabla = document.getElementById(idTablaResultado);
+    tabla.innerHTML = GlobalLoader;
+
+
+    let str = ""; 
+
+    selectProducto(filtro)
+    .then((response) => {
+        const data = response;
+        //con esta variable determino el tipo de precio a usar            
+        let pre = 0;
+            
+            data.map((rows)=>{
+                let exist = Number(rows.EXISTENCIA)/Number(rows.EQUIVALE); let strC = '';
+                if(Number(rows.EXISTENCIA<=0)){strC='bg-danger text-white'}else{strC='bg-success text-white'};
+                let totalexento = 0;
+                if (rows.EXENTO==1){totalexento=Number(rows.PRECIO)}
+                
+                switch (cmbTipoPrecio.value) {
+                    case 'P':
+                        pre = Number(rows.PRECIO)
+                        break;
+                    case 'C':
+                        pre = Number(rows.PRECIOC)
+                        break;
+                    case 'B':
+                        pre = Number(rows.PRECIOB)
+                        break;
+                    case 'A':
+                        pre = Number(rows.PRECIOA)
+                        break;
+                    case 'K':
+                        pre = Number(0.01)
+                        break;
+     
+                }
+
+                str += `<tr id="${rows.CODPROD}" onclick="getDataMedidaProducto('${rows.CODPROD}','${funciones.quitarCaracteres(rows.DESPROD,'"'," plg",true)}','${rows.CODMEDIDA}',1,${rows.EQUIVALE},${rows.EQUIVALE},${rows.COSTO},${pre},${totalexento},${Number(rows.EXISTENCIA)});" class="border-bottom">
+                <td >
+                    ${funciones.quitarCaracteres(rows.DESPROD,'"'," pulg",true)}
+                    <br>
+                    <small class="text-danger"><b>${rows.CODPROD}</b></small>
+                    <br>
+                    <b class"bg-danger text-white">${rows.CODMEDIDA}</b>
+                    <small>(${rows.EQUIVALE})</small>
+                </td>
+                <td>${funciones.setMoneda(pre || 0,'Q ')}
+                    <br>
+                    <small class="${strC}">E:${funciones.setMoneda(exist,'')}</small>
+                </td>
+                
+                <td>
+                    <button class="btn btn-sm btn-success btn-circle text-white" 
+                    onclick="getDataMedidaProducto('${rows.CODPROD}','${funciones.quitarCaracteres(rows.DESPROD,'"'," plg",true)}','${rows.CODMEDIDA}',1,${rows.EQUIVALE},${rows.EQUIVALE},${rows.COSTO},${pre},${totalexento},${Number(rows.EXISTENCIA)});">
+                        +
+                    </button>
+                <td>
+                
+            </tr>`
+            })
+            tabla.innerHTML= str;
+        
+    }, (error) => {
+        console.log(error);
+    })
+    .catch((error)=>{
+        funciones.AvisoError(error);
     })
 
 };
 
-async function fcnBusquedaProducto(idFiltro,idTablaResultado,idTipoPrecio){
-    
-    let cmbTipoPrecio = document.getElementById(idTipoPrecio);
-
-    let filtro = document.getElementById(idFiltro).value;
-    let tabla = document.getElementById(idTablaResultado);
-    tabla.innerHTML = GlobalLoader;
-
-
-    let str = ""; 
-    axios.get('/ventas/buscarproducto?empnit=' + GlobalEmpnit + '&filtro=' + filtro + '&app=' + GlobalSistema + '&tipoprecio=' + cmbTipoPrecio.value)
-    
-    .then((response) => {
-        const data = response.data;        
-        data.recordset.map((rows)=>{
-            let exist = Number(rows.EXISTENCIA)/Number(rows.EQUIVALE); let strC = '';
-            if(Number(rows.EXISTENCIA<=0)){strC='bg-danger text-white'}else{strC='bg-success text-white'};
-            let totalexento = 0;
-            if (rows.EXENTO==1){totalexento=Number(rows.PRECIO)}
-            
-            str += `<tr id="${rows.CODPROD}" onclick="getDataMedidaProducto('${rows.CODPROD}','${funciones.quitarCaracteres(rows.DESPROD,'"'," plg",true)}','${rows.CODMEDIDA}',1,${rows.EQUIVALE},${rows.EQUIVALE},${rows.COSTO},${rows.PRECIO},${totalexento},${Number(rows.EXISTENCIA)});" class="border-bottom">
-            <td >
-                ${funciones.quitarCaracteres(rows.DESPROD,'"'," pulg",true)}
-                <br>
-                <small class="text-danger"><b>${rows.CODPROD}</b></small>
-                <br>
-                <b class"bg-danger text-white">${rows.CODMEDIDA}</b>
-                <small>(${rows.EQUIVALE})</small>
-            </td>
-            <td>${funciones.setMoneda(rows.PRECIO || 0,'Q ')}
-                <br>
-                <small class="${strC}">E:${funciones.setMoneda(exist,'')}</small>
-            </td>
-            
-            <td>
-                <button class="btn btn-sm btn-success btn-circle text-white" 
-                onclick="getDataMedidaProducto('${rows.CODPROD}','${funciones.quitarCaracteres(rows.DESPROD,'"'," plg",true)}','${rows.CODMEDIDA}',1,${rows.EQUIVALE},${rows.EQUIVALE},${rows.COSTO},${rows.PRECIO},${totalexento},${Number(rows.EXISTENCIA)});">
-                    +
-                </button>
-            <td>
-            
-        </tr>`
-        })
-        tabla.innerHTML= str;
-        
-    }, (error) => {
-        console.log(error);
-    });
-
-};
-
-async function fcnBusquedaProducto2(idFiltro,idTablaResultado,idTipoPrecio){
-    
-    let cmbTipoPrecio = document.getElementById(idTipoPrecio);
-
-    let filtro = document.getElementById(idFiltro).value;
-    let tabla = document.getElementById(idTablaResultado);
-    tabla.innerHTML = GlobalLoader;
-
-
-    let str = ""; 
-    axios.get('/ventas/buscarproducto?empnit=' + GlobalEmpnit + '&filtro=' + filtro + '&app=' + GlobalSistema + '&tipoprecio=' + cmbTipoPrecio.value)
-    
-    .then((response) => {
-        const data = response.data;        
-        data.recordset.map((rows)=>{
-            let totalexento = 0;
-            if (rows.EXENTO==1){totalexento=Number(rows.PRECIO)}
-            str += `<tr id="${rows.CODPROD}">
-            <td>
-                ${funciones.quitarCaracteres(rows.DESPROD,'"'," pulg",true)}
-                <br>
-                <small class="text-danger"><b>${rows.CODPROD}</b></small>
-            </td>
-            <td><b class"bg-danger text-white">${rows.CODMEDIDA}</b>
-                <br>
-                <small>${rows.EQUIVALE} item</small></td>
-            <td>${funciones.setMoneda(rows.PRECIO || 0,'Q ')}</td>
-            
-            <td>
-                <button class="btn btn-sm btn-success btn-circle text-white" 
-                onclick="getDataMedidaProducto('${rows.CODPROD}','${funciones.quitarCaracteres(rows.DESPROD,'"'," plg",true)}','${rows.CODMEDIDA}',1,${rows.EQUIVALE},${rows.EQUIVALE},${rows.COSTO},${rows.PRECIO},${totalexento},${rows.EXISTENCIA});">
-                    +
-                </button>
-            <td>
-            <td>${rows.DESMARCA}</td>
-        </tr>`
-        })
-        tabla.innerHTML= str;
-        
-    }, (error) => {
-        console.log(error);
-    });
-
-};
 
 //gestiona la apertura de la cantidad
 function getDataMedidaProducto(codprod,desprod,codmedida,cantidad,equivale,totalunidades,costo,precio,exento,existencia){
@@ -1086,9 +997,16 @@ function getDataMedidaProducto(codprod,desprod,codmedida,cantidad,equivale,total
 
 };
 
+//GRID TEMP VENTAS
+
 // agrega el producto a temp_ventas
 async function fcnAgregarProductoVenta(codprod,desprod,codmedida,cantidad,equivale,totalunidades,costo,precio,exento){
    
+    if(Number(GlobalSelectedExistencia)<=Number(totalunidades)){
+        funciones.AvisoError('No pude agregar una cantidad mayor a la existencia');
+        return;
+    };
+
     document.getElementById('btnAgregarProducto').innerHTML = GlobalLoader;
     document.getElementById('btnAgregarProducto').disabled = true;
 
@@ -1099,54 +1017,38 @@ async function fcnAgregarProductoVenta(codprod,desprod,codmedida,cantidad,equiva
         console.log('intenta agregar la fila')
         let coddoc = document.getElementById('cmbCoddoc').value;
         try {        
-            
-                var data =JSON.stringify({
-                    empnit:GlobalEmpnit,
-                    token:GlobalToken,
-                    coddoc:coddoc,
-                    codprod:codprod,
-                    desprod:desprod,
-                    codmedida:codmedida,
-                    cantidad:cantidad,
-                    equivale:equivale,
-                    totalunidades:totalunidades,
-                    costo:costo,
-                    precio:precio,
-                    totalcosto:totalcosto,
-                    totalprecio:totalprecio,
-                    exento:exento,
-                    usuario:GlobalUsuario,
-                    app:GlobalSistema,
-                    tipoprecio:cmbTipoPrecio.value
-                });
+                var data = {
+                    EMPNIT:GlobalEmpnit,  
+                    CODSUCURSAL:GlobalCodSucursal,
+                    CODDOC:coddoc,     
+                    CODPROD:codprod,
+                    DESPROD:desprod,
+                    CODMEDIDA:codmedida,
+                    CANTIDAD:cantidad,
+                    EQUIVALE:equivale,
+                    TOTALUNIDADES:totalunidades,
+                    COSTO:costo,
+                    PRECIO:precio,
+                    TOTALCOSTO:totalcosto,
+                    TOTALPRECIO:totalprecio,
+                    EXENTO:exento,
+                    USUARIO:GlobalUsuario,
+                    TIPOPRECIO:cmbTipoPrecio.value
+                };
 
-                var peticion = new Request('/ventas/tempventas', {
-                    method: 'POST',
-                    headers: new Headers({
-                       'Content-Type': 'application/json'
-                    }),
-                    body: data
-                  });
-            
-                  await fetch(peticion)
-                  
-                  .then(async function(res) {
-                    console.log('Estado: ', res.status);
-                    if (res.status==200)
-                    {
-                        //socket.emit('productos nuevo', document.getElementById('desprod').value || 'sn');
+                insertTempVentas(data)
+                .then(()=>{                    
+      
                         $('#ModalCantidadProducto').modal('hide') //MARCADOR
                         funciones.showToast('Agregado: ' + desprod);
                         
-                        await fcnCargarGridTempVentas('tblGridTempVentas');
-                        //await fcnCargarTotal('txtTotalVenta','txtTotalVentaCobro');
-
+                        fcnCargarGridTempVentas('tblGridTempVentas');
+                        
                         document.getElementById('btnAgregarProducto').innerHTML  = `<i class="fal fa-check"></i>Agregar`;
                         document.getElementById('btnAgregarProducto').disabled = false;
                         let txbusqueda = document.getElementById('txtBusqueda');
                         txbusqueda.value = '';
-                        //txbusqueda.focus();
-                    }
+                        
                   })
                   .catch(
                       ()=>{
@@ -1164,6 +1066,120 @@ async function fcnAgregarProductoVenta(codprod,desprod,codmedida,cantidad,equiva
 
 };
 
+function fcnEliminarItem(id){
+    funciones.Confirmacion('¿Está seguro que desea quitar este item?')
+    .then((value)=>{
+        if(value==true){
+                deleteItemVenta(id)
+                  .then(()=>{                       
+                        //document.getElementById(id.toString()).remove();
+                        funciones.showToast('item eliminado');
+                        fcnCargarGridTempVentas('tblGridTempVentas');
+                  })
+                  .catch(
+                      ()=>{
+                        funciones.AvisoError('No se pudo remover este producto a la venta actual');
+                      }
+                  )
+        }        
+    })
+    
+};
+
+async function fcnCargarGridTempVentas(idContenedor){
+    
+    let tabla = document.getElementById(idContenedor);
+    tabla.innerHTML = GlobalLoader;
+
+    let varTotalVenta = 0; let varTotalCosto = 0;
+
+    let btnCobrarTotal = document.getElementById('btnCobrar')
+    btnCobrarTotal.innerText =  'Terminar';
+   
+    let coddoc = document.getElementById('cmbCoddoc').value;
+    
+    let containerTotalVenta = document.getElementById('txtTotalVenta');
+    containerTotalVenta.innerHTML = '0';
+
+    try {
+        selectTempventas(GlobalUsuario)
+        .then((response)=>{
+            let idcant = 0;
+            let data = response.map((rows)=>{
+                idcant = idcant + 1;
+                varTotalVenta = varTotalVenta + Number(rows.TOTALPRECIO);
+                varTotalCosto = varTotalCosto + Number(rows.TOTALCOSTO);
+                return `<tr id="${rows.ID.toString()}" class="border-bottom" ondblclick="funciones.hablar('${rows.DESPROD}')">
+                            <td class="text-left">
+                                ${rows.DESPROD}
+                                <br>
+                                <small class="text-danger"><b>${rows.CODPROD} (${rows.EQUIVALE} item)</b></small>
+                                <br>
+                                    <small>
+                                        Cant:<b class="text-danger h4" id=${idcant}>${rows.CANTIDAD}</b>  ${rows.CODMEDIDA}  ||  Precio:<b>${funciones.setMoneda(rows.PRECIO,'Q')}</b>
+                                    </small>
+                                <br>
+                                <div class="row">
+                                    <div class="col-4"></div>
+                                    <div class="col-4 " align="right">
+                                        <button class="btn btn-secondary btn-sm btn-circle" onClick="fcnCambiarCantidad(${rows.ID},${rows.CANTIDAD});">
+                                            <i class="fal fa-edit"></i>
+                                        </button>    
+                                    </div>
+                                    <div class="col-4 text-right" align="right">
+                                        <button class="btn btn-sm btn-danger btn-circle" onclick="fcnEliminarItem(${rows.ID});">
+                                            <i class="fal fa-trash"></i>
+                                        </button>    
+                                    </div>
+                                </div>
+                            </td>
+                                                        
+                            <td class="text-right" id=${'S'+idcant}>${funciones.setMoneda(rows.TOTALPRECIO,'Q')}</td>
+                            
+                        </tr>`
+           }).join('\n');
+           tabla.innerHTML = data;
+           GlobalTotalDocumento = varTotalVenta;
+           GlobalTotalCostoDocumento = varTotalCosto;
+           containerTotalVenta.innerHTML = `${funciones.setMoneda(GlobalTotalDocumento,'Q ')}`;
+           btnCobrarTotal.innerHTML = '<h1>Terminar : ' + funciones.setMoneda(GlobalTotalDocumento,'Q ') + '</h1>';
+        })
+    } catch (error) {
+        console.log('NO SE LOGRO CARGAR LA LISTA ' + error);
+        tabla.innerHTML = 'No se logró cargar la lista...';
+        containerTotalVenta.innerHTML = '0';
+        btnCobrarTotal.innerText =  'Terminar';
+    }
+};
+
+async function fcnUpdateTempRow(id,cantidad){
+    
+    return new Promise((resolve, reject) => {
+            //OBTIENE LOS DATOS DE LA ROW    
+            selectDataRowVenta(id,cantidad)
+            .then(()=>{
+                fcnCargarGridTempVentas('tblGridTempVentas');
+                resolve();
+            })
+            .catch(()=>{
+                funciones.AvisoError('No se logró Eliminar la lista de productos agregados');
+                reject();
+            })
+
+        });
+};
+
+async function fcnCambiarCantidad(id,cantidad){
+    
+    GlobalSelectedId = id;
+    //$('#ModalCantidad').modal('show');
+    document.getElementById('txtCantNuevaCant').value = cantidad;
+    $('#modalCambiarCantidadProducto').modal('show');
+    
+};
+
+
+//CLIENTE
 async function fcnBuscarCliente(idNit,idNombre,idDireccion){
     
     let nit = document.getElementById(idNit);
@@ -1186,58 +1202,6 @@ async function fcnBuscarCliente(idNit,idNombre,idDireccion){
             });
         }
         
-                
-    }, (error) => {
-        console.log(error);
-    });
-};
-
-async function fcnBuscarClienteOLD(idNit,idNombre,idDireccion){
-    
-    let nit = document.getElementById(idNit);
-    let nombre = document.getElementById(idNombre);
-    let direccion = document.getElementById(idDireccion);
-
-    axios.get('/ventas/buscarcliente?empnit=' + GlobalEmpnit + '&nit=' + nit.value  + '&app=' + GlobalSistema)
-    .then((response) => {
-        const data = response.data;
-        
-        if (data.rowsAffected[0]==0){
-            funciones.GetDataNit(idNit,txtClienteNombre,txtClienteDireccion)
-            //funciones.GetDataNit(idNit,idNombre,idDireccion)
-            .then((json)=>{
-                console.log('resulta de json: ' + json);
-                if(json.resultado==true){
-                    document.getElementById('txtClienteNit').value = nit.value;
-                    document.getElementById('txtClienteNombre').value = json.descripcion;
-                    document.getElementById('txtClienteDireccion').value = json.direcciones.direccion;
-
-                    document.getElementById('txtNombre').value = json.descripcion;
-                    document.getElementById('txtDireccion').value = json.direcciones.direccion;
-
-                    $('#ModalNuevoCliente').modal('show');
-                }else{
-                    document.getElementById('txtClienteNit').value = nit.value;
-                    document.getElementById('txtNombre').value = '';
-                    document.getElementById('txtDireccion').value = '';
-                    $('#ModalNuevoCliente').modal('show');
-                };
-
-            })
-            .catch(()=>{
-                $('#ModalNuevoCliente').modal('show');
-                document.getElementById('txtClienteNit').value = nit.value;
-                document.getElementById('txtNombre').value = '';
-                document.getElementById('txtDireccion').value = '';
-
-                document.getElementById('txtClienteNombre').focus();
-            })
-        }else{
-            data.recordset.map((rows)=>{
-                nombre.value = rows.NOMCLIENTE;
-                direccion.value = rows.DIRCLIENTE;
-            })
-        }
                 
     }, (error) => {
         console.log(error);
@@ -1352,170 +1316,14 @@ async function fcnGuardarNuevoCliente(form){
 
 };
 
-async function fcnEliminarItem(id){
-    funciones.Confirmacion('¿Está seguro que desea quitar este item?')
-    .then(async(value)=>{
-        if(value==true){
-    
-            try {        
-                var data =JSON.stringify({
-                    id:id
-                });
-    
-                var peticion = new Request('/ventas/tempventas', {
-                    method: 'DELETE',
-                    headers: new Headers({
-                       'Content-Type': 'application/json'
-                    }),
-                    body: data
-                  });
-            
-                  await fetch(peticion)
-                  
-                  .then(async function(res) {
-                    console.log('Estado: ', res.status);
-                    if (res.status==200)
-                    {
-                        console.log(id.toString());
-                        document.getElementById(id.toString()).remove();
-                        funciones.showToast('item eliminado');
-                        await fcnCargarTotal('txtTotalVenta','txtTotalVentaCobro');
-                    }
-                  })
-                  .catch(
-                      ()=>{
-                        funciones.AvisoError('No se pudo remover este producto a la venta actual');
-                      }
-                  )
-        
-            } catch (error) {
-    
-            };
-    
-        }        
-    })
-    
-};
 
-async function fcnCargarGridTempVentas(idContenedor){
-    
-    let tabla = document.getElementById(idContenedor);
-    tabla.innerHTML = GlobalLoader;
-
-    let varTotalVenta = 0; let varTotalCosto = 0;
-
-    let btnCobrarTotal = document.getElementById('btnCobrar')
-    btnCobrarTotal.innerText =  'Terminar';
-   
-
-    let coddoc = document.getElementById('cmbCoddoc').value;
-    
-    let containerTotalVenta = document.getElementById('txtTotalVenta');
-    containerTotalVenta.innerHTML = '0';
-
-    try {
-        
-        const response = await fetch('/ventas/tempventas?empnit=' + GlobalEmpnit + '&coddoc=' + coddoc + '&usuario=' + GlobalUsuario +  '&app=' + GlobalSistema)
-        const json = await response.json();
-        let idcant = 0;
-        let data = json.recordset.map((rows)=>{
-            idcant = idcant + 1;
-            varTotalVenta = varTotalVenta + Number(rows.TOTALPRECIO);
-            varTotalCosto = varTotalCosto + Number(rows.TOTALCOSTO);
-            return `<tr id="${rows.ID.toString()}">
-                        <td class="text-left">
-                            ${rows.DESPROD}
-                            <br>
-                            <small class="text-danger"><b>${rows.CODPROD}</b></small>
-                        </td>
-                        <td class="text-right">${rows.CODMEDIDA}
-                            <br>
-                            <small>${rows.EQUIVALE} item</small>
-                            <br>
-                            <small><b>${funciones.setMoneda(rows.PRECIO,'Q')}</b></small>
-                        </td>
-                        <td class="text-center">
-                            <button class="btn btn-outline-secondary btn-xs btn-icon rounded-circle" onClick="fcnCambiarCantidad(${rows.ID});">+</button>
-                            <b class="text-danger h4" id=${idcant}>${rows.CANTIDAD}</b>
-                        </td>
-                        <td class="text-right" id=${'S'+idcant}>${funciones.setMoneda(rows.TOTALPRECIO,'Q')}</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger btn-circle text-white" onclick="fcnEliminarItem(${rows.ID});">
-                                x
-                            </button>
-                        <td>
-                    </tr>`
-       }).join('\n');
-       
-       tabla.innerHTML = data;
-       GlobalTotalDocumento = varTotalVenta;
-       GlobalTotalCostoDocumento = varTotalCosto;
-       containerTotalVenta.innerHTML = `${funciones.setMoneda(GlobalTotalDocumento,'Q ')}`;
-       btnCobrarTotal.innerHTML = '<h1>Terminar : ' + funciones.setMoneda(GlobalTotalDocumento,'Q ') + '</h1>';
-       /** 
-       if(containerTotalVenta.innerHTML=='0'){
-        }else{
-            socket.emit('ordenes escribiendo', 'Se está generando una nueva orden',GlobalSelectedForm)
-        } */
-    } catch (error) {
-        console.log('NO SE LOGRO CARGAR LA LISTA ' + error);
-        tabla.innerHTML = 'No se logró cargar la lista...';
-        containerTotalVenta.innerHTML = '0';
-        btnCobrarTotal.innerText =  'Terminar';
-    }
-};
-
-async function fcnCambiarCantidad(id){
-    
-    GlobalSelectedId = id;
-    $('#ModalCantidad').modal('show');
-    
-};
-
-async function fcnCargarTotal(idContenedor,idContenedor2){
-        
-    //'txtTotalVenta'
-    let container = document.getElementById(idContenedor);
-    
-        
-    let btnCobrarTotal = document.getElementById('btnCobrar')
-    //btnCobrarTotal.innerText =  'Cobrar : Q 0.00'
-    btnCobrarTotal.innerText =  'Terminar'
-
-    container.innerHTML = '0'
-    //container2.innerHTML = '0'
-
-    try {
-        
-        const response = await fetch('/ventas/tempventastotal?empnit=' + GlobalEmpnit + '&usuario=' + GlobalUsuario  + '&app=' + GlobalSistema)
-        const json = await response.json();
-       
-        let data = json.recordset.map((rows)=>{
-            GlobalTotalDocumento = Number(rows.TOTALPRECIO);
-            GlobalTotalCostoDocumento = Number(rows.TOTALCOSTO);
-            return `${funciones.setMoneda(rows.TOTALPRECIO,'Q ')}`
-       }).join('\n');
-       
-       container.innerText = data;
-       //container2.innerText = data;
-       btnCobrarTotal.innerHTML = '<h1>Terminar : ' + data + '</h1>';
-       //btnCobrarTotal.innerHTML = '<h1>Cobrar : ' + data + '</h1>';
-    } catch (error) {
-        //console.log('NO SE LOGRO CARGAR LA LISTA ' + error);
-
-    }
-
-    if(container.innerHTML=='0'){
-    }else{
-        //socket.emit('ordenes escribiendo', 'Se está generando una nueva orden',GlobalSelectedForm)
-    }
-};
-
+//FINALIZAR PEDIDO
 async function fcnFinalizarPedido(){
-
+    
     if(Number(GlobalTotalDocumento)<Number(GlobalVentaMinima)){
         funciones.AvisoError('Pedido menor al mínimo de venta');
-        funciones.hablar('Advertencia. Este pedido es menor al mínimo de venta permitido')
+        funciones.hablar('Advertencia. Este pedido es menor al mínimo de venta permitido');
+        //socket.emit('avisos','venta menor al minimo', `El vendedor ${GlobalUsuario} ha intentado ingresar un pedido de ${funciones.setMoneda(GlobalTotalDocumento,'Q')}`);
     };
 
     let codcliente = GlobalSelectedCodCliente;
@@ -1554,66 +1362,88 @@ async function fcnFinalizarPedido(){
     funciones.Confirmacion('¿Está seguro que desea Finalizar este Pedido')
     .then((value)=>{
         if(value==true){
+            setLog(`<label class="text-danger">Creando el pedido a enviar...</label>`,'rootWait');
+            $('#modalWait').modal('show');
+            
+            //document.getElementById('btnFinalizarPedido').innerHTML = GlobalLoader;
+           
+            gettempDocproductos(GlobalUsuario)
+            .then((response)=>{
+                
+                setLog(`<label class="text-info">Pedido creado, enviado pedido...</label>`,'rootWait');
+                //,,obs,usuario,codven
+                axios.post('/ventas/insertventa', {
+                    jsondocproductos:JSON.stringify(response),
+                    codsucursal:GlobalCodSucursal,
+                    empnit: GlobalEmpnit,
+                    coddoc:coddoc,
+                    correl: correlativo,
+                    anio:anio,
+                    mes:mes,
+                    dia:dia,
+                    fecha:fecha,
+                    fechaentrega:fechaentrega,
+                    formaentrega:cmbTipoEntrega,
+                    codbodega:codbodega,
+                    codcliente: codcliente,
+                    nomclie:ClienteNombre,
+                    totalcosto:GlobalTotalCostoDocumento,
+                    totalprecio:GlobalTotalDocumento,
+                    nitclie:nit,
+                    dirclie:dirclie,
+                    obs:obs,
+                    direntrega:direntrega,
+                    usuario:GlobalUsuario,
+                    codven:cmbVendedor.value,
+                    lat:latdoc,
+                    long:longdoc
+                })
+                .then(async(response) => {
+                    const data = response.data;
+                    if (data.rowsAffected[0]==0){
+                        //document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
+                        $('#modalWait').modal('hide');
+                        funciones.AvisoError('No se logró Guardar este pedido');
+                    }else{
+    
+                        funciones.Aviso('Pedido Generado Exitosamente !!!')
+                        $('#modalWait').modal('hide');
+                        //document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
+    
+                        document.getElementById('btnEntregaCancelar').click();
+                        //$('#ModalCobro').modal('hide');
+            
+                        //socket.emit('ventas nueva',GlobalCodSucursal, GlobalSelectedForm);
+                        
+                        //actualiza la ubicación del empleado
+                        await classEmpleados.updateMyLocation();
+                        
+                        //actualiza la última venta del cliente
+                        api.updateClientesLastSale(nit,'VENTA');
+                        //elimina el temp ventas asociado al empleado
+                        //fcnEliminarTempVentas(GlobalUsuario);
+                        deleteTempVenta(GlobalUsuario)
 
-            document.getElementById('btnFinalizarPedido').innerHTML = GlobalLoader;
-            //,,obs,usuario,codven
-            axios.post('/ventas/documentos', {
-                app: GlobalSistema,
-                empnit: GlobalEmpnit,
-                coddoc:coddoc,
-                correlativo: correlativo,
-                anio:anio,
-                mes:mes,
-                dia:dia,
-                fecha:fecha,
-                fechaentrega:fechaentrega,
-                formaentrega:cmbTipoEntrega,
-                codbodega:codbodega,
-                codcliente: codcliente,
-                nomclie:ClienteNombre,
-                totalcosto:GlobalTotalCostoDocumento,
-                totalprecio:GlobalTotalDocumento,
-                nitclie:nit,
-                dirclie:dirclie,
-                obs:obs,
-                direntrega:direntrega,
-                usuario:GlobalUsuario,
-                codven:cmbVendedor.value,
-                lat:latdoc,
-                long:longdoc
+                        //prepara todo para un nuevo pedido
+                        fcnNuevoPedido();
+                    }
+                }, (error) => {
+                    console.log(error);
+                    $('#modalWait').modal('hide');
+                    funciones.AvisoError('Ha ocurrido un error y no se pudo guardar');
+                    //document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
+                });        
+
             })
-            .then(async(response) => {
-                const data = response.data;
-                if (data.rowsAffected[0]==0){
-                    document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
-                    funciones.AvisoError('No se logró Guardar este pedido');
-                }else{
+            .catch((error)=>{
+                $('#modalWait').modal('hide');
+                funciones.AvisoError('No pude crear la tabla de productos del pedido ' + error);
+                //document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
+            })
 
-                    funciones.Aviso('Pedido Generado Exitosamente !!!')
-                    document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
-
-                    document.getElementById('btnEntregaCancelar').click();
-                    //$('#ModalCobro').modal('hide');
-        
-                    //socket.emit('ordenes nueva',`Nueva Orden a nombre de ${ClienteNombre} por valor de ${GlobalTotalDocumento} quetzales`, GlobalSelectedForm);
-                    //socket.emit('ventas nueva',GlobalCodSucursal, GlobalSelectedForm);
-                    
-                    //actualiza la ubicación del empleado
-                    await classEmpleados.updateMyLocation();
-                    
-                    //actualiza la última venta del cliente
-                    api.updateClientesLastSale(nit,'VENTA');
-                    //elimina el temp ventas asociado al empleado
-                    fcnEliminarTempVentas(GlobalUsuario);
-                    //prepara todo para un nuevo pedido
-                    fcnNuevoPedido();
-                }
-            }, (error) => {
-                console.log(error);
-                funciones.AvisoError('Ha ocurrido un error y no se pudo guardar');
-                document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
-            });           
+             
          
+
         }
     })
 };
@@ -1644,63 +1474,7 @@ async function fcnNuevoPedido(){
     
 };
 
-async function fcnUpdateTempRow(id,cantidad){
-    
-    let costo = 0; let precio = 0; let equivale = 0; let exento = 0;
-    
-    return new Promise((resolve, reject) => {
-    //inicia la promesa    
-            axios.post('/ventas/tempVentasRow', {
-                id:id,
-                app: GlobalSistema
-            })
-            .then((response) => {
-                const data = response.data;
-                
-                data.recordset.map((rows)=>{
-                    costo = rows.COSTO;
-                    precio = rows.PRECIO;
-                    equivale = rows.EQUIVALE;
-                    exento = rows.EXENTO;
-                })
-                let totalcosto = Number(costo) * Number(cantidad);
-                let totalprecio = Number(precio) * Number(cantidad);
-                let totalexento = Number(exento) * Number(cantidad);
-                let totalunidades = Number(equivale) * Number(cantidad);
-                    axios.put('/ventas/tempVentasRow', {
-                        app: GlobalSistema,
-                        id:id,
-                        totalcosto:totalcosto,
-                        totalprecio:totalprecio,
-                        cantidad:cantidad,
-                        totalunidades: totalunidades,
-                        exento:totalexento
-                    })
-                    .then(async(re) => {
-                        const data2 = re.data;
-                        if (data2.rowsAffected[0]==0){
-                            funciones.AvisoError('No se logró Eliminar la lista de productos agregados');
-                            reject();
-                        }else{
-                            await fcnCargarTotal('txtTotalVenta','txtTotalVentaCobro');
-                            resolve();
-                        }
-                    }, (error) => {
-                        console.log(error);
-                    });  
-            }, (error) => {
-                console.log(error);
-                reject();
-            });  
-    
-    //finaliza la promesa
-            
-        }, (error) => {
-            console.log(error);
-            reject();
-        });
-    
-};
+
 
 async function fcnGetMunicipios(idContainer){
     let container = document.getElementById(idContainer);
@@ -1753,3 +1527,5 @@ async function fcnCargarComboTipoPrecio(){
    }
    
 };
+
+

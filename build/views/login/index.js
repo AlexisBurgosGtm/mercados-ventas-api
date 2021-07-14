@@ -10,15 +10,18 @@ function getView(){
             <div class="col-md-4 col-sm-12 col-lg-4 col-lx-4">
                 <div class="card shadow">
 
-                    <div class="card-header bg-info-outline text-center">
+                    <div class="card-header bg-danger-outline text-center">
                         <img src="./favicon.png" width=60 height=60>
+                        <p>VENTAS MERCADOS EFECTIVOS</p>
                     </div>
                     <div class="card-body">
                         <form class="" id="frmLogin" autocomplete="off">
                             <div class="form-group">
-                                <select class="form-control border-info" id="cmbSucursal">
+                                <!--<select class="form-control border-info" id="cmbSucursal">
                                     
-                                </select>
+                                </select>-->
+                                <input class="form-control border-info shadow" id="cmbSucursal">
+                                
                             </div>
                             <div class="form-group">
                                 <label class="text-secondary">Usuario:</label>
@@ -36,9 +39,9 @@ function getView(){
                                 </button>
                             </div>
                             <div class="form-group" align="right">
-                                <small class="">Mercados Efectivos - Ver Offline 1.32</small>
+                                <small class="">Mercados Efectivos - V3.1</small>
                                 <br>
-                                <span class=" fw-700">por Alexis Burgos</a></span>
+                                <i class="fal fa-headset"></i><span class=" fw-700"><a href="https://api.whatsapp.com/send?phone=50257255092&text=Ayudame%20con%20la%20app%20de%20Mercados%20Efectivos...%20">por Alexis Burgos</a></span>
                             </div>
                         </form>
                     </div>
@@ -76,7 +79,7 @@ function addListeners(){
 
 
     //carga las sucursales directamente desde código
-    document.getElementById('cmbSucursal').innerHTML = funciones.getComboSucursales();
+    //document.getElementById('cmbSucursal').innerHTML = funciones.getComboSucursales();
 
 };
 
@@ -85,12 +88,5 @@ function InicializarVista(){
    getView();
    addListeners();
     
-   
-   /* 
-   classTipoDocumentos.getSucursales('cmbSucursal')
-   .then(async()=>{
-       console.log('hola mundo...')
-   })
-   */
   
 };

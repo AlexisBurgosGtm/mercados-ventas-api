@@ -1,5 +1,5 @@
 
-var CACHE = 'mercadosefectivosventasv1';
+var CACHE = 'mercadosefectivosv2.9';
 const staticAssets = [  
   './css/vendors.bundle.css',
   './css/app.bundle.css',
@@ -17,11 +17,13 @@ const staticAssets = [
   './libs/sweetalert.min.js',
   './libs/axios.min.js',
   './libs/leaflet/leaflet.js',
-  './libs/JsStore.min.js',
+  './libs/jsstore/jsstore.min.js',
+  './libs/jsstore/jsstore.worker.min.js',
   './libs/funciones.js',
   './controllers/classNavegar.js',
   './controllers/GlobalVars.js',
   './controllers/classDb.js',
+  './controllers/dbcalls.js',
   './models/classEmpleados.js',
   './models/classTipoDocumentos.js',
   './controllers/apicalls.js',
@@ -46,6 +48,20 @@ self.addEventListener('install', function(evt) {
 
 self.addEventListener('fetch', async event => {
 
+  var req = evt.request.clone();
+  if (navigator.onLine){
+    if (req.clone().method == "GET") {
+      //evt.respondWith(fromCache(evt.request));
+      evt.waitUntil(update(evt.request));
+    }
+  }else{
+    if (req.clone().method == "GET") {
+      evt.respondWith(fromCache(evt.request));
+      //evt.waitUntil(update(evt.request));
+    }
+  }
+  
+  /**
   event.respondWith(
     caches.open(CACHE).then(function(cache) {
       return cache.match(event.request).then(function (response) {
@@ -56,8 +72,7 @@ self.addEventListener('fetch', async event => {
       });
     })
   );
-
-  
+   */
   
 //carga caché y lo actualiza.. hay que evitar las solicitudes del socket.io
 /*

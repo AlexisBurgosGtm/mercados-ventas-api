@@ -370,33 +370,50 @@ function cargarPedidoEdicion(coddoc,correlativo,st){
                 funciones.solicitarClave()
                         .then((clave)=>{
                             if(clave==GlobalPassUsuario){
-    
-                                document.getElementById('btnEditarPedido').innerHTML = GlobalLoaderMini;
-                                document.getElementById('btnEditarPedido').disabled = true;
-    
-                                loadDetallePedido(coddoc,correlativo)
+                                setLog(`<label>Eliminando datos de algún pedido pendiente...</label>`,'rootWait')
+                                $('#modalWait').modal('show');
+
+                                //document.getElementById('btnEditarPedido').innerHTML = GlobalLoaderMini;
+                                //document.getElementById('btnEditarPedido').disabled = true;
+                                
+                                deleteTempVenta(GlobalUsuario)
                                 .then(()=>{
-                                    funciones.showToast('Pedido cargado...');
-                                    
-                                    fcnDeletePedidoCargado(coddoc,correlativo)
+                                    setLog(`<label>Descargando datos del pedido a editar...</label>`,'rootWait')
+                                    //descarga el pedido y lo inserta en el indexed
+                                    loadDetallePedido(coddoc,correlativo)
                                     .then(()=>{
-                                        funciones.showToast('Pedido anterior eliminado con éxito!!');
-                                        
-    
-                                        classNavegar.ventas(GlobalSelectedCodCliente,GlobalSelectedNomCliente,GlobalSelectedDirCliente);
+                                        funciones.showToast('Pedido cargado...');
+
+                                        setLog(`<label>Eliminando pedido anterior...</label>`,'rootWait')
+                                        fcnDeletePedidoCargado(coddoc,correlativo)
+                                        .then(()=>{
+                                            funciones.showToast('Pedido anterior eliminado con éxito!!');
+                                            
+                                            $('#modalWait').modal('hide');
+                                            classNavegar.ventas(GlobalSelectedCodCliente,GlobalSelectedNomCliente,GlobalSelectedDirCliente);
+                                        })
+                                        .catch(()=>{
+                                            $('#modalWait').modal('hide');
+                                            //document.getElementById('btnEditarPedido').innerHTML = `<i class="fal fa-edit"></i>Editar Pedido`;
+                                            //document.getElementById('btnEditarPedido').disabled = false;
+                                            funciones.AvisoError('No se pudo eliminar el pedido anterior');
+                                        })
+        
                                     })
-                                    .catch(()=>{
-                                        document.getElementById('btnEditarPedido').innerHTML = `<i class="fal fa-edit"></i>Editar Pedido`;
-                                        document.getElementById('btnEditarPedido').disabled = false;
-                                        funciones.AvisoError('No se pudo eliminar el pedido anterior');
+                                    .catch((error)=>{
+                                        $('#modalWait').modal('hide');
+                                        //document.getElementById('btnEditarPedido').innerHTML = `<i class="fal fa-edit"></i>Editar Pedido`;
+                                        //document.getElementById('btnEditarPedido').disabled = false;
+                                        funciones.AvisoError('No se pudo cargar el pedido. Error: ' + error);
                                     })
-    
                                 })
-                                .catch((error)=>{
-                                    document.getElementById('btnEditarPedido').innerHTML = `<i class="fal fa-edit"></i>Editar Pedido`;
-                                    document.getElementById('btnEditarPedido').disabled = false;
-                                    funciones.AvisoError('No se pudo cargar el pedido. Error: ' + error);
+                                .catch(()=>{
+                                    $('#modalWait').modal('hide');
+
+                                    funciones.AvisoError('No se pudo limpiar el pedido')
                                 })
+
+                                
     
                             }
                         })
@@ -414,6 +431,31 @@ function cargarPedidoEdicion(coddoc,correlativo,st){
 
 //SELECCIONA EL DETALLE DEL PEDIDO Y LO CARGA
 function loadDetallePedido(coddoc,correlativo){
+    
+    return new Promise((resolve,reject)=>{
+        axios.post('/ventas/loadpedido', {
+            sucursal:GlobalCodSucursal,
+            coddoc: coddoc,
+            correlativo: correlativo,
+            usuario: GlobalUsuario
+        })
+        .then((response) => {
+            const data = response.data;
+           data.recordset.map((rows)=>{
+                insertTempVentas(rows);
+           })
+            resolve();
+        }, (error) => {
+            //funciones.AvisoError('Error en la solicitud');
+            reject('Error de solicitud');
+        });
+
+    })
+    
+    
+};
+
+function loadDetallePedido_online(coddoc,correlativo){
     
     return new Promise((resolve,reject)=>{
         axios.post('/ventas/loadpedido', {

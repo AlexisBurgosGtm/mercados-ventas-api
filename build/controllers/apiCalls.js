@@ -101,6 +101,8 @@ let api = {
                         <td>${rows.NOMCLIE}
                             <br>
                             <small>Cod: ${rows.CODIGO} - St:${stNomStatus}</small>
+                            <br>
+                            <small>Tel:${rows.TELEFONO}</small>
                         </td>
                         <td>${rows.DIRCLIE}
                             <br>
@@ -119,8 +121,8 @@ let api = {
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-primary btn-sm btn-circle" onclick="setRecordatorioVisita('${rows.CODIGO}','${rows.NIT}','${rows.NOMCLIE}','${rows.DIRCLIE}');">
-                                <i class="fal fa-bell"></i>
+                            <button class="btn btn-primary btn-sm btn-circle" onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}');">
+                                <i class="fal fa-map"></i>
                             </button>
                         </td>
                     </tr>` 
@@ -130,6 +132,8 @@ let api = {
                                 <td>${rows.NOMCLIE}
                                     <br>
                                     <small>Cod: ${rows.CODIGO} - St:SN</small>
+                                    <br>
+                                    <small>Tel:${rows.TELEFONO}</small>
                                 </td>
                                 <td>${rows.DIRCLIE}
                                     <br>
@@ -149,8 +153,8 @@ let api = {
                                     </button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm btn-circle" onclick="setRecordatorioVisita('${rows.CODIGO}','${rows.NIT}','${rows.NOMCLIE}','${rows.DIRCLIE}');">
-                                        <i class="fal fa-bell"></i>
+                                    <button class="btn btn-primary btn-sm btn-circle" onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}');">
+                                        <i class="fal fa-map"></i>
                                     </button>
                                 </td>   
                             </tr>`
@@ -197,7 +201,7 @@ let api = {
                 if(f==funciones.getFecha()){}else{
                     L.marker([rows.LAT, rows.LONG])
                     .addTo(map)
-                    .bindPopup(`${rows.NOMCLIE} <br><small>${rows.DIRCLIE}</small>`, {closeOnClick: true, autoClose: true})   
+                    .bindPopup(`${rows.NOMCLIE} <br><small>${rows.DIRCLIE}-Tel:${rows.TELEFONO}</small>`, {closeOnClick: true, autoClose: true})   
                     .on('click', function(e){
                         //console.log(e.sourceTarget._leaflet_id);
                         GlobalMarkerId = Number(e.sourceTarget._leaflet_id);
@@ -241,6 +245,8 @@ let api = {
                         <td>${rows.NOMCLIE}
                             <br>
                             <small>Cod: ${rows.CODIGO}</small>
+                            <br>
+                            <small>Tel: ${rows.TELEFONO}</small>
                         </td>
                         <td>${rows.DIRCLIE}
                             <br>
@@ -260,8 +266,8 @@ let api = {
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-primary btn-sm btn-circle" onclick="setRecordatorioVisita('${rows.CODIGO}','${rows.NIT}','${rows.NOMCLIE}','${rows.DIRCLIE}');">
-                                <i class="fal fa-bell"></i>
+                            <button class="btn btn-primary btn-sm btn-circle" onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}');">
+                                <i class="fal fa-map"></i>
                             </button>
                         </td>
                     </tr>`    
@@ -2493,8 +2499,8 @@ let api = {
                                     <br>
                                     <b class="text-info">${rows.CODMEDIDA}</b>-<b>Cant: ${rows.CANTIDAD}</b>
                                 </td>
-                                <td>${rows.PRECIO}</td>
-                                <td>${rows.IMPORTE}
+                                <td>${funciones.setMoneda(rows.PRECIO,"")}</td>
+                                <td>${funciones.setMoneda(rows.IMPORTE,"")}
                                     <div class="row">
                                         <div class="col-6">
                                             <button class="btn btn-danger btn-md btn-circle"
@@ -2551,6 +2557,62 @@ let api = {
         }, (error) => {
             funciones.AvisoError('Error en la solicitud');
             strdata = '';
+        });
+           
+    },
+    digitadorDetallePedido_BACKUP: async(fecha,coddoc,correlativo,idContenedor,idLbTotal)=>{
+
+        let container = document.getElementById(idContenedor);
+        container.innerHTML = GlobalLoader;
+        
+        let lbTotal = document.getElementById(idLbTotal);
+        lbTotal.innerText = '---';
+        
+        let strdata = '';
+
+        GlobalSelectedCoddoc = coddoc;
+        GlobalSelectedCorrelativo = correlativo;
+
+        axios.post('/digitacion/detallepedido', {
+            sucursal: GlobalCodSucursal,
+            fecha:fecha,
+            coddoc:coddoc,
+            correlativo:correlativo
+        })
+        .then((response) => {
+            const data = response.data.recordset;
+            let total =0;
+            data.map((rows)=>{
+                    total = total + Number(rows.IMPORTE);
+                    strdata = strdata + `
+                            <tr id='${rows.DOC_ITEM}'>
+                                <td colspan="3">${rows.DESPROD}
+                                    <br>
+                                    <small class="text-danger">${rows.CODPROD}</small>
+                                    <br>
+                                    <b class="text-info">${rows.CODMEDIDA}</b>-<b>Cant: ${rows.CANTIDAD}</b>
+                                </td>
+                                <td>${rows.PRECIO}</td>
+                                <td>${rows.IMPORTE}
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button class="btn btn-danger btn-md btn-circle"
+                                                onclick="deleteProductoPedido('${rows.DOC_ITEM}','${GlobalSelectedCoddoc}','${GlobalSelectedCorrelativo}',${rows.IMPORTE},${rows.TOTALCOSTO})">
+                                                <i class="fal fa-trash"></i>
+                                            </button>              
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            `
+            })
+            container.innerHTML = strdata;
+            lbTotal.innerText = `${funciones.setMoneda(total,'Q')}`;
+        }, (error) => {
+            funciones.AvisoError('Error en la solicitud');
+            strdata = '';
+            container.innerHTML = '';
+            lbTotal.innerText = 'Q0.00';
         });
            
     },
@@ -3191,13 +3253,14 @@ let api = {
         });
 
     },
-    usuariosEliminar:(id,codigo)=>{
+    usuariosEliminar:(id,codigo,tipo)=>{
         
         return new Promise((resolve,reject)=>{
             axios.post('/usuarios/eliminar',{
                 sucursal:GlobalCodSucursal,
                 id:id,
-                codven:codigo
+                codven:codigo,
+                tipo:tipo
             })
             .then((response) => {
                 let data = response.data;
@@ -3223,7 +3286,22 @@ let api = {
                 visita:visita
             })
             .then((response) => {               
-                socket.emit('clientes ultimaventa',GlobalCodSucursal, GlobalSelectedForm);
+                //socket.emit('clientes ultimaventa',GlobalCodSucursal, GlobalSelectedForm);
+                resolve();             
+            }, (error) => {
+                reject();
+            });
+        });
+    },
+    updateCorrelativo:(correlativo)=>{
+        return new Promise((resolve,reject)=>{
+            axios.post('/ventas/updatecorrelativo',{
+                sucursal:GlobalCodSucursal,
+                coddoc:GlobalCoddoc,
+                correlativo:correlativo
+            })
+            .then((response) => {   
+                console.log(response)            
                 resolve();             
             }, (error) => {
                 reject();

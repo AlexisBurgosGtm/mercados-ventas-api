@@ -1,4 +1,5 @@
-﻿
+﻿//var socket = io();
+
 //inicializa la instalacion de la app
 funciones.instalationHandlers('btnInstalarApp');
 
@@ -39,6 +40,14 @@ let btnCerrarModalMenuLateral = document.getElementById('btnCerrarModalMenuLater
 btnCerrarModalMenuLateral.addEventListener('click',()=>{
   $('#modalMenu').modal('hide');
 })
+
+
+function setLog(msg,idcontainer){
+
+  document.getElementById(idcontainer).innerHTML = msg;
+
+};
+
 
 classNavegar.login();
 

@@ -1,3 +1,27 @@
+socket.on('avisos', function(tipo,mensaje){
+    switch (GlobalSelectedForm) {
+        case 'DIGITACION':
+            switch (tipo) {
+                case 'venta menor al minimo':
+                    funciones.NotificacionPersistent(mensaje,"Venta menor al mínimo");
+                    funciones.hablar(mensaje)        
+                    break;
+            
+                default:
+                    break;
+            }        
+            break;
+    
+        default:
+            break;
+    }
+
+    
+    
+});
+
+
+
 socket.on('productos precio', function(msg,form){
     funciones.NotificacionPersistent(msg,"Cambio Precios");
 });

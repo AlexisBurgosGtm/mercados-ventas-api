@@ -728,6 +728,16 @@ let funciones = {
       fecha = y + '-' + DDM + '-' + DDI;
       return fecha;
     },
+    limpiarTexto: (texto) =>{
+      var ignorarMayMin = true;
+      var reemplazarCon = " pulg";
+      var reemplazarQue = '"';
+      reemplazarQue = reemplazarQue.replace(/[\\^$.|?*+()[{]/g, "\\$&"),
+      reemplazarCon = reemplazarCon.replace(/\$(?=[$&`"'\d])/g, "$$$$"),
+      modif = "g" + (ignorarMayMin ? "i" : ""),
+      regex = new RegExp(reemplazarQue, modif);
+      return texto.replace(regex,reemplazarCon);
+    },
     quitarCaracteres: ( texto, reemplazarQue, reemplazarCon, ignorarMayMin) =>{
       var reemplazarQue = reemplazarQue.replace(/[\\^$.|?*+()[{]/g, "\\$&"),
       reemplazarCon = reemplazarCon.replace(/\$(?=[$&`"'\d])/g, "$$$$"),
@@ -1291,6 +1301,9 @@ let funciones = {
       let hora = hoy.getHours();
       let minuto = hoy.getMinutes();
       return `${hora.toString()}:${minuto.toString()}`;
+    },
+    gotoGoogleMaps:(lat,long)=>{
+      window.open(`https://www.google.com/maps?q=${lat},${long}`);
     }
 };
 

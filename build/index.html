@@ -122,6 +122,7 @@
                                 <span class="page-logo-text mr-1" id="txtNomEmpresa"></span>                          
                             </a>
                         </div>
+
                                                       
                         <div class="ml-auto d-flex">
                             
@@ -192,6 +193,7 @@
                         <button class="btn btn-info btn-lg btn-icon rounded-circle shadow" id="btnListaP">
                             <i class="fal fa-search"></i>
                         </button>
+                   
                    </div>
                     
                     <!-- this overlay is activated only when mobile menu is triggered -->
@@ -204,7 +206,16 @@
                         -->
                         <div class="d-flex align-items-left" id="rootMenuFooter">
                             <b class="text-white">Mercados Efectivos</b>
-                     
+                            <!--
+                            <button class="btn btn-md border-white text-white">
+                                <i class="fal fa-shopping-cart"></i>
+                                Vender
+                            </button>
+                            <button class="btn btn-md border-white text-white">
+                                <i class="fal fa-cog"></i>
+                                Logro
+                            </button>
+                            -->    
                                 
                         </div>
 
@@ -486,7 +497,82 @@
                 </div>
             </div>
         </div>
+        <!-- DESCARGAS -->
+        <div class="modal fade js-modal-settings modal-backdrop-transparent" tabindex="-1" role="dialog" aria-hidden="true" id="modalSync">
+            <div class="modal-dialog modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center w-100">
+                        <h3 class="m-0 text-center color-white">
+                            Descarga de Catálogos
+                            <small class="mb-0 opacity-80">Actualice sus datos para trabajar más rápido</small>
+                        </h3>
+                        
+                    </div>
+                    <div class="modal-body p-0">
+                        <br><br><br>
+                        
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-4">
+                                    <button class="btn btn-success btn-xl" id="btnDownloadProductos">
+                                        <i class="fal fa-shopping-cart"></i>
+                                        Bajar <br>
+                                        Productos
+                                    </button>
+                                </div>                                           
+                                <div class="col-4">
+                                    <button class="btn btn-info btn-xl" enabled="false" style="width: 50; height: 50;" id="btnDownloadClientes">
+                                        <i class="fal fa-user"></i>
+                                        Bajar  <br>
+                                        Clientes
+                                    </button>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+
+                        
+                                    
+                        <br><br><br>
+                        
+                        <span id="saving"></span>
+                    </div>
+                    <div class="moda-footer">
+                        <button class="btn btn-outline-secondary btn-xl col-12" data-dismiss="modal">
+                            <i class="fal fa-check"></i>
+                            Aceptar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
       
+        <!-- WAIT FORM -->
+        <div class="modal fade js-modal-settings modal-backdrop-transparent" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" id="modalWait">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="dropdown-header bg-danger d-flex justify-content-center align-items-center w-100">
+                        <h3 class="m-0 text-center color-white">
+                            Cargando datos...
+                            <small class="mb-0 opacity-80">Espere por favor</small>
+                        </h3>
+                        
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="" id="rootWait">
+                                                                                   
+                            
+                        </div>
+                        <div class="text-center">
+                            <div class="spinner-border text-danger" role="status"><span class="sr-only">Loading...</span></div>
+                        </div>
+                        
+                        <span id="saving"></span>
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+
         <script src="js/vendors.bundle.js"></script>
         <script src="js/app.bundle.js"></script>
         <script src="js/../script.js"></script>
@@ -495,13 +581,19 @@
         
         <script src="./libs/noty/noty.min.js"></script>
         <script src="./libs/chartjs.min.js"></script>
-        
+        <!--<script src="./libs/socket.io.js"></script>-->
         <script src="./libs/sweetalert.min.js"></script>
         <script src="./libs/axios.min.js"></script>
         <script src="./libs/leaflet/leaflet.js"></script>
+        <!--
         <script src="./libs/JsStore.min.js"></script>
-       
-     
+       -->
+       <script src="./libs/jsstore/jsstore.min.js"></script>
+       <script src="./libs/jsstore/jsstore.worker.min.js"></script>
+
+        <!--<script src="./libs/funciones.js"></script>-->
+        
+
         <script src="./controllers/classNavegar.js"></script>
         <script src="./controllers/GlobalVars.js"></script>
         <script src="./controllers/classDb.js"></script>
@@ -512,7 +604,9 @@
         <script src="./listaprecios.js"></script>
         
         <script src="./index.js"></script>
-      
+        <!--<script src="./controllers/socketHandler.js"></script>-->
+
+        <script src="./controllers/dbcalls.js"></script>
      
     </body>
 
