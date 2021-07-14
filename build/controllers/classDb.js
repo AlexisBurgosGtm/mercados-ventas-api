@@ -1,4 +1,4 @@
-const DbName = "mercadosefectivosv2.8";
+const DbName = "mercadosefectivosoffline";
 
 var tblProductos = {
     name: 'productos',

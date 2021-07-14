@@ -1,5 +1,5 @@
 
-var CACHE = 'mercadosefectivosv2.9';
+var CACHE = 'mercadosefectivosoffline';
 const staticAssets = [  
   './css/vendors.bundle.css',
   './css/app.bundle.css',
@@ -13,7 +13,6 @@ const staticAssets = [
   './js/../script.js',
   './libs/noty/noty.min.js',
   './libs/chartjs.min.js',
-  './libs/socket.io.js',
   './libs/sweetalert.min.js',
   './libs/axios.min.js',
   './libs/leaflet/leaflet.js',
@@ -28,7 +27,6 @@ const staticAssets = [
   './models/classTipoDocumentos.js',
   './controllers/apicalls.js',
   './index.js',
-  './controllers/socketHandler.js',
   './favicon.png',
   './index.html',
    './sw.js',
@@ -46,7 +44,7 @@ self.addEventListener('install', function(evt) {
 	
 });
 
-self.addEventListener('fetch', async event => {
+self.addEventListener('fetch', async evt => {
 
   var req = evt.request.clone();
   if (navigator.onLine){
