@@ -41,9 +41,7 @@ let apigen = {
         })
         
 
-    }
-    /*
-    ,
+    },
     clientesVendedor: async(sucursal,codven,dia,idContenedor,idContenedorVisitados)=>{
     
         let container = document.getElementById(idContenedor);
@@ -1136,77 +1134,6 @@ let apigen = {
             container.innerHTML = 'No se pudo cargar la lista';
         });
 
-    },
-    tblVendedoresPill : (sucursal,idContainer)=>{
-        let container = document.getElementById(idContainer);
-        container.innerHTML = GlobalLoader;
-        
-        let strHead = `<div class="d-flex">`
-        let strFoot = `</div>`
-        let str = '';
-
-        axios.post('/empleados/vendedores', {
-            sucursal: sucursal,
-            user:GlobalUsuario
-        })
-        .then((response) => {
-            //style="width: 15rem;"
-            const data = response.data.recordset;
-            data.map((rows)=>{
-                str = str + `
-                
-                <div class="rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center">
-                    <img src="img/favicon.png" alt="${rows.NOMBRE}" class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
-                        <div class="ml-2 mr-3">
-                            <h5 class="m-0">
-                                ${rows.NOMBRE}
-                                <small class="m-0 fw-300">
-                                    Vendedor
-                                </small>
-                            </h5>
-                            <a href="https://api.whatsapp.com/send?phone=502${rows.TELEFONO}&text=${rows.NOMBRE.replace(' ','%20')}" target="blank">${rows.TELEFONO}</a>
-                            <div class="text-right">
-                                <button class="btn btn-info btn-circle btn-lg" onclick="getGerenciaVendedorLogro(${rows.CODIGO},'${rows.NOMBRE}');">
-                                +
-                                </button>
-                            </div>                            
-                    </div>
-                </div>`        
-            })
-            container.innerHTML = strHead + str + strFoot;
-
-        }, (error) => {
-            funciones.AvisoError('Error en la solicitud');
-            container.innerHTML = 'No se pudo cargar la lista';
-        });
-
-    },
-    comboVendedores : (sucursal,idContainer)=>{
-        let container = document.getElementById(idContainer);
-        let str = '';
-
-        return new Promise((resolve,reject)=>{
-            axios.post('/empleados/vendedores', {
-                sucursal: sucursal,
-                user:GlobalUsuario
-            })
-            .then((response) => {
-                const data = response.data.recordset;
-                data.map((rows)=>{
-                    str = str + `<option value='${rows.CODIGO}'>
-                                    ${rows.NOMBRE}
-                                   Tel:<b class="text-danger">${rows.TELEFONO}</b>
-                                 </option>
-                                `        
-                })
-                container.innerHTML = str;
-                resolve();
-            }, (error) => {
-                funciones.AvisoError('Error en la solicitud');
-                container.innerHTML = '';
-                reject();
-            });
-        })
     },
     clientesListadoVendedor:(sucursal, codven, idContainer)=>{
         let container = document.getElementById(idContainer);
@@ -3127,5 +3054,5 @@ let apigen = {
             });
         });
     }
-    */
+    
 }
