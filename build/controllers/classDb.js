@@ -20,6 +20,26 @@ var tblProductos = {
     }
 };
 
+var tblClientes = {
+    name: 'clientes',
+    columns: {
+        ID:{ primaryKey: true, autoIncrement: true },
+        CODSUCURSAL:{dataType: "string"},
+        CODIGO:{dataType: "string"},
+        DESMUNI:{dataType: "string"},
+        DIRCLIE:{dataType: "string"},
+        LASTSALE:{dataType: "string"},
+        LAT:{dataType: "string"},
+        LONG:{dataType: "string"},
+        NIT:{dataType: "string"},
+        NOMCLIE:{dataType: "string"},
+        REFERENCIA:{dataType: "string"},
+        STVISITA:{dataType: "string"},
+        VISITA:{dataType: "string"},
+        TELEFONO:{dataType: "string"}
+    }
+};
+
 var tblTempventas = {
     name: 'tempventa',
     columns: {
@@ -45,7 +65,7 @@ var tblTempventas = {
 
 var database = {
     name: DbName,
-    tables: [tblProductos,tblTempventas]
+    tables: [tblProductos,tblClientes,tblTempventas]
 };
  
 // initiate jsstore connection

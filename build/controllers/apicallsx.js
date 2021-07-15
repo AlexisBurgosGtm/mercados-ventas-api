@@ -1,6 +1,44 @@
 let apigen = {
     empleadosLogin : (sucursal,user,pass)=>{
         return new Promise((resolve,reject)=>{
+            axios.get(`/empleados/login?codsucursal=${sucursal}&user=${user}&pass=${pass}`)
+            .then((response) => {
+                const data = response.data.recordset;
+                if(response.data.rowsAffected[0]==1){
+                    data.map((rows)=>{
+                        if(rows.USUARIO==user){
+                            GlobalCodUsuario = rows.CODIGO;
+                            GlobalUsuario = rows.USUARIO;
+                            GlobalPassUsuario = pass;
+                            GlobalTipoUsuario = rows.TIPO;
+                            GlobalCoddoc= rows.CODDOC;
+                            GlobalCodSucursal = sucursal;
+                            GlobalSistema = sucursal;
+                            
+                            //classNavegar.inicio(GlobalTipoUsuario);     
+                            classNavegar.inicioVendedor();   
+                        }        
+                    })
+                    resolve();
+                }else{
+                    GlobalCodUsuario = 9999
+                    GlobalUsuario = '';
+                    GlobalTipoUsuario = '';
+                    GlobalCoddoc= '';
+                    funciones.AvisoError('Usuario o Contraseña incorrectos, intente seleccionando la sucursal a la que pertenece');
+                    reject();
+                }
+            }, (error) => {
+                funciones.AvisoError('Error en la solicitud');
+                reject();
+            });
+
+        })
+        
+
+    },
+    empleadosLogin_ONLINE : (sucursal,user,pass)=>{
+        return new Promise((resolve,reject)=>{
             axios.post('/empleados/login', {
                 app:GlobalSistema,
                 codsucursal: sucursal,
@@ -43,6 +81,120 @@ let apigen = {
 
     },
     clientesVendedor: async(sucursal,codven,dia,idContenedor,idContenedorVisitados)=>{
+    
+        let container = document.getElementById(idContenedor);
+        container.innerHTML = GlobalLoader;
+
+        let containerVisitados = document.getElementById(idContenedorVisitados);
+        
+        let strdata = ''; let strdataVisitados = '';
+
+        selectCliente(dia)
+        .then((response) => {
+            const data = response;
+            
+            data.map((rows)=>{
+                    let f = rows.LASTSALE.toString().replace('T00:00:00.000Z','');
+                    let stClassClie = ''; let stNomStatus='';
+                    if(f==funciones.getFecha()){
+                        
+                        switch (rows.STVISITA) {
+                            case 'VENTA':
+                                stClassClie='bg-success text-white';
+                                stNomStatus= 'VENDIDO';
+                                break;
+                            case 'CERRADO':
+                                stClassClie='bg-warning';
+                                stNomStatus= 'CERRADO';        
+                                break;
+                            case 'NODINERO':
+                                stClassClie='bg-secondary text-white';
+                                stNomStatus= 'SIN DINERO';
+                                break;
+                        
+                            default:
+                                
+                                break;
+                        };
+
+                        strdataVisitados = strdataVisitados + `<tr class='${stClassClie}'>
+                        <td>${rows.NOMCLIE}
+                            <br>
+                            <small>Cod: ${rows.CODIGO} - St:${stNomStatus}</small>
+                            <br>
+                            <small>Tel:${rows.TELEFONO}</small>
+                        </td>
+                        <td>${rows.DIRCLIE}
+                            <br>
+                            <small>${rows.DESMUNI}</small>
+                            <br>
+                            <small class="text-info">Ref:${rows.REFERENCIA}</small>
+                        </td>
+                        <td>
+                            <button class="btn btn-info btn-sm btn-circle" onclick="getMenuCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
+                                <i class="fal fa-shopping-cart"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-warning btn-sm btn-circle" onclick="getHistorialCliente('${rows.CODIGO}','${rows.NIT}','${rows.NOMCLIE}');">
+                                <i class="fal fa-book"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-success btn-sm btn-circle" onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}');">
+                                <i class="fal fa-map-marker"></i>
+                            </button>
+                        </td>
+                    </tr>` 
+
+                    }else{
+                        strdata = strdata + `<tr class=''>
+                                <td>${rows.NOMCLIE}
+                                    <br>
+                                    <small>Cod: ${rows.CODIGO} - St:SN</small>
+                                    <br>
+                                    <small>Tel:${rows.TELEFONO}</small>
+                                </td>
+                                <td>${rows.DIRCLIE}
+                                    <br>
+                                    <small>${rows.DESMUNI}</small>
+                                    <br>
+                                    <small class="text-info">Ref:${rows.REFERENCIA}</small>
+                                </td>
+                                <td>
+                                    <button class="btn btn-info btn-sm btn-circle" onclick="getMenuCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
+                                        <i class="fal fa-shopping-cart"></i>
+                                    </button>
+                                </td>
+                                
+                                <td>
+                                    <button class="btn btn-warning btn-sm btn-circle" onclick="getHistorialCliente('${rows.CODIGO}','${rows.NIT}','${rows.NOMCLIE}');">
+                                        <i class="fal fa-book"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm btn-circle" onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}');">
+                                        <i class="fal fa-map"></i>
+                                    </button>
+                                </td>   
+                            </tr>`
+                    }
+                    
+                    
+            })
+            container.innerHTML = strdata;
+            containerVisitados.innerHTML = strdataVisitados;
+
+        }, (error) => {
+            funciones.AvisoError('Error en la solicitud');
+            strdata = '';
+            containerVisitados.innerHTML = 'No se pudo cargar la lista';
+            container.innerHTML = 'No se pudo cargar la lista';
+        });
+        
+        
+    },
+    clientesVendedor_ONLINE: async(sucursal,codven,dia,idContenedor,idContenedorVisitados)=>{
     
         let container = document.getElementById(idContenedor);
         container.innerHTML = GlobalLoader;
@@ -162,6 +314,52 @@ let apigen = {
         
     },
     clientesVendedorMapa: async(sucursal,codven,dia,idContenedor, lt, lg)=>{
+
+        let container = document.getElementById(idContenedor);
+        container.innerHTML = GlobalLoader;
+        
+        let tbl = `<div class="mapcontainer4" id="mapcontainer"></div>`;        
+        
+        container.innerHTML = tbl;
+        
+        let mapcargado = 0;
+        var map;
+        map = Lmap(lt, lg);
+
+        selectCliente(dia)
+        .then((response) => {
+            const data = response;
+
+            data.map((rows)=>{
+                let f = rows.LASTSALE.toString().replace('T00:00:00.000Z','');
+                if(f==funciones.getFecha()){}else{
+                    L.marker([rows.LAT, rows.LONG])
+                    .addTo(map)
+                    .bindPopup(`${rows.NOMCLIE} <br><small>${rows.DIRCLIE}-Tel:${rows.TELEFONO}</small>`, {closeOnClick: true, autoClose: true})   
+                    .on('click', function(e){
+                        //console.log(e.sourceTarget._leaflet_id);
+                        GlobalMarkerId = Number(e.sourceTarget._leaflet_id);
+                        getMenuCliente(rows.CODIGO,rows.NOMCLIE,rows.DIRCLIE,rows.TELEFONO,rows.LAT,rows.LONG,rows.NIT);
+                    })
+                }
+            })
+
+            //RE-AJUSTA EL MAPA A LA PANTALLA
+            setTimeout(function () {
+                try {
+                    map.invalidateSize();    
+                } catch (error) {
+                    
+                }
+            }, 500);
+
+        }, (error) => {
+            funciones.AvisoError('Error en la solicitud');
+            container.innerHTML = '';
+        });
+           
+    },
+    clientesVendedorMapa_ONLINE: async(sucursal,codven,dia,idContenedor, lt, lg)=>{
 
         let container = document.getElementById(idContenedor);
         container.innerHTML = GlobalLoader;

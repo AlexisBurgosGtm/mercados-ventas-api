@@ -2,6 +2,22 @@ const execute = require('./connection');
 const express = require('express');
 const router = express.Router();
 
+router.get("/login",async(req,res)=>{
+
+    const {codsucursal,user,pass} = req.query;
+
+    
+    let qry ='';
+    qry = `SELECT CODUSUARIO AS CODIGO, NOMBRE AS USUARIO, TIPO, CODDOC, CODSUCURSAL 
+            FROM ME_USUARIOS 
+            WHERE CODSUCURSAL='${codsucursal}' AND NOMBRE='${user}' AND PASS='${pass}' 
+            OR CODSUCURSAL='TODOS' AND NOMBRE='${user}' AND PASS='${pass}'`;
+    
+    console.log(qry);
+
+    execute.Query(res,qry);
+});
+
 // ACTUALIZA LA UBICACIÓN GPS DEL USUARIO PARA REVISARLO EN UN MAPA
 router.put("/location",async(req,res)=>{
 

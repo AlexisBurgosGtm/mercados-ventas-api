@@ -17,10 +17,9 @@ function getView(){
                     <div class="card-body">
                         <form class="" id="frmLogin" autocomplete="off">
                             <div class="form-group">
-                                <!--<select class="form-control border-info" id="cmbSucursal">
+                                <select class="form-control border-info" id="cmbSucursal">
                                     
-                                </select>-->
-                                <input class="form-control border-info shadow" id="cmbSucursal">
+                                </select>
                                 
                             </div>
                             <div class="form-group">
@@ -79,7 +78,7 @@ function addListeners(){
 
 
     //carga las sucursales directamente desde código
-    //document.getElementById('cmbSucursal').innerHTML = funciones.getComboSucursales();
+    document.getElementById('cmbSucursal').innerHTML = funciones.getComboSucursales();
 
 };
 

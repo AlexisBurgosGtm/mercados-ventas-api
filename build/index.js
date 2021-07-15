@@ -51,3 +51,10 @@ function setLog(msg,idcontainer){
 
 classNavegar.login();
 
+if (navigator.onLine){
+  document.getElementById('btnListaP').classList.remove('btn-danger');
+  document.getElementById('btnListaP').classList.add('btn-info')
+}else{
+  document.getElementById('btnListaP').classList.add('btn-danger')
+  document.getElementById('btnListaP').classList.remove('btn-info')
+};
