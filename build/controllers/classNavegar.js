@@ -24,27 +24,8 @@ let classNavegar = {
             case 'VENDEDOR':
                 classNavegar.inicioVendedor();
                 break;
-            /*
-            case 'SUPERVISOR':
-                classNavegar.inicioSupervisor();
-                break;
-            
-            case 'DIGITADOR':
-                classNavegar.inicioDigitador();
-                break;
-            
-            case 'REPARTIDOR':
-                classNavegar.inicioRepartidor();
-                break;
-            case 'GERENTE':
-                classNavegar.inicioGerente();                        
-                break;
-            case 'DEVELOPER':
-                classNavegar.inicioProgramador();                        
-                break;
-                */
             default:
-                funciones.AvisoError('Esta aplicación es solo para VENTAS')
+                funciones.AvisoError('Esta aplicación es solo para VENTAS');
                 break;
         };
     },

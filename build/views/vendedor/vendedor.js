@@ -54,7 +54,7 @@ function getView(){
                     <ul class="nav nav-pills nav-justified" role="tablist">
                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#panelNoVisitados">No Visit</a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panelVisitados">Visitados</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panelAjenos">Ajenos</a></li>
+                        <li class="nav-item hidden"><a class="nav-link" data-toggle="tab" href="#panelAjenos">Ajenos</a></li>
                     </ul>
                     <div class="tab-content py-3">
 
