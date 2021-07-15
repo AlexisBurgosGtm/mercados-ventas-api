@@ -40,7 +40,9 @@ let apigen = {
         })
         
 
-    },
+    }
+    /*
+    ,
     clientesVendedor: async(sucursal,codven,dia,idContenedor,idContenedorVisitados)=>{
     
         let container = document.getElementById(idContenedor);
@@ -1133,24 +1135,6 @@ let apigen = {
             container.innerHTML = 'No se pudo cargar la lista';
         });
 
-
-        /*
-        str = str + `<tr>
-                                <td>
-                                    ${rows.NOMBRE}<br>
-                                    <small>
-                                        Tel:<b class="text-danger">${rows.TELEFONO}</b> - 
-                                        Cod:${rows.CODIGO} - 
-                                        
-                                    </small>
-                                </td>
-                                <td>
-                                    <button class="btn btn-info btn-circle btn-sm" onclick="getGerenciaVendedorLogro(${rows.CODIGO},'${rows.NOMBRE}');">
-                                        +
-                                    </button>
-                                </td>
-                            </tr>`        
-        */
     },
     tblVendedoresPill : (sucursal,idContainer)=>{
         let container = document.getElementById(idContainer);
@@ -1195,24 +1179,6 @@ let apigen = {
             container.innerHTML = 'No se pudo cargar la lista';
         });
 
-
-        /*
-        str = str + `<tr>
-                                <td>
-                                    ${rows.NOMBRE}<br>
-                                    <small>
-                                        Tel:<b class="text-danger">${rows.TELEFONO}</b> - 
-                                        Cod:${rows.CODIGO} - 
-                                        
-                                    </small>
-                                </td>
-                                <td>
-                                    <button class="btn btn-info btn-circle btn-sm" onclick="getGerenciaVendedorLogro(${rows.CODIGO},'${rows.NOMBRE}');">
-                                        +
-                                    </button>
-                                </td>
-                            </tr>`        
-        */
     },
     comboVendedores : (sucursal,idContainer)=>{
         let container = document.getElementById(idContainer);
@@ -3020,31 +2986,6 @@ let apigen = {
             container.innerHTML = '';
             lbTotal.innerText = 'Q 0.00';
         });
-    /*
-    let bk = `
-        <tr class='${strC} border-bottom'>
-            <td>${rows.VENDEDOR}</td>
-            <td>
-                ${rows.CODDOC + '-' + rows.CORRELATIVO}
-                <br>
-                <small class="text-danger">${rows.FECHA.toString().replace('T00:00:00.000Z','')}</small>
-            </td>
-            <td>${rows.CLIENTE}
-                <br>
-                <small>${rows.DIRECCION + ',' + rows.MUNICIPIO}</small>
-            </td>
-            <td>
-                <b>${funciones.setMoneda(rows.IMPORTE,'Q')}</b>
-            </td>
-            <td>
-                <button class="btn btn-info btn-sm btn-circle" 
-                    onclick="getDetalleFactura('${rows.CODDOC}','${rows.CORRELATIVO}','${rows.CLIENTE}','${rows.CODVEN}')">
-                    <i class="fal fa-book"></i>
-                </button>
-            </td>
-        </tr>`
-    */
-        
     },
     repartidorDetallePedido: async(coddoc,correlativo,idContenedor,idLbTotal)=>{
 
@@ -3185,4 +3126,5 @@ let apigen = {
             });
         });
     }
+    */
 }
