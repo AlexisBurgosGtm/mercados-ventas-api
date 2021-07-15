@@ -1,5 +1,5 @@
 
-var CACHE = 'mercadosefectivosoffline2';
+var CACHE = 'mercadosefectivosoffline3';
 const staticAssets = [  
   './css/vendors.bundle.css',
   './css/app.bundle.css',
@@ -47,13 +47,13 @@ self.addEventListener('fetch', async evt => {
   var req = evt.request.clone();
   if (navigator.onLine){
     if (req.clone().method == "GET") {
-      evt.respondWith(fromCache(evt.request));
+      //evt.respondWith(fromCache(evt.request));
       evt.waitUntil(update(evt.request));
     }
   }else{
     if (req.clone().method == "GET") {
       evt.respondWith(fromCache(evt.request));
-      evt.waitUntil(update(evt.request));
+      //evt.waitUntil(update(evt.request));
     }
   }
   
