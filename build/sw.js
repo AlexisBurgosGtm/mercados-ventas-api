@@ -23,7 +23,7 @@ const staticAssets = [
   './controllers/dbcalls.js',
   './models/classEmpleados.js',
   './models/classTipoDocumentos.js',
-  './controllers/apicalls.js',
+  './controllers/apicallsx.js',
   './index.js',
   './favicon.png',
   './index.html',

@@ -20,7 +20,8 @@ let apigen = {
                             GlobalCodSucursal = sucursal;
                             GlobalSistema = sucursal;
                             
-                            classNavegar.inicio(GlobalTipoUsuario);        
+                            //classNavegar.inicio(GlobalTipoUsuario);     
+                            classNavegar.inicioVendedor();   
                         }        
                     })
                     resolve();
