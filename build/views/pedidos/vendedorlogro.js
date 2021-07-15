@@ -113,11 +113,11 @@ function inicializarVistaLogro(){
 
 
 function getRptDinero(mes,anio){
-    api.reporteDinero(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','lbTotal');
+    apigen.reporteDinero(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','lbTotal');
 };
 function getRptProductos(mes,anio){
-    api.reporteProductos(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','lbTotal');
+    apigen.reporteProductos(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','lbTotal');
 };
 function getRptMarcas(mes,anio){
-    api.reporteMarcas(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','lbTotal');
+    apigen.reporteMarcas(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','lbTotal');
 };

@@ -41,7 +41,7 @@ function getView(){
                             <div class="form-group" align="right">
                                 <small class="">Mercados Efectivos - V3.1</small>
                                 <br>
-                                <i class="fal fa-headset"></i><span class=" fw-700"><a href="https://api.whatsapp.com/send?phone=50257255092&text=Ayudame%20con%20la%20app%20de%20Mercados%20Efectivos...%20">por Alexis Burgos</a></span>
+                                <i class="fal fa-headset"></i><span class=" fw-700"><a href="https://apigen.whatsapp.com/send?phone=50257255092&text=Ayudame%20con%20la%20app%20de%20Mercados%20Efectivos...%20">por Alexis Burgos</a></span>
                             </div>
                         </form>
                     </div>
@@ -67,7 +67,7 @@ function addListeners(){
     frmLogin.addEventListener('submit',(e)=>{
         e.preventDefault();
         btnIniciar.innerHTML = GlobalLoader; //<i class="fal fa-unlock"></i>Ingresar
-        api.empleadosLogin(frmLogin.cmbSucursal.value,frmLogin.txtUser.value,frmLogin.txtPass.value)
+        apigen.empleadosLogin(frmLogin.cmbSucursal.value,frmLogin.txtUser.value,frmLogin.txtPass.value)
         .then(()=>{
             //document.body.requestFullscreen();
             //por lo visto se deshabilitan las scroll bars en fullscreen

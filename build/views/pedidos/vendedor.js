@@ -201,13 +201,13 @@ function addListeners(){
     txtFechaPedido.value = funciones.getFecha();
 
     btnCargarProductos.addEventListener('click',async ()=>{
-        await api.reporteDiaProductos(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
+        await apigen.reporteDiaProductos(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
     });
     btnCargarMarcas.addEventListener('click',async ()=>{
-        await api.reporteDiaMarcas(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
+        await apigen.reporteDiaMarcas(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
     });
     btnCargarPedidos.addEventListener('click',async ()=>{
-        await api.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
+        await apigen.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
     });
     btnCargarPedidos.click();
 
@@ -236,10 +236,10 @@ function deletePedidoVendedor(fecha,coddoc,correlativo,st){
                     .then((clave)=>{
                         if(clave==GlobalPassUsuario){
 
-                            api.deletePedidoVendedor(GlobalCodSucursal,GlobalCodUsuario,fecha,coddoc,correlativo)
+                            apigen.deletePedidoVendedor(GlobalCodSucursal,GlobalCodUsuario,fecha,coddoc,correlativo)
                             .then(async()=>{
                                 funciones.Aviso('Pedido Eliminado Exitosamente!!')
-                                await api.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
+                                await apigen.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
                             })
                             .catch(()=>{
                                 funciones.AvisoError('No se pudo eliminar')
@@ -271,7 +271,7 @@ function getDetallePedido(fecha,coddoc,correlativo,codclie,nomclie,dirclie,st){
     GlobalSelectedDirCliente=dirclie;
 
     lbMenuTitulo.innerText = `Pedido: ${coddoc}-${correlativo}`;
-    api.digitadorDetallePedido(fecha,coddoc,correlativo,'tblDetallePedido','lbTotalDetallePedido')
+    apigen.digitadorDetallePedido(fecha,coddoc,correlativo,'tblDetallePedido','lbTotalDetallePedido')
     $("#modalMenu").modal('show');
     
 };
@@ -289,14 +289,14 @@ function deleteProductoPedido(idRow,coddoc,correlativo,totalprecio,totalcosto){
     .then((value)=>{
         if(value==true){
 
-            api.digitadorQuitarRowPedido(idRow,coddoc,correlativo,totalprecio,totalcosto)
+            apigen.digitadorQuitarRowPedido(idRow,coddoc,correlativo,totalprecio,totalcosto)
             .then(async()=>{
                 
-                await api.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
+                await apigen.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
 
                 document.getElementById(idRow).remove();
                 
-                api.digitadorDetallePedido(GlobalSelectedFecha,coddoc,correlativo,'tblDetallePedido','lbTotalDetallePedido')
+                apigen.digitadorDetallePedido(GlobalSelectedFecha,coddoc,correlativo,'tblDetallePedido','lbTotalDetallePedido')
 
                 funciones.Aviso('Item removido exitosamente !!')
             })
