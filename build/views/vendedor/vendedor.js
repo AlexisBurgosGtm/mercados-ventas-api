@@ -295,7 +295,7 @@ function getMenuCliente(codigo,nombre,direccion,telefono,lat,long,nit){
 
 async function getHistorialCliente(codigo,nit,nombre){
     
-    await api.vendedorHistorialCliente(codigo,'tblHistorial');
+    await apigen.vendedorHistorialCliente(codigo,'tblHistorial');
 
     $('#ModalHistorialCliente').modal('show')
 
@@ -312,7 +312,7 @@ async function setRecordatorioVisita(codigo, nit, nombre, direccion){
     .then((value)=>{
         if (value==true){
 
-            api.clientesSetReminder(codigo,nit,nombre,direccion,recordatorio,0,0,funciones.getFecha())
+            apigen.clientesSetReminder(codigo,nit,nombre,direccion,recordatorio,0,0,funciones.getFecha())
             .then(()=>{
                 funciones.Aviso('Recordatorio establecido exitosamente');
             })
@@ -333,7 +333,7 @@ async function addListeners(){
     cmbDiaVisita.innerHTML = funciones.ComboSemana("LETRAS");
        
     cmbDiaVisita.addEventListener('change',async()=>{
-        await api.clientesVendedor(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes','tblClientesVisitados')
+        await apigen.clientesVendedor(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes','tblClientesVisitados')
     })
     
     let f = new Date();
@@ -350,10 +350,10 @@ async function addListeners(){
         funciones.Confirmacion('Se marcará este cliente como CERRADA. ¿Está seguro?')
         .then((value)=>{
             if(value==true){
-                api.updateClientesLastSale(GlobalSelectedCodCliente,'CERRADO')
+                apigen.updateClientesLastSale(GlobalSelectedCodCliente,'CERRADO')
                 .then(async()=>{
                     funciones.Aviso('TIENDA CERRADA');
-                    await api.clientesVendedor(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes','tblClientesVisitados')
+                    await apigen.clientesVendedor(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes','tblClientesVisitados')
                 })
                 .catch(()=>{
                     funciones.AvisoError('No se marcar esta tienda. Inténtelo de nuevo')
@@ -371,10 +371,10 @@ async function addListeners(){
         funciones.Confirmacion('Se marcará este cliente como SIN DINERO. ¿Está seguro?')
         .then(async(value)=>{
             if(value==true){
-                api.updateClientesLastSale(GlobalSelectedCodCliente,'NODINERO')
+                apigen.updateClientesLastSale(GlobalSelectedCodCliente,'NODINERO')
                 .then(async()=>{
                     funciones.Aviso('TIENDA SIN DINERO');
-                    await api.clientesVendedor(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes','tblClientesVisitados')
+                    await apigen.clientesVendedor(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes','tblClientesVisitados')
                 })
                 .catch(()=>{
                     funciones.AvisoError('No se marcar esta tienda. Inténtelo de nuevo')
@@ -399,15 +399,15 @@ async function addListeners(){
         funciones.FiltrarTabla('tblLista','txtFiltrarCliente');
     });
 
-    await api.clientesVendedor(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes','tblClientesVisitados')
+    await apigen.clientesVendedor(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes','tblClientesVisitados')
 
     let btnClientesAjenosBuscar = document.getElementById('btnClientesAjenosBuscar');
     btnClientesAjenosBuscar.addEventListener('click', async ()=>{
         let txtClientesAjenosBuscar = document.getElementById('txtClientesAjenosBuscar');
-        await api.clientesAjenosVendedor(GlobalCodSucursal,txtClientesAjenosBuscar.value,'tblClientesAjenos')
+        await apigen.clientesAjenosVendedor(GlobalCodSucursal,txtClientesAjenosBuscar.value,'tblClientesAjenos')
     })
     
-    await api.vendedorTotalDia(GlobalCodSucursal,GlobalCodUsuario,funciones.getFecha(),'lbTotalDia');
+    await apigen.vendedorTotalDia(GlobalCodSucursal,GlobalCodUsuario,funciones.getFecha(),'lbTotalDia');
 
 };
 

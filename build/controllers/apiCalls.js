@@ -1,4 +1,4 @@
-let api = {
+let apigen = {
     empleadosLogin : (sucursal,user,pass)=>{
         return new Promise((resolve,reject)=>{
             axios.post('/empleados/login', {

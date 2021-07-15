@@ -182,7 +182,7 @@ async function addListeners(){
                 let lat = location.coords.latitude.toString();
                 let longg = location.coords.longitude.toString();
                 
-                await  api.clientesVendedorMapa(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes',Number(lat),Number(longg))
+                await  apigen.clientesVendedorMapa(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes',Number(lat),Number(longg))
                 
         });    
     })
@@ -201,7 +201,7 @@ async function addListeners(){
         funciones.Confirmacion('Se marcará este cliente como CERRADA. ¿Está seguro?')
         .then((value)=>{
             if(value==true){
-                api.updateClientesLastSale(GlobalSelectedCodCliente,'CERRADO')
+                apigen.updateClientesLastSale(GlobalSelectedCodCliente,'CERRADO')
                 .then(async()=>{
                     funciones.Aviso('TIENDA CERRADA');
                     await cargarMapaClientes();
@@ -222,7 +222,7 @@ async function addListeners(){
         funciones.Confirmacion('Se marcará este cliente como SIN DINERO. ¿Está seguro?')
         .then(async(value)=>{
             if(value==true){
-                api.updateClientesLastSale(GlobalSelectedCodCliente,'NODINERO')
+                apigen.updateClientesLastSale(GlobalSelectedCodCliente,'NODINERO')
                 .then(async()=>{
                     funciones.Aviso('TIENDA SIN DINERO');
                     await cargarMapaClientes();
@@ -251,11 +251,11 @@ async function addListeners(){
             let lat = location.coords.latitude.toString();
             let longg = location.coords.longitude.toString();
             //Number(lat),Number(longg));
-            await api.clientesVendedorMapa(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes',Number(lat),Number(longg))
+            await apigen.clientesVendedorMapa(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes',Number(lat),Number(longg))
             
     });
 
-    await api.vendedorTotalDia(GlobalCodSucursal,GlobalCodUsuario,funciones.getFecha(),'lbTotalDia')
+    await apigen.vendedorTotalDia(GlobalCodSucursal,GlobalCodUsuario,funciones.getFecha(),'lbTotalDia')
     
 };
 
@@ -266,7 +266,7 @@ function cargarMapaClientes(){
             let lat = location.coords.latitude.toString();
             let longg = location.coords.longitude.toString();
             //Number(lat),Number(longg));
-            await api.clientesVendedorMapa(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes',Number(lat),Number(longg))
+            await apigen.clientesVendedorMapa(GlobalCodSucursal,GlobalCodUsuario,cmbDiaVisita.value,'tblClientes',Number(lat),Number(longg))
             
     });
 

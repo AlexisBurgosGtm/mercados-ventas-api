@@ -362,7 +362,7 @@ async function addListeners(){
     await getComboMunicipios('cmbMunicipio');
     await getComboDepartamentos('cmbDepartamento');  
 
-    await api.comboVendedores(GlobalCodSucursal,'cmbVendedor');
+    await apigen.comboVendedores(GlobalCodSucursal,'cmbVendedor');
     
     document.getElementById('txtCodigo').disabled = true;
 

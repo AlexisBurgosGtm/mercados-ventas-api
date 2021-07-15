@@ -1419,7 +1419,7 @@ async function fcnFinalizarPedido(){
                         await classEmpleados.updateMyLocation();
                         
                         //actualiza la última venta del cliente
-                        api.updateClientesLastSale(nit,'VENTA');
+                        apigen.updateClientesLastSale(nit,'VENTA');
                         //elimina el temp ventas asociado al empleado
                         //fcnEliminarTempVentas(GlobalUsuario);
                         deleteTempVenta(GlobalUsuario)

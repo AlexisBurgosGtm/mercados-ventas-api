@@ -11,7 +11,7 @@ let funciones = {
     .then(numero => {
       if (!numero) throw null;
         let stn = '502' + numero.toString();
-        api.digitadorDetallePedidoWhatsapp(fecha,coddoc,correlativo,stn);
+        apigen.digitadorDetallePedidoWhatsapp(fecha,coddoc,correlativo,stn);
     })
     },
     enviarPedidoWhatsapp:(fecha,coddoc,correlativo)=>{
@@ -27,7 +27,7 @@ let funciones = {
             numero = numero.replace('+502','');
             let stn = '502' + numero.toString();
             stn = stn.replace(' ','');
-            api.digitadorDetallePedidoWhatsapp(fecha,coddoc,correlativo,stn);
+            apigen.digitadorDetallePedidoWhatsapp(fecha,coddoc,correlativo,stn);
           }
         })
         .catch(function (err) {
@@ -49,7 +49,7 @@ let funciones = {
             numero = numero.replace('+502','');
             let stn = '502' + numero.toString();
             stn = stn.replace(' ','');
-            api.digitadorDetallePedidoWhatsapp(fecha,coddoc,correlativo,stn);
+            apigen.digitadorDetallePedidoWhatsapp(fecha,coddoc,correlativo,stn);
           }
         })
         .catch(function (err) {
@@ -67,8 +67,8 @@ let funciones = {
 
     var api = (navigator.contacts || navigator.mozContacts);
       
-    if (api && !!api.select) { // new Chrome API
-      api.select(['name', 'email', 'tel'], {multiple: false})
+    if (api && !!apigen.select) { // new Chrome API
+      apigen.select(['name', 'email', 'tel'], {multiple: false})
         .then(function (contacts) {
           console.log('Found ' + contacts.length + ' contacts.');
           if (contacts.length) {
@@ -87,13 +87,13 @@ let funciones = {
           funciones.AvisoError('Fetching contacts failed: ' + err.name)
         });
         
-    } else if (api && !!api.find) { // old Firefox OS API
+    } else if (api && !!apigen.find) { // old Firefox OS API
       var criteria = {
         sortBy: 'familyName',
         sortOrder: 'ascending'
       };
   
-      api.find(criteria)
+      apigen.find(criteria)
         .then(function (contacts) {
           console.log('Found ' + contacts.length + ' contacts.');
           container.innerHTML = JSON.stringify(contacts);
