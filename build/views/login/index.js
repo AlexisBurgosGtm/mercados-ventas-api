@@ -65,6 +65,9 @@ function addListeners(){
     let btnIniciar = document.getElementById('btnIniciar');
     frmLogin.addEventListener('submit',(e)=>{
         e.preventDefault();
+
+        almacenarCredenciales();
+
         btnIniciar.innerHTML = GlobalLoader; //<i class="fal fa-unlock"></i>Ingresar
         apigen.empleadosLogin(frmLogin.cmbSucursal.value,frmLogin.txtUser.value,frmLogin.txtPass.value)
         .then(()=>{
@@ -86,6 +89,36 @@ function addListeners(){
 function InicializarVista(){
    getView();
    addListeners();
-    
+
+   getCredenciales();
   
 };
+
+
+async function almacenarCredenciales(){
+    const cred = new PasswordCredential({
+        id: document.getElementById('txtUser').value,
+        name: document.getElementById('cmbSucursal').value,
+        password: document.getElementById('txtPass').value
+    })
+
+    await navigator.credentials.store(cred)
+
+};
+
+function getCredenciales(){
+   if ('credentials' in navigator) {
+  navigator.credentials.get({password: true})
+  .then(function(creds) {
+
+      console.log(creds);
+    //Do something with the credentials.
+    document.getElementById('txtUser').value = creds.id;
+    document.getElementById('cmbSucursal').value = creds.name;
+    document.getElementById('txtPass').value = creds.password;
+
+  });
+    } else {
+    //Handle sign-in the way you did before.
+    };
+}

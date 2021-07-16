@@ -13,8 +13,6 @@ router.get("/login",async(req,res)=>{
             WHERE CODSUCURSAL='${codsucursal}' AND NOMBRE='${user}' AND PASS='${pass}' 
             OR CODSUCURSAL='TODOS' AND NOMBRE='${user}' AND PASS='${pass}'`;
     
-    console.log(qry);
-
     execute.Query(res,qry);
 });
 
