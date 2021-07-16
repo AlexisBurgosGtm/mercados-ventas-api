@@ -89,6 +89,6 @@ let GlobalLoader = `
 
 //'<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>';
 
-
+let GlobalUrl = document.location.origin.toString();
 
 let nowhatsapp = '50257255092';

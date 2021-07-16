@@ -62,31 +62,31 @@ if (navigator.onLine){
 
 window.onpopstate = function(event) {
   
-    
+
     let url =''// 'http://localhost:4400/';
  
     //alert(`location: ${document.location}, state: ${JSON.stringify(event.state)}`)
     switch (document.location.pathname.toString()) {
       case url + '/login':
-        classNavegar.login();
+        classNavegar.login('SI');
         break;
       case url + '/clientes':
-        classNavegar.inicioVendedorListado();
+        classNavegar.inicioVendedorListado('SI');
           break;
       case url + '/facturacion':
-        classNavegar.ventas();
+        classNavegar.ventas('SI');
           break;
       case url + '/facturacion':
-          classNavegar.ventas();
+          //classNavegar.ventas();
               break;
       case url + '/mapaclientes':
-          classNavegar.ventasMapaClientes();
+          classNavegar.ventasMapaClientes('SI');
           break;
       case url + '/logro':
-          classNavegar.pedidos();    
+          classNavegar.pedidos('SI');    
           break;
       case url + '/logromes':
-          classNavegar.logrovendedor();    
+          classNavegar.logrovendedor('SI');    
             break;
       default:
         classNavegar.login();  

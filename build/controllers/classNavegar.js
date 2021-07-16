@@ -1,5 +1,5 @@
 let classNavegar = {
-    login : async()=>{
+    login : async(historial)=>{
         divUsuario.innerText = 'DESCONECTADO';
         lbTipo.innerText = "Inicie sesión";
         rootMenu.innerHTML = '';
@@ -13,7 +13,12 @@ let classNavegar = {
                 GlobalSelectedForm='LOGIN';
                 InicializarVista();
                 rootMenuFooter.innerHTML = '<b class="text-white">Mercados Efectivos</b>';
-                window.history.pushState({"page":0}, "login", '/login')
+                if(historial=='SI'){
+
+                }else{
+                    window.history.pushState({"page":0}, "login", GlobalUrl + '/login')
+                }
+                
             })
         
             
@@ -396,7 +401,7 @@ let classNavegar = {
             .then(()=>{
                 GlobalSelectedForm ='VENTAS';
                 iniciarVistaVentas(nit,nombre,direccion);
-                window.history.pushState({"page":2}, "facturacion", '/facturacion')
+                window.history.pushState({"page":2}, "facturacion", GlobalUrl + '/facturacion')
             })
           
     },
@@ -409,12 +414,16 @@ let classNavegar = {
         })
       
     },
-    ventasMapaClientes: async()=>{
+    ventasMapaClientes: async(historial)=>{
         funciones.loadScript('./views/vendedor/mapaclientes.js','root')
         .then(()=>{
             GlobalSelectedForm ='VENDEDORMAPACLIENTES';
             iniciarVistaVendedorMapaClientes();
-            window.history.pushState({"page":3}, "mapaclientes", '/mapaclientes')
+            if(historial=='SI'){
+
+            }else{
+            window.history.pushState({"page":3}, "mapaclientes", GlobalUrl + '/mapaclientes')
+            }
         })
     },
     vendedorReparto: async()=>{
@@ -426,20 +435,28 @@ let classNavegar = {
         })
       
     },
-    pedidos: async ()=>{
+    pedidos: async (historial)=>{
         funciones.loadScript('../views/pedidos/vendedor.js','root')
         .then(()=>{
             GlobalSelectedForm='PEDIDOS';
             inicializarVistaPedidos();
-            window.history.pushState({"page":4}, "logro", '/logro')
+            if(historial=='SI'){
+
+            }else{
+            window.history.pushState({"page":4}, "logro", GlobalUrl + '/logro')
+            }
         })             
     },
-    logrovendedor: ()=>{
+    logrovendedor: (historial)=>{
         funciones.loadScript('../views/pedidos/vendedorlogro.js','root')
             .then(()=>{
                 GlobalSelectedForm='LOGROVENDEDOR';
                 inicializarVistaLogro();
-                window.history.pushState({"page":5}, "logromes", '/logromes')
+                if(historial=='SI'){
+
+                }else{
+                window.history.pushState({"page":5}, "logromes", GlobalUrl + '/logromes')
+                }
         })
     },
     despacho: async()=>{
