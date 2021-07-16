@@ -1412,17 +1412,13 @@ async function fcnFinalizarPedido(){
                         //document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
     
                         document.getElementById('btnEntregaCancelar').click();
-                        //$('#ModalCobro').modal('hide');
-            
-                        //socket.emit('ventas nueva',GlobalCodSucursal, GlobalSelectedForm);
-                        
+                                               
                         //actualiza la ubicación del empleado
                         await classEmpleados.updateMyLocation();
                         
                         //actualiza la última venta del cliente
                         apigen.updateClientesLastSale(nit,'VENTA');
                         //elimina el temp ventas asociado al empleado
-                        //fcnEliminarTempVentas(GlobalUsuario);
                         deleteTempVenta(GlobalUsuario)
 
                         //prepara todo para un nuevo pedido
