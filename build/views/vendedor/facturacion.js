@@ -1402,8 +1402,9 @@ async function fcnFinalizarPedido(){
                     const data = response.data;
                     if (data.rowsAffected[0]==0){
                         //document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
-                        $('#modalWait').modal('hide');
+                        //$('#modalWait').modal('hide');
                         funciones.AvisoError('No se logró Guardar este pedido');
+                        $('#modalWait').modal('hide');
                     }else{
     
                         funciones.Aviso('Pedido Generado Exitosamente !!!')
@@ -1429,15 +1430,18 @@ async function fcnFinalizarPedido(){
                     }
                 }, (error) => {
                     console.log(error);
-                    $('#modalWait').modal('hide');
+                    //$('#modalWait').modal('hide');
                     funciones.AvisoError('Ha ocurrido un error y no se pudo guardar');
+                    $('#modalWait').modal('hide');
+                    
                     //document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
                 });        
 
             })
             .catch((error)=>{
-                $('#modalWait').modal('hide');
+                //$('#modalWait').modal('hide');
                 funciones.AvisoError('No pude crear la tabla de productos del pedido ' + error);
+                $('#modalWait').modal('hide');
                 //document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
             })
 
