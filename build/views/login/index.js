@@ -90,7 +90,7 @@ function InicializarVista(){
    getView();
    addListeners();
 
-   getCredenciales();
+   //getCredenciales();
   
 };
 

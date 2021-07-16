@@ -13,8 +13,10 @@ let classNavegar = {
                 GlobalSelectedForm='LOGIN';
                 InicializarVista();
                 rootMenuFooter.innerHTML = '<b class="text-white">Mercados Efectivos</b>';
+                window.history.pushState({"page":0}, "login", '/login')
             })
         
+            
     },
     inicio : async(tipousuario)=>{
         divUsuario.innerText = GlobalUsuario;
@@ -154,6 +156,7 @@ let classNavegar = {
         .then(async()=>{
             GlobalSelectedForm='INICIO';
             InicializarVista();
+            window.history.pushState({"page":1}, "clientes", '/clientes');
         })
     },
     inicioGerente: ()=>{
@@ -393,6 +396,7 @@ let classNavegar = {
             .then(()=>{
                 GlobalSelectedForm ='VENTAS';
                 iniciarVistaVentas(nit,nombre,direccion);
+                window.history.pushState({"page":2}, "facturacion", '/facturacion')
             })
           
     },
@@ -410,6 +414,7 @@ let classNavegar = {
         .then(()=>{
             GlobalSelectedForm ='VENDEDORMAPACLIENTES';
             iniciarVistaVendedorMapaClientes();
+            window.history.pushState({"page":3}, "mapaclientes", '/mapaclientes')
         })
     },
     vendedorReparto: async()=>{
@@ -426,6 +431,7 @@ let classNavegar = {
         .then(()=>{
             GlobalSelectedForm='PEDIDOS';
             inicializarVistaPedidos();
+            window.history.pushState({"page":4}, "logro", '/logro')
         })             
     },
     logrovendedor: ()=>{
@@ -433,6 +439,7 @@ let classNavegar = {
             .then(()=>{
                 GlobalSelectedForm='LOGROVENDEDOR';
                 inicializarVistaLogro();
+                window.history.pushState({"page":5}, "logromes", '/logromes')
         })
     },
     despacho: async()=>{

@@ -48,6 +48,10 @@ app.get("/",function(req,res){
 	res.sendFile(path + 'index.html');
 }); 
 
+app.get("/login",function(req,res){
+  res.redirect('/');
+}); 
+
 
 //Router para SUCURSALES
 app.use('/sucursales', routerSucursales);
@@ -86,7 +90,8 @@ app.use('/usuarios', routerUsuarios);
 app.use("/",router);
 
 app.use("*",function(req,res){
-  res.send('<h1 class="text-danger">NO DISPONIBLE</h1>');
+  res.redirect('/');
+  //res.send('<h1 class="text-danger">NO DISPONIBLE</h1>');
 });
 
 

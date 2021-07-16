@@ -58,3 +58,43 @@ if (navigator.onLine){
   document.getElementById('btnListaP').classList.add('btn-danger')
   document.getElementById('btnListaP').classList.remove('btn-info')
 };
+
+
+window.onpopstate = function(event) {
+  
+    
+    let url =''// 'http://localhost:4400/';
+ 
+    //alert(`location: ${document.location}, state: ${JSON.stringify(event.state)}`)
+    switch (document.location.pathname.toString()) {
+      case url + '/login':
+        classNavegar.login();
+        break;
+      case url + '/clientes':
+        classNavegar.inicioVendedorListado();
+          break;
+      case url + '/facturacion':
+        classNavegar.ventas();
+          break;
+      case url + '/facturacion':
+          classNavegar.ventas();
+              break;
+      case url + '/mapaclientes':
+          classNavegar.ventasMapaClientes();
+          break;
+      case url + '/logro':
+          classNavegar.pedidos();    
+          break;
+      case url + '/logromes':
+          classNavegar.logrovendedor();    
+            break;
+      default:
+        classNavegar.login();  
+        break;
+    }
+}
+
+window.onhashchange = function() { 
+  console.log('direccion cambiada...')
+  console.log(document.location.pathname.toString())
+}
