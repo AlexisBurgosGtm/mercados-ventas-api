@@ -5,8 +5,7 @@ function getView(){
                     <div class="card">
                         <div class="card-header">
                             <h4 id="lbTotalDia">Seleccione Dia</h4>
-                            <br>
-                            <button class="btn btn-info shadow" id="btnPedidosPendientes">Pedidos Pendientes</button>
+                           
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -288,7 +287,7 @@ function getView(){
         }
     }
 
-    root.innerHTML = view.encabezado() + view.tabsClientes() + view.modalHistorialCliente() + view.modalPedidosPendientes(); // view.listaclientes();
+    root.innerHTML = view.encabezado() + view.tabsClientes() + view.modalHistorialCliente(); //+ view.modalPedidosPendientes(); // view.listaclientes();
     rootMenuLateral.innerHTML = view.modalMenuCliente();
 };
 
@@ -442,40 +441,6 @@ async function addListeners(){
     })
     
     await apigen.vendedorTotalDia(GlobalCodSucursal,GlobalCodUsuario,funciones.getFecha(),'lbTotalDia');
-
-    let btnPedidosPendientes = document.getElementById('btnPedidosPendientes');
-    btnPedidosPendientes.addEventListener('click',()=>{
-        $('#ModalPendientes').modal('show');
-    })
-
-    selectVentasPendientes(GlobalUsuario)
-    .then((response)=>{
-        let container = document.getElementById('tblPedidosPendientes');
-        container.innerHTML = GlobalLoader;
-        
-        let str = '';
-
-        response.map((rs)=>{
-            str = str + `<tr>
-                            <td>${rs.FECHA}
-                                <br>
-                                <small class="negrita">${rs.CODDOC}-${rs.ID}</small>
-                            </td>
-                            <td>${rs.NOMCLIE}
-                                <br>
-                                <small>${rs.DIRCLIE}</small>
-                            </td>
-                            <td>${funciones.setMoneda(rs.TOTALPRECIO,'Q')}
-                            </td>
-                            <td>
-                                <button class="btn btn-success btn-circle" onclick="sendPedido(${rs.ID});">
-                                    <i class="fal fa-paper-plane"></i>
-                                </button>
-                            </td>
-                        </tr>`    
-        })
-        container.innerHTML = str;
-    });
 
 
 };

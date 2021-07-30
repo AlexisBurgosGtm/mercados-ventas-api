@@ -190,13 +190,18 @@
                     </div>
 
                     <div class="leftbutton">
-                        <button class="btn btn-primary btn-lg btn-icon rounded-circle shadow" id="btnPedidosPend">
-                            <i class="fal fa-book"></i>2
-                        </button>
+                        <div class="row">
+                            <button class="btn btn-primary btn-lg btn-icon rounded-circle shadow" id="btnPedidosPend">
+                                <i class="fal fa-book"></i> 2
+                            </button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-info btn-lg btn-icon rounded-circle shadow" id="btnListaP">
+                                <i class="fal fa-search"></i>
+                            </button>
+                        </div>
 
-                        <button class="btn btn-info btn-lg btn-icon rounded-circle shadow" id="btnListaP">
-                            <i class="fal fa-search"></i>
-                        </button>
+                        
                    
                    </div>
                     
@@ -550,6 +555,36 @@
             </div>
         </div>
       
+        <!-- PEDIDOS PENDIENTES -->
+        <div class="modal fade" id="ModalPendientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-right" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <label class="modal-title text-info h3" id="">Pedidos Pendientes de Enviar</label>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="table-reponsive">
+                            <table class="table table-responsive table-hover table-striped table-bordered shadow">
+                                <thead class="bg-info text-white">
+                                    <td>Fecha</td>
+                                    <td>Cliente</td>
+                                    <td>Importe</td>
+                                    <td></td>
+                                </thead>
+                                <tbody id="tblPedidosPendientes"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                
+                </div>
+            </div>
+        </div>
+
         <!-- WAIT FORM -->
         <div class="modal fade js-modal-settings modal-backdrop-transparent" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" id="modalWait">
             <div class="modal-dialog modal-dialog-centered modal-sm">

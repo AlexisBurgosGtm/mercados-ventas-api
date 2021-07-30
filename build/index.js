@@ -52,11 +52,11 @@ function setLog(msg,idcontainer){
 classNavegar.login();
 
 if (navigator.onLine){
-  document.getElementById('btnListaP').classList.remove('btn-danger');
-  document.getElementById('btnListaP').classList.add('btn-info')
+  document.getElementById('btnPedidosPend').classList.remove('btn-danger');
+  document.getElementById('btnPedidosPend').classList.add('btn-primary')
 }else{
-  document.getElementById('btnListaP').classList.add('btn-danger')
-  document.getElementById('btnListaP').classList.remove('btn-info')
+  document.getElementById('btnPedidosPend').classList.add('btn-danger')
+  document.getElementById('btnPedidosPend').classList.remove('btn-primary')
 };
 
 
@@ -98,3 +98,37 @@ window.onhashchange = function() {
   console.log('direccion cambiada...')
   console.log(document.location.pathname.toString())
 }
+
+//VENTANA DE PEDIDOS PENDIENTES
+let btnPedidosPend = document.getElementById('btnPedidosPend');
+btnPedidosPend.addEventListener('click',()=>{
+    $('#ModalPendientes').modal('show');
+    selectVentasPendientes(GlobalUsuario)
+    .then((response)=>{
+        let container = document.getElementById('tblPedidosPendientes');
+        container.innerHTML = GlobalLoader;
+        
+        let str = '';
+
+        response.map((rs)=>{
+            str = str + `<tr>
+                            <td>${rs.FECHA}
+                                <br>
+                                <small class="negrita">${rs.CODDOC}-${rs.ID}</small>
+                            </td>
+                            <td>${rs.NOMCLIE}
+                                <br>
+                                <small>${rs.DIRCLIE}</small>
+                            </td>
+                            <td>${funciones.setMoneda(rs.TOTALPRECIO,'Q')}
+                            </td>
+                            <td>
+                                <button class="btn btn-success btn-circle" onclick="sendPedido(${rs.ID});">
+                                    <i class="fal fa-paper-plane"></i>
+                                </button>
+                            </td>
+                        </tr>`    
+        })
+        container.innerHTML = str;
+    });
+});
