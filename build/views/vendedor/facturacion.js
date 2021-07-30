@@ -885,9 +885,6 @@ function fcnIniciarModalCantidadProductos(){
 
 };
 
-
-
-
 function fcnBusquedaProducto(idFiltro,idTablaResultado,idTipoPrecio){
     
     let cmbTipoPrecio = document.getElementById(idTipoPrecio);
@@ -964,7 +961,6 @@ function fcnBusquedaProducto(idFiltro,idTablaResultado,idTipoPrecio){
     })
 
 };
-
 
 //gestiona la apertura de la cantidad
 function getDataMedidaProducto(codprod,desprod,codmedida,cantidad,equivale,totalunidades,costo,precio,exento,existencia){
@@ -1402,7 +1398,7 @@ async function fcnFinalizarPedido(){
                     const data = response.data;
                     if (data.rowsAffected[0]==0){
                         
-                        $('#modalWait').modal('hide');
+                     
                         funciones.AvisoError('No se logró Enviar este pedido, se intentará guardarlo en el teléfono');
                         
                         //guarda el pedido localmente
@@ -1436,8 +1432,7 @@ async function fcnFinalizarPedido(){
                             funciones.Aviso('El pedido será guardado localmente, recuerde enviarlo');
                            
                             document.getElementById('btnEntregaCancelar').click();
-                            $('#modalWait').modal('hide');
-                                               
+                                                                           
                             //actualiza la ubicación del empleado
                             await classEmpleados.updateMyLocation();
                             
@@ -1446,6 +1441,8 @@ async function fcnFinalizarPedido(){
                             //elimina el temp ventas asociado al empleado
                             deleteTempVenta(GlobalUsuario)
     
+                            $('#modalWait').modal('hide');
+
                             //prepara todo para un nuevo pedido
                             fcnNuevoPedido();
                         })
@@ -1455,7 +1452,7 @@ async function fcnFinalizarPedido(){
                         })
 
                     }else{
-                        $('#modalWait').modal('hide');
+                        
 
                         funciones.Aviso('Pedido Generado Exitosamente !!!')
                        
@@ -1469,12 +1466,13 @@ async function fcnFinalizarPedido(){
                         //elimina el temp ventas asociado al empleado
                         deleteTempVenta(GlobalUsuario)
 
+                        $('#modalWait').modal('hide');
                         //prepara todo para un nuevo pedido
                         fcnNuevoPedido();
                     }
                 }, (error) => {
                     console.log(error);
-                    $('#modalWait').modal('hide');
+                   
                     funciones.AvisoError('Ha ocurrido un error y no se pudo enviar, se intentará guardar en el teléfono');
                     //$('#modalWait').modal('hide');
                     
@@ -1517,7 +1515,8 @@ async function fcnFinalizarPedido(){
                                             apigen.updateClientesLastSale(nit,'VENTA');
                                             //elimina el temp ventas asociado al empleado
                                             deleteTempVenta(GlobalUsuario)
-                    
+                                           
+                                            $('#modalWait').modal('hide');
                                             //prepara todo para un nuevo pedido
                                             fcnNuevoPedido();
                                         })
