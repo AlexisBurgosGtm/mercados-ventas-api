@@ -340,10 +340,10 @@ function deleteTempVenta(usuario){
 
 //PEDIDOS GUARDADOS EN EL CEL
 function selectVentasPendientes(usuario) {
-
+    
     return new Promise(async(resolve,reject)=>{
         var response = await connection.select({
-            from: "tempventa",
+            from: "documentos",
             where: {
                     USUARIO: usuario
                 },
@@ -354,6 +354,7 @@ function selectVentasPendientes(usuario) {
 };
 
 function insertVenta(datos){
+    console.log('intentando ingresar en tabla documentos')
     return new Promise((resolve,reject)=>{
         connection.insert({
             into: "documentos",

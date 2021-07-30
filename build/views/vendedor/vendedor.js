@@ -260,7 +260,7 @@ function getView(){
                 <div class="modal-dialog modal-lg modal-dialog-right" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <label class="modal-title text-white bg-info h3" id="">Pedidos Pendientes de Enviar</label>
+                            <label class="modal-title text-info h3" id="">Pedidos Pendientes de Enviar</label>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
                             </button>
@@ -268,7 +268,7 @@ function getView(){
 
                         <div class="modal-body">
                             <div class="table-reponsive">
-                                <table class="table table-responsive table-hover table-striped table-bordered">
+                                <table class="table table-responsive table-hover table-striped table-bordered shadow">
                                     <thead class="bg-info text-white">
                                         <td>Fecha</td>
                                         <td>Cliente</td>
@@ -468,12 +468,13 @@ async function addListeners(){
                             <td>${funciones.setMoneda(rs.TOTALPRECIO,'Q')}
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-circle">
-                                    <i class="fal fa-send"></i>
+                                <button class="btn btn-success btn-circle" onclick="sendPedido(${rs.ID});">
+                                    <i class="fal fa-paper-plane"></i>
                                 </button>
                             </td>
                         </tr>`    
         })
+        container.innerHTML = str;
     });
 
 
@@ -483,3 +484,9 @@ function inicializarVista(){
     getView();
     addListeners();
 };
+
+
+function sendPedido(id){
+
+
+}

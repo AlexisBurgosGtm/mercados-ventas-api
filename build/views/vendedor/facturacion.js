@@ -1425,14 +1425,14 @@ async function fcnFinalizarPedido(){
                             OBS:obs,
                             DIRENTREGA:direntrega,
                             USUARIO:GlobalUsuario,
-                            CODVEN:cmbVendedor.value,
+                            CODVEN:Number(cmbVendedor.value),
                             LAT:latdoc,
                             LONG:longdoc,
                             JSONPRODUCTOS:JSON.stringify(response)
                         };
         
-                        insertTempVentas(datospedido)
-                        .then(()=>{
+                        insertVenta(datospedido)
+                        .then(async()=>{
                             funciones.Aviso('El pedido será guardado localmente, recuerde enviarlo');
                            
                             document.getElementById('btnEntregaCancelar').click();
@@ -1474,9 +1474,9 @@ async function fcnFinalizarPedido(){
                     }
                 }, (error) => {
                     console.log(error);
-                    //$('#modalWait').modal('hide');
-                    funciones.AvisoError('Ha ocurrido un error y no se pudo enviar, se intentará guardar en el teléfono');
                     $('#modalWait').modal('hide');
+                    funciones.AvisoError('Ha ocurrido un error y no se pudo enviar, se intentará guardar en el teléfono');
+                    //$('#modalWait').modal('hide');
                     
                                          //guarda el pedido localmente
                                          var datospedido = {
@@ -1498,14 +1498,14 @@ async function fcnFinalizarPedido(){
                                             OBS:obs,
                                             DIRENTREGA:direntrega,
                                             USUARIO:GlobalUsuario,
-                                            CODVEN:cmbVendedor.value,
+                                            CODVEN:Number(cmbVendedor.value),
                                             LAT:latdoc,
                                             LONG:longdoc,
                                             JSONPRODUCTOS:JSON.stringify(response)
                                         };
                         
-                                        insertTempVentas(datospedido)
-                                        .then(()=>{
+                                        insertVenta(datospedido)
+                                        .then(async()=>{
                                             funciones.Aviso('El pedido será guardado localmente, recuerde enviarlo');
                                             
                                             document.getElementById('btnEntregaCancelar').click();
