@@ -64,7 +64,8 @@ function downloadProductos (){
                     PRECIOC:rows.PRECIOC,
                     DESMARCA:rows.DESMARCA,
                     EXENTO:rows.EXENTO,
-                    EXISTENCIA:rows.EXISTENCIA
+                    EXISTENCIA:rows.EXISTENCIA,
+                    DESPROD3:rows.DESPROD3
                 }                
                 var noOfRowsInserted = await connection.insert({
                     into: "productos",

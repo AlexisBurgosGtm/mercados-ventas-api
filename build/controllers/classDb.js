@@ -27,7 +27,7 @@ var tblDocumentos = {
         LONG:{dataType: "string"},
         JSONPRODUCTOS:{dataType: "string"}
     }
-},
+};
 
 var tblProductos = {
     name: 'productos',
