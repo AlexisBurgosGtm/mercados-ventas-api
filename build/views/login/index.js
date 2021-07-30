@@ -38,7 +38,7 @@ function getView(){
                                 </button>
                             </div>
                             <div class="form-group" align="right">
-                                <small class="">Mercados Efectivos - V3.1</small>
+                                <small class="">Mercados Efectivos - V3.3 PROGRAMADOR</small>
                                 <br>
                                 <i class="fal fa-headset"></i><span class=" fw-700"><a href="https://apigen.whatsapp.com/send?phone=50257255092&text=Ayudame%20con%20la%20app%20de%20Mercados%20Efectivos...%20">por Alexis Burgos</a></span>
                             </div>
