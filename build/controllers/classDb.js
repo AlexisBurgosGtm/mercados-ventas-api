@@ -1,4 +1,33 @@
-const DbName = "mercadosefectivosoffline";
+const DbName = "mercadosefectivosoffline2";
+
+var tblDocumentos = {
+    name: 'documentos',
+    columns: {
+        ID:{ primaryKey: true, autoIncrement: true },
+        CODSUCURSAL:{dataType: "string"},
+        EMPNIT:{dataType: "string"},
+        CODDOC:{dataType: "string"},
+        ANIO:{dataType: "number"},
+        MES:{dataType: "number"},
+        DIA:{dataType: "number"},
+        FECHA:{dataType: "string"},
+        FECHAENTREGA:{dataType: "string"},
+        FORMAENTREGA:{dataType: "string"},
+        NITCLIE:{dataType: "string"},
+        CODCLIE:{dataType: "string"},
+        NOMCLIE:{dataType: "string"},
+        DIRCLIE:{dataType: "string"},
+        TOTALCOSTO:{dataType: "number"},
+        TOTALPRECIO:{dataType: "number"},
+        DIRENTREGA:{dataType: "string"},
+        OBS:{dataType: "string"},
+        USUARIO:{dataType: "string"},
+        CODVEN:{dataType: "number"},
+        LAT:{dataType: "string"},
+        LONG:{dataType: "string"},
+        JSONPRODUCTOS:{dataType: "string"}
+    }
+},
 
 var tblProductos = {
     name: 'productos',
@@ -16,7 +45,8 @@ var tblProductos = {
         PRECIOC:{dataType: "number"},
         DESMARCA:{dataType: "string"},
         EXENTO:{dataType: "number"},
-        EXISTENCIA:{dataType: "number"}
+        EXISTENCIA:{dataType: "number"},
+        DESPROD3:{dataType: "string"}
     }
 };
 
@@ -36,7 +66,8 @@ var tblClientes = {
         REFERENCIA:{dataType: "string"},
         STVISITA:{dataType: "string"},
         VISITA:{dataType: "string"},
-        TELEFONO:{dataType: "string"}
+        TELEFONO:{dataType: "string"},
+        SECTOR:{dataType:"string"}
     }
 };
 
@@ -65,7 +96,7 @@ var tblTempventas = {
 
 var database = {
     name: DbName,
-    tables: [tblProductos,tblClientes,tblTempventas]
+    tables: [tblDocumentos,tblProductos,tblClientes,tblTempventas]
 };
  
 // initiate jsstore connection

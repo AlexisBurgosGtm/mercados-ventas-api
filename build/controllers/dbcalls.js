@@ -337,6 +337,39 @@ function deleteTempVenta(usuario){
 };
 
 
+//PEDIDOS GUARDADOS EN EL CEL
+function selectVentasPendientes(usuario) {
+
+    return new Promise(async(resolve,reject)=>{
+        var response = await connection.select({
+            from: "tempventa",
+            where: {
+                    USUARIO: usuario
+                },
+            order: { by: 'ID', type: 'asc' }
+        });
+        resolve(response)
+    });
+};
+
+function insertVenta(datos){
+    return new Promise((resolve,reject)=>{
+        connection.insert({
+            into: "documentos",
+            values: [datos], //you can insert multiple values at a time
+        })
+        .then(()=>{
+            resolve();
+        })
+        .catch(()=>{
+            reject();
+        })
+    }) 
+
+};
+
+
+
 
 function backup_insertTempVentas(datos){
     return new Promise(async(resolve,reject)=>{

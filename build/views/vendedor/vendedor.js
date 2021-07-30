@@ -5,6 +5,8 @@ function getView(){
                     <div class="card">
                         <div class="card-header">
                             <h4 id="lbTotalDia">Seleccione Dia</h4>
+                            <br>
+                            <button class="btn btn-info shadow" id="btnPedidosPendientes">Pedidos Pendientes</button>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -251,10 +253,42 @@ function getView(){
                 </div>
             </div>
             `
+        },
+        modalPedidosPendientes: ()=>{
+            return `
+            <div class="modal fade" id="ModalPendientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-right" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <label class="modal-title text-white bg-info h3" id="">Pedidos Pendientes de Enviar</label>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="table-reponsive">
+                                <table class="table table-responsive table-hover table-striped table-bordered">
+                                    <thead class="bg-info text-white">
+                                        <td>Fecha</td>
+                                        <td>Cliente</td>
+                                        <td>Importe</td>
+                                        <td></td>
+                                    </thead>
+                                    <tbody id="tblPedidosPendientes"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    
+                    </div>
+                </div>
+            </div>
+            `
         }
     }
 
-    root.innerHTML = view.encabezado() + view.tabsClientes() + view.modalHistorialCliente(); // view.listaclientes();
+    root.innerHTML = view.encabezado() + view.tabsClientes() + view.modalHistorialCliente() + view.modalPedidosPendientes(); // view.listaclientes();
     rootMenuLateral.innerHTML = view.modalMenuCliente();
 };
 
@@ -408,6 +442,40 @@ async function addListeners(){
     })
     
     await apigen.vendedorTotalDia(GlobalCodSucursal,GlobalCodUsuario,funciones.getFecha(),'lbTotalDia');
+
+    let btnPedidosPendientes = document.getElementById('btnPedidosPendientes');
+    btnPedidosPendientes.addEventListener('click',()=>{
+        $('#ModalPendientes').modal('show');
+    })
+
+    selectVentasPendientes(GlobalUsuario)
+    .then((response)=>{
+        let container = document.getElementById('tblPedidosPendientes');
+        container.innerHTML = GlobalLoader;
+        
+        let str = '';
+
+        response.map((rs)=>{
+            str = str + `<tr>
+                            <td>${rs.FECHA}
+                                <br>
+                                <small class="negrita">${rs.CODDOC}-${rs.ID}</small>
+                            </td>
+                            <td>${rs.NOMCLIE}
+                                <br>
+                                <small>${rs.DIRCLIE}</small>
+                            </td>
+                            <td>${funciones.setMoneda(rs.TOTALPRECIO,'Q')}
+                            </td>
+                            <td>
+                                <button class="btn btn-warning btn-circle">
+                                    <i class="fal fa-send"></i>
+                                </button>
+                            </td>
+                        </tr>`    
+        })
+    });
+
 
 };
 

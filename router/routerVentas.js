@@ -110,7 +110,8 @@ router.get("/buscarproducto", async(req,res)=>{
     
     qry = `SELECT TOP 20 ME_Productos.CODPROD, ME_Productos.DESPROD, ME_Precios.CODMEDIDA, 
                 ME_Precios.EQUIVALE, ME_Precios.COSTO, ${campoprecio} AS PRECIO, 
-                ME_Marcas.DESMARCA, 0 AS EXENTO, ISNULL(ME_PRODUCTOS.EXISTENCIA,0) AS EXISTENCIA
+                ME_Marcas.DESMARCA, 0 AS EXENTO, ISNULL(ME_PRODUCTOS.EXISTENCIA,0) AS EXISTENCIA,
+                ME_Productos.DESPROD3
             FROM ME_Productos LEFT OUTER JOIN
                 ME_Marcas ON ME_Productos.CODSUCURSAL = ME_Marcas.CODSUCURSAL AND ME_Productos.CODMARCA = ME_Marcas.CODMARCA LEFT OUTER JOIN
                 ME_Precios ON ME_Productos.CODSUCURSAL = ME_Precios.CODSUCURSAL AND ME_Productos.CODPROD = ME_Precios.CODPROD
@@ -142,7 +143,10 @@ router.get("/buscarproductotodos", async(req,res)=>{
                 ME_PRECIOS.ESCALA AS PRECIOB,
                 ME_PRECIOS.MAYORISTA AS PRECIOC,
                 0.01 AS CAMBIO, 
-                ME_Marcas.DESMARCA, 0 AS EXENTO, ISNULL(ME_PRODUCTOS.EXISTENCIA,0) AS EXISTENCIA
+                ME_Marcas.DESMARCA, 
+                0 AS EXENTO, 
+                ISNULL(ME_PRODUCTOS.EXISTENCIA,0) AS EXISTENCIA,
+                ME_Productos.DESPROD3
             FROM ME_Productos LEFT OUTER JOIN
                 ME_Marcas ON ME_Productos.CODSUCURSAL = ME_Marcas.CODSUCURSAL AND ME_Productos.CODMARCA = ME_Marcas.CODMARCA LEFT OUTER JOIN
                 ME_Precios ON ME_Productos.CODSUCURSAL = ME_Precios.CODSUCURSAL AND ME_Productos.CODPROD = ME_Precios.CODPROD
@@ -907,13 +911,9 @@ router.post("/insertventa", async (req,res)=>{
                 '', '', '', '', '',
                 '', '', 0, ${lat},${long},'${app}'
                 );`
-
-                  //GETANSINULL()
-        
-                 qrycorrelativo =`UPDATE ME_TIPODOCUMENTOS SET CORRELATIVO=${nuevocorrelativo} WHERE CODSUCURSAL='${codsucursal}' AND CODDOC='${coddoc}';`
-          
-            //console.dir(qrydoc);
- 
+                   
+                qrycorrelativo =`UPDATE ME_TIPODOCUMENTOS SET CORRELATIVO=${nuevocorrelativo} WHERE CODSUCURSAL='${codsucursal}' AND CODDOC='${coddoc}';`
+      
     execute.Query(res, qrycorrelativo + qry + qrydoc);
     
 });
@@ -970,6 +970,7 @@ function getCorrelativo(correlativo){
     return numdoc;
 
 };
+
 
 
 module.exports = router;
