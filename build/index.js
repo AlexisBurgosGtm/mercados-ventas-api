@@ -109,8 +109,10 @@ btnPedidosPend.addEventListener('click',()=>{
         container.innerHTML = GlobalLoader;
         
         let str = '';
+        let contador = 0;
 
         response.map((rs)=>{
+            contador = contador + 1;
             str = str + `<tr>
                             <td>${rs.FECHA}
                                 <br>
@@ -130,5 +132,7 @@ btnPedidosPend.addEventListener('click',()=>{
                         </tr>`    
         })
         container.innerHTML = str;
+        btnPedidosPend.innerHTML = `<i class="fal fa-bell"></i>${contador}`;
+
     });
 });
