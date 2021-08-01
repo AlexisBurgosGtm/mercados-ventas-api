@@ -339,20 +339,8 @@ function deleteTempVenta(usuario){
 
 
 //PEDIDOS GUARDADOS EN EL CEL
-function selectVentasPendientes(usuario) {
-    
-    return new Promise(async(resolve,reject)=>{
-        var response = await connection.select({
-            from: "documentos",
-            where: {
-                    USUARIO: usuario
-                },
-            order: { by: 'ID', type: 'asc' }
-        });
-        resolve(response)
-    });
-};
 
+//INSERTA LOCALMENTE UN PEDIDO
 function insertVenta(datos){
     console.log('intentando ingresar en tabla documentos')
     return new Promise((resolve,reject)=>{
@@ -370,21 +358,161 @@ function insertVenta(datos){
 
 };
 
-
-
-
-function backup_insertTempVentas(datos){
+//carga el json con la lista de pedidos pendientes
+function selectVentasPendientes(usuario) {
+    
     return new Promise(async(resolve,reject)=>{
-        var noOfRowsInserted = await connection.insert({
-            into: "tempventa",
-            values: [datos], //you can insert multiple values at a time
-        });
-        if (noOfRowsInserted > 0) {
-            resolve();
-        }else{
-            reject();
-        }
-    }) 
+        var response = await connection.select({
 
+            from: "documentos",
+            where: {
+                    USUARIO: usuario
+                },
+            order: { by: 'ID', type: 'asc' }
+        });
+        resolve(response)
+    });
 };
+
+//carga la lista de pedidos
+function dbCargarPedidosPendientes(){
+    
+    selectVentasPendientes(GlobalUsuario)
+    .then((response)=>{
+        let container = document.getElementById('tblPedidosPendientes');
+        container.innerHTML = GlobalLoader;
+        
+        let str = '';
+        let contador = 0;
+
+        response.map((rs)=>{
+            contador = contador + 1;
+            str = str + `<tr>
+                            <td>${rs.FECHA}
+                                <br>
+                                <small class="negrita">${rs.CODDOC}-${rs.ID}</small>
+                            </td>
+                            <td>${rs.NOMCLIE}
+                                <br>
+                                <small>${rs.DIRCLIE}</small>
+                            </td>
+                            <td>${funciones.setMoneda(rs.TOTALPRECIO,'Q')}
+                            </td>
+                            <td>
+                                <button class="btn btn-success btn-circle" onclick="dbSendPedido(${rs.ID});">
+                                    <i class="fal fa-paper-plane"></i>
+                                </button>
+                            </td>
+                        </tr>`    
+        })
+        container.innerHTML = str;
+        btnPedidosPend.innerHTML = `<i class="fal fa-bell"></i>${contador}`;
+
+    });
+};
+
+function deletePedidoEnviado(id){
+    return new Promise(async(resolve,reject)=>{
+        var rowsDeleted = await connection.remove({
+            from: "documentos",
+            where: {
+                ID: Number(id)
+            }
+        });
+        if(rowsDeleted>0){resolve()}else{resolve()}
+    })            
+};
+
+function getPedidoEnviar(id){
+
+    return new Promise(async(resolve,reject)=>{
+        var response = await connection.select({
+            
+            from: "documentos",
+            where: {
+                    ID: Number(id)
+                }
+        });
+        resolve(response)
+    });
+}
+
+function dbSendPedido(id){
+        
+        funciones.Confirmacion('¿Está seguro que desea Enviar este Pedido')
+        .then((value)=>{
+            if(value==true){
+                setLog(`<label class="text-danger">Intentando enviar el pedido...</label>`,'rootWait');
+                $('#modalWait').modal('show');
+                
+                let data; 
+
+                getPedidoEnviar(id)
+                .then((response)=>{
+                    response.map((rs)=>{
+                        data = {
+                            jsondocproductos:rs.JSONPRODUCTOS,
+                            codsucursal:rs.CODSUCURSAL,
+                            empnit: rs.EMPNIT,
+                            coddoc:rs.CODDOC,
+                            correl: 9000,
+                            anio:rs.ANIO,
+                            mes:rs.MES,
+                            dia:rs.DIA,
+                            fecha:rs.FECHA,
+                            fechaentrega:rs.FECHAENTREGA,
+                            formaentrega:rs.FORMAENTREGA,
+                            codbodega:GlobalCodBodega,
+                            codcliente: rs.CODCLIE,
+                            nomclie:rs.NOMCLIE,
+                            totalcosto:rs.TOTALCOSTO,
+                            totalprecio:rs.TOTALPRECIO,
+                            nitclie:rs.NITCLIE,
+                            dirclie:rs.DIRCLIE,
+                            obs:rs.OBS,
+                            direntrega:rs.DIRENTREGA,
+                            usuario:rs.USUARIO,
+                            codven:rs.CODVEN,
+                            lat:rs.LAT,
+                            long:rs.LONG
+                        }
+                    })
+                    
+                    setLog(`<label class="text-info">Enviando pedido...</label>`,'rootWait');
+              
+                    axios.post('/ventas/insertventa', data)
+                    .then(async(response) => {
+                        const data = response.data;
+                        if (data.rowsAffected[0]==0){
+                            funciones.AvisoError('No se logró Enviar este pedido, se intentará guardarlo en el teléfono');   
+                        }else{
+                            funciones.Aviso('Pedido Enviado Exitosamente !!!')
+                           
+                            //actualiza la ubicación del empleado
+                            await classEmpleados.updateMyLocation();
+                            deletePedidoEnviado(id)
+                            .then(()=>{
+                                dbCargarPedidosPendientes();
+                            })
+                                                                               
+                        }
+                        $('#modalWait').modal('hide');
+                    }, (error) => {
+                        
+                        funciones.AvisoError('Ha ocurrido un error y no se pudo enviar');
+                        
+                    })
+                    .catch((error)=>{
+                        funciones.AvisoError('Error: ' + error);
+                        $('#modalWait').modal('hide');
+                    })
+    
+                })
+
+            }
+        })
+};
+
+
+
 

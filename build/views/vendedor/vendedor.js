@@ -443,39 +443,8 @@ async function addListeners(){
     await apigen.vendedorTotalDia(GlobalCodSucursal,GlobalCodUsuario,funciones.getFecha(),'lbTotalDia');
 
     //verifica si hay pedidos pendientes
-    selectVentasPendientes(GlobalUsuario)
-    .then((response)=>{
-        let container = document.getElementById('tblPedidosPendientes');
-        container.innerHTML = GlobalLoader;
-        
-        let str = '';
-        let contador = 0;
-
-        response.map((rs)=>{
-            contador = contador + 1;
-            str = str + `<tr>
-                            <td>${rs.FECHA}
-                                <br>
-                                <small class="negrita">${rs.CODDOC}-${rs.ID}</small>
-                            </td>
-                            <td>${rs.NOMCLIE}
-                                <br>
-                                <small>${rs.DIRCLIE}</small>
-                            </td>
-                            <td>${funciones.setMoneda(rs.TOTALPRECIO,'Q')}
-                            </td>
-                            <td>
-                                <button class="btn btn-success btn-circle" onclick="sendPedido(${rs.ID});">
-                                    <i class="fal fa-paper-plane"></i>
-                                </button>
-                            </td>
-                        </tr>`    
-        })
-        container.innerHTML = str;
-        btnPedidosPend.innerHTML = `<i class="fal fa-bell"></i>${contador}`;
-
-    });
-
+    dbCargarPedidosPendientes();
+    
 };
 
 function inicializarVista(){

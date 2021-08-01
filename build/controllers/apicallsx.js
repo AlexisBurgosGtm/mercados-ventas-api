@@ -2435,7 +2435,7 @@ let apigen = {
 
 
         
-        let strEncabezado = `DISTRIBUIDORA MERCADOS EFECTIVOS \n Recordatorio de Pedido \n --------------------------------- \n`;
+        let strEncabezado = `DISTRIBUIDORA ${GlobalEmpNombre} \n Recordatorio de Pedido \n --------------------------------- \n`;
 
         let strdata = '';
 
