@@ -452,8 +452,3 @@ function inicializarVista(){
     addListeners();
 };
 
-
-function sendPedido(id){
-
-
-}

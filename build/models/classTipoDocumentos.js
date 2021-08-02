@@ -69,6 +69,23 @@ let classTipoDocumentos = {
         });
 
         
+    },
+    getCorrelativoDocumento: (tipodoc,coddoc)=>{
+        
+        return new Promise((resolve,reject)=>{
+            let correlativo = '0';
+            axios.get('/tipodocumentos/correlativodoc?empnit=' + GlobalEmpnit + '&tipo=' + tipodoc + '&coddoc=' + coddoc  + '&app=' + GlobalSistema)
+            .then((response) => {
+                const data = response.data;        
+                data.recordset.map((rows)=>{
+                    correlativo = `${rows.CORRELATIVO}`
+                })
+                resolve(correlativo.toString());            
+            }, (error) => {
+                console.log(error);
+                reject('0');
+            });
+        })
+        
     }
-
 }

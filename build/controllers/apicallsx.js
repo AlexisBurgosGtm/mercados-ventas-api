@@ -3053,6 +3053,7 @@ let apigen = {
     },
     updateClientesLastSale:(nitclie,visita)=>{
         return new Promise((resolve,reject)=>{
+            updateSaleCliente(GlobalSelectedCodCliente)
             axios.post('/clientes/lastsale',{
                 sucursal:GlobalCodSucursal,
                 nitclie:nitclie,

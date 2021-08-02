@@ -213,6 +213,21 @@ function selectCliente(dia) {
     });
 };
 
+async function updateSaleCliente(codigo) {
+
+    var noOfRowsUpdated = await connection.update({ 
+            in: "clientes",
+          set: {
+              LASTSALE:funciones.getFecha()
+          },
+          where: {
+              CODIGO:codigo.toString()
+          }
+    });
+    console.log('Cliente actualizado, rows: ' + noOfRowsUpdated.toString())
+
+};
+
 
 
 
@@ -438,76 +453,97 @@ function getPedidoEnviar(id){
 }
 
 function dbSendPedido(id){
-        
+   
         funciones.Confirmacion('¿Está seguro que desea Enviar este Pedido')
         .then((value)=>{
             if(value==true){
-                setLog(`<label class="text-danger">Intentando enviar el pedido...</label>`,'rootWait');
-                $('#modalWait').modal('show');
                 
-                let data; 
+                setLog(`<label class="text-danger">Intentando obtener el correlativo de documentos...</label>`,'rootWait');
+                $('#modalWait').modal('show');
 
-                getPedidoEnviar(id)
-                .then((response)=>{
-                    response.map((rs)=>{
-                        data = {
-                            jsondocproductos:rs.JSONPRODUCTOS,
-                            codsucursal:rs.CODSUCURSAL,
-                            empnit: rs.EMPNIT,
-                            coddoc:rs.CODDOC,
-                            correl: 9000,
-                            anio:rs.ANIO,
-                            mes:rs.MES,
-                            dia:rs.DIA,
-                            fecha:rs.FECHA,
-                            fechaentrega:rs.FECHAENTREGA,
-                            formaentrega:rs.FORMAENTREGA,
-                            codbodega:GlobalCodBodega,
-                            codcliente: rs.CODCLIE,
-                            nomclie:rs.NOMCLIE,
-                            totalcosto:rs.TOTALCOSTO,
-                            totalprecio:rs.TOTALPRECIO,
-                            nitclie:rs.NITCLIE,
-                            dirclie:rs.DIRCLIE,
-                            obs:rs.OBS,
-                            direntrega:rs.DIRENTREGA,
-                            usuario:rs.USUARIO,
-                            codven:rs.CODVEN,
-                            lat:rs.LAT,
-                            long:rs.LONG
-                        }
-                    })
-                    
-                    setLog(`<label class="text-info">Enviando pedido...</label>`,'rootWait');
-              
-                    axios.post('/ventas/insertventa', data)
-                    .then(async(response) => {
-                        const data = response.data;
-                        if (data.rowsAffected[0]==0){
-                            funciones.AvisoError('No se logró Enviar este pedido, se intentará guardarlo en el teléfono');   
-                        }else{
-                            funciones.Aviso('Pedido Enviado Exitosamente !!!')
-                           
-                            //actualiza la ubicación del empleado
-                            await classEmpleados.updateMyLocation();
-                            deletePedidoEnviado(id)
-                            .then(()=>{
-                                dbCargarPedidosPendientes();
-                            })
-                                                                               
-                        }
-                        $('#modalWait').modal('hide');
-                    }, (error) => {
+                classTipoDocumentos.getCorrelativoDocumento('PED',GlobalCoddoc)
+                .then((correlativo)=>{
+                    //lee el documento de la base de datos local y lo intenta enviar
+                    setLog(`<label class="text-danger">Cargando los datos del documento para intentarlo enviar...</label>`,'rootWait');
                         
-                        funciones.AvisoError('Ha ocurrido un error y no se pudo enviar');
+                    let data; 
+                    let nit;
+                    getPedidoEnviar(id)
+                    .then((response)=>{
+                        response.map((rs)=>{
+                            nit = rs.NITCLIE;
+                            GlobalSelectedCodCliente = rs.CODCLIE;
+                            data = {
+                                jsondocproductos:rs.JSONPRODUCTOS,
+                                codsucursal:rs.CODSUCURSAL,
+                                empnit: rs.EMPNIT,
+                                coddoc:rs.CODDOC,
+                                correl: correlativo.toString(),
+                                anio:rs.ANIO,
+                                mes:rs.MES,
+                                dia:rs.DIA,
+                                fecha:rs.FECHA,
+                                fechaentrega:rs.FECHAENTREGA,
+                                formaentrega:rs.FORMAENTREGA,
+                                codbodega:GlobalCodBodega,
+                                codcliente: rs.CODCLIE,
+                                nomclie:rs.NOMCLIE,
+                                totalcosto:rs.TOTALCOSTO,
+                                totalprecio:rs.TOTALPRECIO,
+                                nitclie:rs.NITCLIE,
+                                dirclie:rs.DIRCLIE,
+                                obs:rs.OBS,
+                                direntrega:rs.DIRENTREGA,
+                                usuario:rs.USUARIO,
+                                codven:rs.CODVEN,
+                                lat:rs.LAT,
+                                long:rs.LONG
+                            }
+                        })
                         
+                        setLog(`<label class="text-info">Intentando enviar el pedido...</label>`,'rootWait');
+                
+                        axios.post('/ventas/insertventa', data)
+                        .then(async(response) => {
+                            const data = response.data;
+                            if (data.rowsAffected[0]==0){
+                                funciones.AvisoError('No se logró Enviar este pedido, se intentará guardarlo en el teléfono');   
+                            }else{
+                                funciones.Aviso('Pedido Enviado Exitosamente !!!')
+                            
+                                //actualiza la ubicación del empleado
+                                await classEmpleados.updateMyLocation();
+                                //actualiza la última venta del cliente
+                                await apigen.updateClientesLastSale(nit,'VENTA');
+                                deletePedidoEnviado(id)
+                                .then(()=>{
+                                    dbCargarPedidosPendientes();
+                                })
+                                                                                
+                            }
+                            $('#modalWait').modal('hide');
+                        }, (error) => {
+                            
+                            funciones.AvisoError('Ha ocurrido un error y no se pudo enviar');
+                            $('#modalWait').modal('hide');
+                        })
+                        .catch((error)=>{
+                            funciones.AvisoError('Error: ' + error);
+                            $('#modalWait').modal('hide');
+                        })
+        
                     })
-                    .catch((error)=>{
-                        funciones.AvisoError('Error: ' + error);
-                        $('#modalWait').modal('hide');
-                    })
-    
+
+
                 })
+                .catch(()=>{
+                    $('#modalWait').modal('hide');
+                    funciones.AvisoError('No se pudo obtener el correlativo del documento a generar, revise su conexión a internet')
+                })
+                
+                            
+                
+          
 
             }
         })

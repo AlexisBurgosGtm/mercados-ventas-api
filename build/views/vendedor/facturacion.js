@@ -1438,6 +1438,7 @@ async function fcnFinalizarPedido(){
                             
                             //actualiza la última venta del cliente
                             apigen.updateClientesLastSale(nit,'VENTA');
+                            
                             //elimina el temp ventas asociado al empleado
                             deleteTempVenta(GlobalUsuario)
     
