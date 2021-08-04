@@ -932,7 +932,7 @@ function fcnBusquedaProducto(idFiltro,idTablaResultado,idTipoPrecio){
                 <td >
                     ${funciones.quitarCaracteres(rows.DESPROD,'"'," pulg",true)}
                     <br>
-                    <small class="text-danger"><b>${rows.CODPROD}</b></small>
+                    <small class="text-danger"><b>${rows.CODPROD}</b></small><small class="text-info">//Escala:${rows.DESPROD3}</small>
                     <br>
                     <b class"bg-danger text-white">${rows.CODMEDIDA}</b>
                     <small>(${rows.EQUIVALE})</small>
