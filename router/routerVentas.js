@@ -126,9 +126,9 @@ router.get("/buscarproducto", async(req,res)=>{
 
 
 // VENTAS BUSCAR PRODUCTO POR DESCRIPCION
-router.get("/buscarproductotodos", async(req,res)=>{
+router.post("/buscarproductotodos", async(req,res)=>{
     
-    const {sucursal} = req.query;
+    const {sucursal} = req.body;
     // app= sucusal
     // K= CAMBIO DE PRODUCTO
 
@@ -493,6 +493,26 @@ router.post("/deletepedidovendedor",async(req,res)=>{
 
 })
 
+
+//LOGRO MES
+router.post("/logromesvendedor", async(req,res)=>{
+    const {sucursal,codven,mes,anio}  = req.body;
+    
+    let qry = '';
+    
+    qry = `
+    SELECT  COUNT(ME_Documentos.DOC_NUMERO) AS PEDIDOS, ISNULL(SUM(ME_Documentos.DOC_TOTALVENTA), 0) AS IMPORTE, ME_USUARIOS.OBJETIVOMES AS OBJETIVO
+    FROM  ME_Documentos LEFT OUTER JOIN
+                             ME_USUARIOS ON ME_Documentos.CODVEN = ME_USUARIOS.CODUSUARIO AND ME_Documentos.CODSUCURSAL = ME_USUARIOS.CODSUCURSAL
+    WHERE (ME_Documentos.CODSUCURSAL = '${sucursal}') AND (ME_Documentos.CODVEN = 1) AND (ME_Documentos.DOC_ESTATUS <> 'A')
+    GROUP BY ME_USUARIOS.OBJETIVOMES, ME_USUARIOS.TIPO, ME_Documentos.DOC_ANO, ME_Documentos.DOC_MES
+    HAVING  (ME_USUARIOS.TIPO = 'VENDEDOR') AND (ME_Documentos.DOC_ANO = ${anio}) AND (ME_Documentos.DOC_MES = ${mes})
+    `
+
+    execute.Query(res,qry);
+});
+
+
 // TOTAL VENTAS Y TOTAL PEDIDOS POR FECHA
 router.post("/totalventadia", async(req,res)=>{
     const {sucursal,codven,fecha}  = req.body;
@@ -501,7 +521,7 @@ router.post("/totalventadia", async(req,res)=>{
     qry = `SELECT COUNT(DOC_NUMERO) AS PEDIDOS, ISNULL(SUM(DOC_TOTALVENTA),0) AS IMPORTE
             FROM ME_Documentos
             WHERE (CODSUCURSAL ='${sucursal}') AND (DOC_FECHA = '${fecha}') AND (CODVEN = ${codven}) AND (DOC_ESTATUS<>'A')`
-    
+        
     execute.Query(res,qry);
 });
 
@@ -912,7 +932,12 @@ router.post("/insertventa", async (req,res)=>{
                 '', '', 0, ${lat},${long},'${app}'
                 );`
                    
-                qrycorrelativo =`UPDATE ME_TIPODOCUMENTOS SET CORRELATIVO=${nuevocorrelativo} WHERE CODSUCURSAL='${codsucursal}' AND CODDOC='${coddoc}';`
+                qrycorrelativo =`   UPDATE ME_TIPODOCUMENTOS 
+                                        SET CORRELATIVO=${nuevocorrelativo} 
+                                        WHERE CODSUCURSAL='${codsucursal}' AND CODDOC='${coddoc}';
+                                    UPDATE ME_USUARIOS 
+                                        SET CORRELATIVO=${nuevocorrelativo} 
+                                        WHERE CODSUCURSAL='${codsucursal}' AND CODDOC='${coddoc}';`
       
     execute.Query(res, qrycorrelativo + qry + qrydoc);
     
@@ -924,7 +949,12 @@ router.post("/updatecorrelativo", async (req,res)=>{
 
     let nuevocorrelativo = Number(correlativo) + 1;
 
-    let qrycorrelativo =`UPDATE ME_TIPODOCUMENTOS SET CORRELATIVO=${nuevocorrelativo} WHERE CODSUCURSAL='${codsucursal}' AND CODDOC='${coddoc}';`
+    let qrycorrelativo =`UPDATE ME_TIPODOCUMENTOS 
+                            SET CORRELATIVO=${nuevocorrelativo} 
+                            WHERE CODSUCURSAL='${codsucursal}' AND CODDOC='${coddoc}';
+                        UPDATE ME_USUARIOS 
+                            SET CORRELATIVO=${nuevocorrelativo} 
+                            WHERE CODSUCURSAL='${codsucursal}' AND CODDOC='${coddoc}';`
     execute.Query(res,qrycorrelativo);
 
 });

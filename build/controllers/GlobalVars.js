@@ -16,6 +16,7 @@ lbTipo.innerText = "Inicie sesión";
 let GlobalToken = 'MERCADOSEFECTIVOS';
 let GlobalCodSucursal = '';
 
+let GlobalObjetivoVenta = 0;
 let GlobalCodUsuario = 99999;
 let GlobalUsuario = 'MERCADOSEFECTIVOS';
 let GlobalPassUsuario = '';

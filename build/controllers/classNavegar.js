@@ -62,7 +62,7 @@ let classNavegar = {
                             </button>
                             <button class="btn btn-sm text-white"  id="btnMenu2VendedorSync">
                                 <i class="fal fa-sync"></i>
-                                Sync
+                                Descargar
                             </button>
         `
         let strMenu =   `

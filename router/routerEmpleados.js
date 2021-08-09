@@ -8,7 +8,7 @@ router.get("/login",async(req,res)=>{
 
     
     let qry ='';
-    qry = `SELECT CODUSUARIO AS CODIGO, NOMBRE AS USUARIO, TIPO, CODDOC, CODSUCURSAL 
+    qry = `SELECT CODUSUARIO AS CODIGO, NOMBRE AS USUARIO, TIPO, CODDOC, CODSUCURSAL, ISNULL(OBJETIVOMES,100000) AS OBJETIVO 
             FROM ME_USUARIOS 
             WHERE CODSUCURSAL='${codsucursal}' AND NOMBRE='${user}' AND PASS='${pass}' 
             OR CODSUCURSAL='TODOS' AND NOMBRE='${user}' AND PASS='${pass}'`;
