@@ -547,7 +547,7 @@ function dbCargarPedidosPendientes(){
 
         response.map((rs)=>{
             contador = contador + 1;
-            str = str + `<tr>
+            str = str + `<tr class="border-bottom">
                             <td>${rs.FECHA}
                                 <br>
                                 <small class="negrita">${rs.CODDOC}-${rs.ID}</small>
@@ -668,13 +668,14 @@ function dbSendPedido(id){
                             }
                             $('#modalWait').modal('hide');
                         }, (error) => {
-                            
+                            $('#modalWait').modal('hide'); 
                             funciones.AvisoError('Ha ocurrido un error y no se pudo enviar');
-                            $('#modalWait').modal('hide');
+                           
                         })
                         .catch((error)=>{
-                            funciones.AvisoError('Error: ' + error);
                             $('#modalWait').modal('hide');
+                            funciones.AvisoError('Error: ' + error);
+                           
                         })
         
                     })
@@ -695,5 +696,11 @@ function dbSendPedido(id){
 };
 
 
+function dbSendPedidosBackground(usuario){
+    return new Promise((resolve,reject)=>{
+        funciones.Aviso('Enviando pedidos en background')
 
+    })
+    
+};
 

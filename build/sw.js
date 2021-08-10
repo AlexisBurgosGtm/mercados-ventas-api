@@ -1,5 +1,5 @@
 
-var CACHE = 'mercadosefectivosoffline4';
+var CACHE = 'mercadosefectivosoffline7';
 const staticAssets = [  
   './css/vendors.bundle.css',
   './css/app.bundle.css',
@@ -99,37 +99,6 @@ self.addEventListener('fetch', async evt => {
 */
 });
 
-/*
-self.addEventListener('fetch', function(evt) {
-  let requestURL = new URL(evt.request.url);
-  //console.log('host request: '+ requestURL.hostname);
-  var req = evt.request.clone();
-  if(req.method=='GET'){
-    if(req.destination==''){}else{
-
-          evt.waitUntil(update(evt.request));
-          evt.respondWith(fromCache(evt.request));
-
-    }
-  }*/
-
-  /*
-  var req = evt.request.clone();
-  if (navigator.onLine){
-    if (req.clone().method == "GET") {
-      //evt.respondWith(fromCache(evt.request));
-      evt.waitUntil(update(evt.request));
-    }
-  }else{
-    if (req.clone().method == "GET") {
-      evt.respondWith(fromCache(evt.request));
-      //evt.waitUntil(update(evt.request));
-    }
-  }
-  
-});
-  */
-
 
 function fromCache(request) {
   return caches.open(CACHE).then(function (cache) {
@@ -151,3 +120,14 @@ async function update(request) {
 }
     
 
+
+//registra el tag del background sync
+self.addEventListener('ready',async function(swRegistration) {
+  return swRegistration.sync.register('sendSalesSync');
+});
+
+self.addEventListener('sync', function(event) {
+  if (event.tag == 'sendSalesSync') {
+    event.waitUntil(dbSendPedidosBackground(GlobalUsuario).then(()=>{funciones.NotificacionPersistent('Enviando pedidos en background','sincronización sw')  }));
+  }
+});
