@@ -1532,6 +1532,7 @@ async function fcnFinalizarPedido(){
                                             fcnNuevoPedido();
                                         })
                                         .catch(()=>{
+                                            $('#modalWait').modal('hide'); 
                                             funciones.AvisoError('No se pudo guardar este pedido')
                                         }) 
                                     });        
