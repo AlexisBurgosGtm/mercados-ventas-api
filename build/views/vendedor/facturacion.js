@@ -1508,7 +1508,8 @@ async function fcnFinalizarPedido(){
                         
                                         insertVenta(datospedido)
                                         .then(async()=>{
-                                            funciones.Aviso('El pedido será guardado localmente, recuerde enviarlo');
+                                            funciones.showToast('El pedido será guardado localmente, recuerde enviarlo');
+                                            //funciones.Aviso('El pedido será guardado localmente, recuerde enviarlo');
                                             
                                             document.getElementById('btnEntregaCancelar').click();
                                                
@@ -1520,7 +1521,7 @@ async function fcnFinalizarPedido(){
                                             //elimina el temp ventas asociado al empleado
                                             deleteTempVenta(GlobalUsuario)
                                            
-                                            await $('#modalWait').modal('hide');
+                                            $('#modalWait').modal('hide');
                                             //prepara todo para un nuevo pedido
                                             fcnNuevoPedido();
                                         })
