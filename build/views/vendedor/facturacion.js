@@ -1432,7 +1432,7 @@ async function fcnFinalizarPedido(){
                             
                           
 
-                            funciones.Aviso('El pedido será guardado localmente, recuerde enviarlo');
+                            funciones.showToast('El pedido será guardado localmente, recuerde enviarlo');
                            
                             document.getElementById('btnEntregaCancelar').click();
                                                                            
@@ -1477,7 +1477,7 @@ async function fcnFinalizarPedido(){
                 }, (error) => {
                     console.log(error);
                    
-                    funciones.AvisoError('Ha ocurrido un error y no se pudo enviar, se intentará guardar en el teléfono');
+                    funciones.showToast('Ha ocurrido un error y no se pudo enviar, se intentará guardar en el teléfono');
                     //$('#modalWait').modal('hide');
                     
                                          //guarda el pedido localmente
