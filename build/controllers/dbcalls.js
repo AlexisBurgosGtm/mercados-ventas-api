@@ -698,8 +698,7 @@ function dbSendPedido(id){
 
 function dbSendPedidosBackground(usuario){
     return new Promise((resolve,reject)=>{
-        funciones.Aviso('Enviando pedidos en background')
-
+        resolve();
     })
     
 };

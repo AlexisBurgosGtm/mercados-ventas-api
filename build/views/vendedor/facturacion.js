@@ -1398,8 +1398,8 @@ async function fcnFinalizarPedido(){
                     const data = response.data;
                     if (data.rowsAffected[0]==0){
                         
-                     
-                        funciones.AvisoError('No se logró Enviar este pedido, se intentará guardarlo en el teléfono');
+                        funciones.showToast('No se logró Enviar este pedido, se intentará guardarlo en el teléfono')
+                        //funciones.AvisoError('No se logró Enviar este pedido, se intentará guardarlo en el teléfono');
                         
                         //guarda el pedido localmente
                         var datospedido = {
@@ -1429,6 +1429,9 @@ async function fcnFinalizarPedido(){
         
                         insertVenta(datospedido)
                         .then(async()=>{
+                            
+                          
+
                             funciones.Aviso('El pedido será guardado localmente, recuerde enviarlo');
                            
                             document.getElementById('btnEntregaCancelar').click();
@@ -1447,9 +1450,9 @@ async function fcnFinalizarPedido(){
                             //prepara todo para un nuevo pedido
                             fcnNuevoPedido();
                         })
-                        .catch(()=>{
+                        .catch(async()=>{
+                            await $('#modalWait').modal('hide');
                             funciones.AvisoError('No se pudo guardar este pedido')
-                            $('#modalWait').modal('hide');
                         })
 
                     }else{
@@ -1517,7 +1520,7 @@ async function fcnFinalizarPedido(){
                                             //elimina el temp ventas asociado al empleado
                                             deleteTempVenta(GlobalUsuario)
                                            
-                                            $('#modalWait').modal('hide');
+                                            await $('#modalWait').modal('hide');
                                             //prepara todo para un nuevo pedido
                                             fcnNuevoPedido();
                                         })
@@ -1528,9 +1531,9 @@ async function fcnFinalizarPedido(){
 
             })
             .catch((error)=>{
-                //$('#modalWait').modal('hide');
-                funciones.AvisoError('No pude crear la tabla de productos del pedido ' + error);
                 $('#modalWait').modal('hide');
+                funciones.AvisoError('No pude crear la tabla de productos del pedido ' + error);
+                //$('#modalWait').modal('hide');
                 //document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';
             })
 
