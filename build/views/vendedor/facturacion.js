@@ -1398,7 +1398,9 @@ async function fcnFinalizarPedido(){
                     const data = response.data;
                     if (data.rowsAffected[0]==0){
                         
-                        funciones.showToast('No se logró Enviar este pedido, se intentará guardarlo en el teléfono')
+                        setLog(`<label class="text-info">No se logró Enviar este pedido, se intentará guardarlo en el teléfono</label>`,'rootWait');
+                
+                        //funciones.showToast('No se logró Enviar este pedido, se intentará guardarlo en el teléfono')
                         //funciones.AvisoError('No se logró Enviar este pedido, se intentará guardarlo en el teléfono');
                         
                         //guarda el pedido localmente
@@ -1431,9 +1433,9 @@ async function fcnFinalizarPedido(){
                         .then(async()=>{
                             
                           
+                            //setLog(`<label class="text-info">No se logró Enviar este pedido, se intentará guardarlo en el teléfono</label>`,'rootWait');
+                            $('#modalWait').modal('hide');
 
-                            funciones.showToast('El pedido será guardado localmente, recuerde enviarlo');
-                           
                             document.getElementById('btnEntregaCancelar').click();
                                                                            
                             //actualiza la ubicación del empleado
@@ -1445,18 +1447,20 @@ async function fcnFinalizarPedido(){
                             //elimina el temp ventas asociado al empleado
                             deleteTempVenta(GlobalUsuario)
     
-                            $('#modalWait').modal('hide');
-
+                            
+                            funciones.showToast('El pedido será guardado localmente, recuerde enviarlo');
+                           
                             //prepara todo para un nuevo pedido
                             fcnNuevoPedido();
                         })
-                        .catch(async()=>{
-                            await $('#modalWait').modal('hide');
+                        .catch(()=>{
+                            $('#modalWait').modal('hide');
                             funciones.AvisoError('No se pudo guardar este pedido')
                         })
 
                     }else{
                         
+                        $('#modalWait').modal('hide');
 
                         funciones.Aviso('Pedido Generado Exitosamente !!!')
                        
@@ -1470,14 +1474,16 @@ async function fcnFinalizarPedido(){
                         //elimina el temp ventas asociado al empleado
                         deleteTempVenta(GlobalUsuario)
 
-                        $('#modalWait').modal('hide');
+                       
                         //prepara todo para un nuevo pedido
                         fcnNuevoPedido();
                     }
                 }, (error) => {
                     console.log(error);
+
+                    setLog(`<label class="text-info">Ha ocurrido un error y no se pudo enviar, se intentará guardar en el teléfono</label>`,'rootWait');
                    
-                    funciones.showToast('Ha ocurrido un error y no se pudo enviar, se intentará guardar en el teléfono');
+                    //funciones.showToast('Ha ocurrido un error y no se pudo enviar, se intentará guardar en el teléfono');
                     //$('#modalWait').modal('hide');
                     
                                          //guarda el pedido localmente
@@ -1508,9 +1514,8 @@ async function fcnFinalizarPedido(){
                         
                                         insertVenta(datospedido)
                                         .then(async()=>{
-                                            funciones.showToast('El pedido será guardado localmente, recuerde enviarlo');
                                             //funciones.Aviso('El pedido será guardado localmente, recuerde enviarlo');
-                                            
+                                            $('#modalWait').modal('hide'); 
                                             document.getElementById('btnEntregaCancelar').click();
                                                
                                             //actualiza la ubicación del empleado
@@ -1520,8 +1525,9 @@ async function fcnFinalizarPedido(){
                                             apigen.updateClientesLastSale(nit,'VENTA');
                                             //elimina el temp ventas asociado al empleado
                                             deleteTempVenta(GlobalUsuario)
-                                           
-                                            $('#modalWait').modal('hide');
+                                                                                                                                   
+                                            funciones.showToast('El pedido será guardado localmente, recuerde enviarlo');
+
                                             //prepara todo para un nuevo pedido
                                             fcnNuevoPedido();
                                         })
