@@ -1434,7 +1434,8 @@ async function fcnFinalizarPedido(){
                             
                           
                             //setLog(`<label class="text-info">No se logró Enviar este pedido, se intentará guardarlo en el teléfono</label>`,'rootWait');
-                            $('#modalWait').modal('hide');
+                            //$('#modalWait').modal('hide');
+                            btnCerrarModalWait.click();
 
                             document.getElementById('btnEntregaCancelar').click();
                                                                            
@@ -1454,13 +1455,15 @@ async function fcnFinalizarPedido(){
                             fcnNuevoPedido();
                         })
                         .catch(()=>{
-                            $('#modalWait').modal('hide');
+                            btnCerrarModalWait.click();
+                            //$('#modalWait').modal('hide');
                             funciones.AvisoError('No se pudo guardar este pedido')
                         })
 
                     }else{
                         
-                        $('#modalWait').modal('hide');
+                        //$('#modalWait').modal('hide');
+                        btnCerrarModalWait.click();
 
                         funciones.Aviso('Pedido Generado Exitosamente !!!')
                        
@@ -1515,7 +1518,9 @@ async function fcnFinalizarPedido(){
                                         insertVenta(datospedido)
                                         .then(async()=>{
                                             //funciones.Aviso('El pedido será guardado localmente, recuerde enviarlo');
-                                            $('#modalWait').modal('hide'); 
+                                            //$('#modalWait').modal('hide'); 
+                                            btnCerrarModalWait.click();
+                                            
                                             document.getElementById('btnEntregaCancelar').click();
                                                
                                             //actualiza la ubicación del empleado
@@ -1532,14 +1537,17 @@ async function fcnFinalizarPedido(){
                                             fcnNuevoPedido();
                                         })
                                         .catch(()=>{
-                                            $('#modalWait').modal('hide'); 
+                                            btnCerrarModalWait.click();
+                                            //$('#modalWait').modal('hide'); 
                                             funciones.AvisoError('No se pudo guardar este pedido')
                                         }) 
                                     });        
 
             })
             .catch((error)=>{
-                $('#modalWait').modal('hide');
+                //$('#modalWait').modal('hide');
+                
+                btnCerrarModalWait.click();
                 funciones.AvisoError('No pude crear la tabla de productos del pedido ' + error);
                 //$('#modalWait').modal('hide');
                 //document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-check mr-1"></i>Finalizar';

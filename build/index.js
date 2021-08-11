@@ -3,6 +3,8 @@
 //inicializa la instalacion de la app
 funciones.instalationHandlers('btnInstalarApp');
 
+let btnCerrarModalWait = document.getElementById('btnCerrarModalWait');
+
 function InicializarServiceWorkerNotif(){
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () =>
