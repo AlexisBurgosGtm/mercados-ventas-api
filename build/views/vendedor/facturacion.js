@@ -88,8 +88,8 @@ function getView(){
                     <h2 id="txtTotalVenta" class="text-danger"></h2>
                     <div class="panel-toolbar">
                                                
-                        <button class="btn btn-warning" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen">
-                            <i class="fal fa-angle-double-up"></i>
+                        <button class="btn btn-outline-warning btn-md" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen">
+                            <i class="fal fa-angle-double-up"></i>Maximizar Ventana
                         </button>
                     </div>
                 </div>
@@ -481,6 +481,7 @@ function getView(){
                                             <select id="cmbEntregaConcre" class="form-control">
                                                 <option value="CONTADO">CONTADO</option>
                                                 <option value="CREDITO">CREDITO</option>
+                                                <option value="VALE">VALE AL VENDEDOR</option>
                                             </select>
                                         </div>
 

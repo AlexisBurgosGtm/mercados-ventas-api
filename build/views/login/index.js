@@ -12,7 +12,7 @@ function getView(){
 
                     <div class="card-header bg-danger-outline text-center">
                         <img src="./favicon.png" width=60 height=60>
-                        <p>VENTAS MERCADOS EFECTIVOS</p>
+                        <p>APLICACIÓN DE VENTAS</p>
                     </div>
                     <div class="card-body">
                         <form class="" id="frmLogin" autocomplete="off">

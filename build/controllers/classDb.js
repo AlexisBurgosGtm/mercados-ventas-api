@@ -92,11 +92,22 @@ var tblTempventas = {
         USUARIO:{dataType: "string"},
         TIPOPRECIO:{dataType: "string"}
     }
-}
+};
+
+var tblCredenciales = {
+    name: 'credenciales',
+    columns: {
+        ID:{ primaryKey: true, autoIncrement: true },
+        CODSUCURSAL:{dataType: "string"},
+        USUARIO:{dataType: "string"},
+        PASS:{dataType: "string"},
+        NIVEL:{dataType: "string"}
+    }
+};
 
 var database = {
     name: DbName,
-    tables: [tblDocumentos,tblProductos,tblClientes,tblTempventas]
+    tables: [tblDocumentos,tblProductos,tblClientes,tblTempventas,tblCredenciales]
 };
  
 // initiate jsstore connection

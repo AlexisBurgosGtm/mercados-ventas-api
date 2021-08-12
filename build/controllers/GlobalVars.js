@@ -95,6 +95,16 @@ let GlobalUrl = document.location.origin.toString();
 let nowhatsapp = '50257255092';
 
 
+function showWaitForm(){
+    $('#modalWait').modal('show');
+};
+
+
+function hideWaitForm(){
+    document.getElementById('btnCerrarModalWait').click();
+};
+
+
 //elimina los mensajes de console (  logger.disableLogger()  )
 var logger = function()
 {
@@ -117,3 +127,5 @@ var logger = function()
 
     return pub;
 }();
+
+

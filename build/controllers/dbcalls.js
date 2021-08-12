@@ -652,8 +652,10 @@ function dbSendPedido(id){
                         .then(async(response) => {
                             const data = response.data;
                             if (data.rowsAffected[0]==0){
+                                hideWaitForm();
                                 funciones.AvisoError('No se logró Enviar este pedido, se intentará guardarlo en el teléfono');   
                             }else{
+                                hideWaitForm();
                                 funciones.Aviso('Pedido Enviado Exitosamente !!!')
                             
                                 //actualiza la ubicación del empleado
@@ -666,14 +668,16 @@ function dbSendPedido(id){
                                 })
                                                                                 
                             }
-                            $('#modalWait').modal('hide');
+                            //$('#modalWait').modal('hide');
                         }, (error) => {
-                            $('#modalWait').modal('hide'); 
+                            //$('#modalWait').modal('hide'); 
+                            hideWaitForm();
                             funciones.AvisoError('Ha ocurrido un error y no se pudo enviar');
                            
                         })
                         .catch((error)=>{
-                            $('#modalWait').modal('hide');
+                            //$('#modalWait').modal('hide');
+                            hideWaitForm();
                             funciones.AvisoError('Error: ' + error);
                            
                         })
@@ -683,7 +687,8 @@ function dbSendPedido(id){
 
                 })
                 .catch(()=>{
-                    $('#modalWait').modal('hide');
+                    //$('#modalWait').modal('hide');
+                    hideWaitForm();
                     funciones.AvisoError('No se pudo obtener el correlativo del documento a generar, revise su conexión a internet')
                 })
                 
