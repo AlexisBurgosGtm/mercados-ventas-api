@@ -47,12 +47,14 @@ document.getElementById('btnDownloadProductos').addEventListener('click',()=>{
                     });
                 })
                 .catch(()=>{
-                    $('#modalWait').modal('hide');
+                    //$('#modalWait').modal('hide');
+                    hideWaitForm();
                     funciones.AvisoError('No se pudieron eliminar los productos previos')       
                 })
             })
             .catch(()=>{
-                $('#modalWait').modal('hide');
+                hideWaitForm();
+                //$('#modalWait').modal('hide');
                 funciones.AvisoError('No se pudieron descargar los productos')
             })
 
@@ -103,19 +105,22 @@ document.getElementById('btnDownloadClientes').addEventListener('click',()=>{
                             setLog(`<label>Clientes agregados: ${contador} de ${totalrows} (${porc.toFixed(2)} %)</label>`,'rootWait')
                             contador += 1;
                             if(totalrows==contador){
-                                $('#modalWait').modal('hide');
+                                hideWaitForm();
+                                //$('#modalWait').modal('hide');
                                 funciones.Aviso('Clientes descargados exitosamente!!')
                             }
                         }
                     });
                 })
                 .catch(()=>{
-                    $('#modalWait').modal('hide');
+                    hideWaitForm();
+                    //$('#modalWait').modal('hide');
                     funciones.AvisoError('No se pudieron eliminar los Clientes previos')
                 })
             })
             .catch(()=>{
-                $('#modalWait').modal('hide');
+                hideWaitForm();
+                //$('#modalWait').modal('hide');
                 funciones.AvisoError('No se pudieron descargar los clientes')
             })
                   

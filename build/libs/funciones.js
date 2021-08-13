@@ -290,6 +290,7 @@ let funciones = {
         return (((sign) ? '' : '-') + signo + ' ' + num + ((cents == "00") ? '' : '.' + cents)).toString();
     },
     setMargen: function(num,signo) {
+      
       num = num.toString().replace(/\$|\,/g, '');
       if (isNaN(num)) num = "0";
       let sign = (num == (num = Math.abs(num)));

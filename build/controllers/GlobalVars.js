@@ -106,7 +106,8 @@ function hideWaitForm(){
         $('body').removeClass('modal-open'); 
         $('.modal-backdrop').remove(); 
     };
-    $('#modalWait').modal('hide');
+
+    //$('#modalWait').modal('hide');
     document.getElementById('btnCerrarModalWait').click();
 
 };

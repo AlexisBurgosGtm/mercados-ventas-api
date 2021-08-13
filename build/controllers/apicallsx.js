@@ -684,8 +684,15 @@ let apigen = {
                                             </td>
                                         </tr>`
             })
+            let faltan = Number(GlobalObjetivoVenta)-Number(total);
+            let logro = total / GlobalObjetivoVenta;
             container.innerHTML = tbl + strdata + tblfoot;
-            lbTotal.innerText = funciones.setMoneda(total,'Q ') + ' Pedidos: ' + pedidos.toString();
+            lbTotal.innerHTML = `Vendido:${funciones.setMoneda(total,'Q ')}
+            <br>Pedidos: ${pedidos.toString()} 
+            <br>Objetivo: ${funciones.setMoneda(GlobalObjetivoVenta,'Q')}
+            <br>Faltan: ${funciones.setMoneda(faltan,'Q')}
+            <br>Logro:${funciones.setMargen((logro*100),'%')}
+                                ` ;
         }, (error) => {
             funciones.AvisoError('Error en la solicitud');
             strdata = '';
