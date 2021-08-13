@@ -124,11 +124,6 @@ document.getElementById('btnDownloadClientes').addEventListener('click',()=>{
     })
 });
 
-//esta linea ayuda a que las modales cierren
-if ($('.modal-backdrop').is(':visible')) {
-    $('body').removeClass('modal-open'); 
-    $('.modal-backdrop').remove(); 
-};
 
 
 function downloadProductos (){
@@ -566,7 +561,14 @@ function dbCargarPedidosPendientes(){
                         </tr>`    
         })
         container.innerHTML = str;
+        if(Number(contador)>0){
+            btnPedidosPend.className = 'btn btn-danger btn-lg btn-icon rounded-circle shadow';
+        }else{
+            btnPedidosPend.className = 'btn btn-outline-secondary btn-lg btn-icon rounded-circle shadow';
+        }
+        
         btnPedidosPend.innerHTML = `<i class="fal fa-bell"></i>${contador}`;
+        
 
     });
 };

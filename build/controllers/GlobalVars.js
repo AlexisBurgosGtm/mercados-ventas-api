@@ -101,7 +101,14 @@ function showWaitForm(){
 
 
 function hideWaitForm(){
+    //esta linea ayuda a que las modales cierren
+    if ($('.modal-backdrop').is(':visible')) {
+        $('body').removeClass('modal-open'); 
+        $('.modal-backdrop').remove(); 
+    };
+    $('#modalWait').modal('hide');
     document.getElementById('btnCerrarModalWait').click();
+
 };
 
 

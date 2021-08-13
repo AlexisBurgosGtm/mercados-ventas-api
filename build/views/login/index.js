@@ -3,11 +3,13 @@ function getView(){
         login : ()=>{
             return `
         <div class="row">
+     
             <div class="col-md-4 col-sm-12 col-lg-4 col-lx-4">
                 
             </div>
 
             <div class="col-md-4 col-sm-12 col-lg-4 col-lx-4">
+   
                 <div class="card shadow">
 
                     <div class="card-header bg-danger-outline text-center">
@@ -45,10 +47,16 @@ function getView(){
                         </form>
                     </div>
 
+                
+    
+
                 </div>
             </div>
 
             <div class="col-md-4 col-sm-12 col-lg-4 col-lx-4"></div>
+
+            
+     
             `
         }
     };
