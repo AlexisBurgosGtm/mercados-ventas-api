@@ -49,10 +49,11 @@ document.getElementById('btnDownloadProductos').addEventListener('click',()=>{
                 .catch(()=>{
                     //$('#modalWait').modal('hide');
                     hideWaitForm();
-                    funciones.AvisoError('No se pudieron eliminar los productos previos')       
+                   funciones.AvisoError('No se pudieron eliminar los productos previos')       
                 })
             })
             .catch(()=>{
+                console.log('no se descargó naa.')
                 hideWaitForm();
                 //$('#modalWait').modal('hide');
                 funciones.AvisoError('No se pudieron descargar los productos')
@@ -137,6 +138,7 @@ function downloadProductos (){
 
         axios.post('/ventas/buscarproductotodos', {sucursal:GlobalCodSucursal})  
         .then(async(response) => {
+            console.log(response);
             const data = response.data;
             if(data.rowsAffected[0]==0){
                 reject();

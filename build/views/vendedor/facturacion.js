@@ -1525,7 +1525,7 @@ async function fcnFinalizarPedido(){
                                             //$('#modalWait').modal('hide'); 
                                             //btnCerrarModalWait.click();
                                             
-                                            hideWaitForm();
+                                            
 
                                             document.getElementById('btnEntregaCancelar').click();
                                                
@@ -1541,6 +1541,9 @@ async function fcnFinalizarPedido(){
 
                                             //prepara todo para un nuevo pedido
                                             fcnNuevoPedido();
+                                            
+                                            hideWaitForm();
+
                                         })
                                         .catch(()=>{
                                             hideWaitForm();
