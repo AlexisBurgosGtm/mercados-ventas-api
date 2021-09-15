@@ -2,12 +2,12 @@ function getView(){
     let view = {
         encabezado: ()=>{
             return `
-            <div class="col-12 bg-trans-gradient text-white">
+            <div class="col-12 bg-secondary text-white">
                 <h5>Pedidos tomados por fecha</h5>
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                    <input type="date" class="form-control" id="txtFechaPedido">
+                    <input type="date" class="form-control border-top-0 border-right-0 border-left-0" id="txtFechaPedido">
                 </div>
                 
                 <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
@@ -17,19 +17,19 @@ function getView(){
             </div>
             <div class="row">
                 <div class="col-4">
-                    <button class="btn btn-success" id="btnCargarPedidos">
+                    <button class="btn btn-outline-secondary shadow" id="btnCargarPedidos">
                         <i class="fal fa-tag"></i>
                         Pedidos
                     </button>                
                 </div>
                 <div class="col-4">
-                    <button class="btn btn-success" id="btnCargarProductos">
+                    <button class="btn btn-outline-success shadow" id="btnCargarProductos">
                         <i class="fal fa-cube"></i>
                         Producto
                     </button>                
                 </div>
                 <div class="col-4">
-                    <button class="btn btn-success" id="btnCargarMarcas">
+                    <button class="btn btn-outline-info shadow" id="btnCargarMarcas">
                         <i class="fal fa-credit-card-front"></i>    
                         Marcas
                     </button>                
