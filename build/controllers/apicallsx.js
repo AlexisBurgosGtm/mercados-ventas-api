@@ -287,29 +287,31 @@ let apigen = {
                                 </div>
                             </div>
                             <small>${rows.DIRCLIE}, ${rows.DESMUNI}<b></b></small>
-                            
-                        </td>
-                        <td>
-                            <br>
-                            <small></small>
                             <br>
                             <small class="text-info">Ref:${rows.REFERENCIA}</small>
-                        </td>
-                        <td>
-                            <button class="btn btn-info btn-sm btn-circle" onclick="getMenuCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
-                                <i class="fal fa-shopping-cart"></i>
-                            </button>
-                        </td>
+                            
+                            <div class="row">
                                 
-                        <td>
-                            <button class="btn btn-warning btn-sm btn-circle" onclick="getHistorialCliente('${rows.CODIGO}','${rows.NIT}','${rows.NOMCLIE}');">
-                                <i class="fal fa-book"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary btn-sm btn-circle" onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}');">
-                                <i class="fal fa-map"></i>
-                            </button>
+                                <div class="col-4">
+                                    <button class="btn btn-primary-outline btn-sm btn-circle" onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}');">
+                                        <i class="fal fa-map"></i>Ubicac
+                                    </button>
+                                </div>
+                                                                        
+                                <div class="col-4">
+                                    <button class="btn btn-warning-outline btn-sm" onclick="getHistorialCliente('${rows.CODIGO}','${rows.NIT}','${rows.NOMCLIE}');">
+                                        <i class="fal fa-book"></i>Historial
+                                    </button>
+                                </div>
+                                
+                                <div class="col-4">
+                                    <button class="btn btn-info btn-sm " onclick="getMenuCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
+                                        <i class="fal fa-shopping-cart"></i>Vender
+                                    </button>
+                                </div>
+                                
+                            </div>
+                            
                         </td>
                     </tr>`    
                     
