@@ -1,5 +1,23 @@
 
+.bg-custom-1{
+  background: rgb(241,18,18);
+  background: radial-gradient(circle, rgba(241,18,18,1) 0%, rgba(93,43,31,1) 97%);
+}
 
+.bg-custom-2{
+  background: rgb(10,10,10);
+background: radial-gradient(circle, rgba(10,10,10,1) 0%, rgba(85,17,0,1) 97%);
+}
+
+.border-top-rounded{
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+
+.border-bottom-rounded{
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
 /* EVITA EL PULL TO REFRESH CON LA CLASE BODY Y LUEGO UN DIV WRAPPER */
 
 .body,
@@ -157,6 +175,12 @@
   bottom: 40px;
 }
 
+.leftbutton2 { 
+  position: fixed;
+  z-index: 1088;
+  left: 5px;
+  bottom: 20px;
+}
   
   .hand {
       cursor: pointer;

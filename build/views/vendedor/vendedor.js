@@ -2,15 +2,14 @@ function getView(){
     let view = {
         encabezado : ()=>{
             return `
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 id="lbTotalDia">Seleccione Dia</h4>
-                           
+                    <div class="card border-top-rounded">
+                        <div class="card-header bg-white">
+                            <h4 class="negrita" id="lbTotalDia">Seleccione Dia</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">   
-                                    <select class="form-control" id="cmbDiaVisita"></select>                                          
+                                    <select class="negrita form-control border-secondary border-top-0 border-right-0 border-left-0" id="cmbDiaVisita"></select>                                          
                                 </div>
                             </div> 
                         </div>
@@ -51,7 +50,7 @@ function getView(){
         tabsClientes :()=>{
             return `
             <div class="panel-container show">
-                <div class="panel-content">
+                <div class="panel-content bg-white">
                     <ul class="nav nav-pills nav-justified" role="tablist">
                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#panelNoVisitados">No Visit</a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panelVisitados">Visitados</a></li>
@@ -62,18 +61,13 @@ function getView(){
                         <div class="tab-pane fade active show" id="panelNoVisitados" role="tabpanel">
                             <div class="table-responsive">
                                 
-                                <input type="text" id="txtFiltrarCliente" class="form-control border-info" placeholder="Buscar en la lista...">
+                                <input type="text" id="txtFiltrarCliente" class="form-control border-secondary border-top-0 border-right-0 border-left-0" placeholder="Buscar en la lista...">
 
-                                <table class="table table-responsive table-striped table-hover table-bordered" id="tblLista">
-                                    <thead class="bg-trans-gradient text-white">
+                                <table class="table table-responsive table-hover table-bordered col-12 p-0" id="tblLista">
+                                    <thead class="bg-secondary text-white">
                                         <tr>
-                                            <td>Nombre/Código</td>
-                                            <td>Dirección</td>
-                                            <td>
-                                                <i class="fal fa-cog"></i>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
+                                            <td class="negrita">Cliente <small class="text-secondary">---------</small>Dirección</td>
+                                          
                                         </tr>
                                     </thead>
                                     <tbody id="tblClientes">
@@ -86,15 +80,9 @@ function getView(){
                         <div class="tab-pane fade" id="panelVisitados" role="tabpanel">
                             <div class="table-responsive">
                                 <table class="table table-responsive table-striped table-hover table-bordered" id="tblLista">
-                                    <thead class="bg-trans-gradient text-white">
+                                    <thead class="bg-warning">
                                         <tr>
-                                            <td>Nombre/Código</td>
-                                            <td>Dirección</td>
-                                            <td>
-                                                <i class="fal fa-cog"></i>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
+                                            <td class="negrita">Cliente / Dirección</td>
                                         </tr>
                                     </thead>
                                     <tbody id="tblClientesVisitados">
@@ -122,13 +110,7 @@ function getView(){
                                 <table class="table table-responsive table-striped table-hover table-bordered" id="">
                                     <thead class="bg-trans-gradient text-white">
                                         <tr>
-                                            <td>Nombre/Código</td>
-                                            <td>Dirección</td>
-                                            <td>
-                                                <i class="fal fa-cog"></i>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
+                                            <td class="negrita">Cliente / Dirección</td>
                                         </tr>
                                     </thead>
                                     <tbody id="tblClientesAjenos">
@@ -444,6 +426,8 @@ async function addListeners(){
 
     //verifica si hay pedidos pendientes
     dbCargarPedidosPendientes();
+
+    funciones.slideAnimationTabs();
     
 };
 

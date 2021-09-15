@@ -44,23 +44,23 @@ let classNavegar = {
         })
     },
     inicioVendedor : async ()=>{
-        let strFooter =    `<button class="btn btn-sm text-white"  id="btnMenu2VendedorClientesMapa">
+        let strFooter =    `<button class="btn btn-sm "  id="btnMenu2VendedorClientesMapa">
                                 <i class="fal fa-map"></i>
                                 Mapa
                             </button> 
-                            <button class="btn btn-sm text-white"  id="btnMenu2VendedorClientes">
+                            <button class="btn btn-sm "  id="btnMenu2VendedorClientes">
                                 <i class="fal fa-shopping-cart"></i>
                                 Clientes
                             </button>
-                            <button class="btn btn-sm text-white" id="btnMenu2VendedorPedidos">
+                            <button class="btn btn-sm " id="btnMenu2VendedorPedidos">
                                 <i class="fal fa-chart-line"></i>
                                 Logro
                             </button>
-                            <button class="btn btn-sm text-white" id="btnMenu2VendedorLogro">
+                            <button class="btn btn-sm " id="btnMenu2VendedorLogro">
                                 <i class="fal fa-chart-pie"></i>
                                 Mes
                             </button>
-                            <button class="btn btn-sm text-white"  id="btnMenu2VendedorSync">
+                            <button class="btn btn-sm "  id="btnMenu2VendedorSync">
                                 <i class="fal fa-sync"></i>
                                 Descargar
                             </button>

@@ -118,67 +118,84 @@ let apigen = {
                                 break;
                         };
 
-                        strdataVisitados = strdataVisitados + `<tr class='${stClassClie}'>
+                        strdataVisitados = strdataVisitados + `
+                    <tr class='${stClassClie}'>
                         <td>${rows.NOMCLIE}
                             <br>
-                            <small>Cod: ${rows.CODIGO} - St:${stNomStatus}</small>
-                            <br>
-                            <small>Tel:${rows.TELEFONO}</small>
-                        </td>
-                        <td>${rows.DIRCLIE}
-                            <br>
-                            <small>${rows.DESMUNI}</small>
+                            <div class="row">
+                                <div class="col-6">
+                                    <small>Cod: ${rows.CODIGO} - St:${stNomStatus}</small>    
+                                </div>
+                                <div class="col-6">
+                                    <small>Tel:${rows.TELEFONO}</small>
+                                </div>
+                            </div>
+                            
+                            <small>${rows.DIRCLIE}, <b>${rows.DESMUNI}</b></small>
                             <br>
                             <small class="text-info">Ref:${rows.REFERENCIA}</small>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <button class="btn btn-success btn-sm" onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}');">
+                                        <i class="fal fa-map-marker"></i>Ubicac
+                                    </button>
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-warning btn-sm" onclick="getHistorialCliente('${rows.CODIGO}','${rows.NIT}','${rows.NOMCLIE}');">
+                                        <i class="fal fa-book"></i>Historial
+                                    </button>
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-info btn-sm" onclick="getMenuCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
+                                        <i class="fal fa-shopping-cart"></i>Vender
+                                    </button>
+                                </div>
+                            </div>
+
                         </td>
-                        <td>
-                            <button class="btn btn-info btn-sm btn-circle" onclick="getMenuCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
-                                <i class="fal fa-shopping-cart"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-warning btn-sm btn-circle" onclick="getHistorialCliente('${rows.CODIGO}','${rows.NIT}','${rows.NOMCLIE}');">
-                                <i class="fal fa-book"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-success btn-sm btn-circle" onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}');">
-                                <i class="fal fa-map-marker"></i>
-                            </button>
-                        </td>
+                       
                     </tr>` 
 
                     }else{
-                        strdata = strdata + `<tr class=''>
+                        strdata = strdata + `
+                            <tr class='col-12 border-bottom border-info'>
                                 <td>${rows.NOMCLIE}
                                     <br>
-                                    <small>Cod: ${rows.CODIGO} - St:SN</small>
-                                    <br>
-                                    <small>Tel:${rows.TELEFONO}</small>
-                                </td>
-                                <td>${rows.DIRCLIE}
-                                    <br>
-                                    <small>${rows.DESMUNI}</small>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <small>Cod: ${rows.CODIGO}</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small>Tel:${rows.TELEFONO}</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <small>${rows.DIRCLIE}, <b>${rows.DESMUNI}</b></small>
+                                    
                                     <br>
                                     <small class="text-info">Ref:${rows.REFERENCIA}</small>
+                                    <div class="row">
+                                        
+                                        <div class="col-4">
+                                            <button class="btn btn-outline-primary btn-sm shadow" onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}');">
+                                                <i class="fal fa-map"></i>Ubicac
+                                            </button>
+                                        </div>  
+                                        <div class="col-4">
+                                            <button class="btn btn-outline-warning shadow btn-sm" onclick="getHistorialCliente('${rows.CODIGO}','${rows.NIT}','${rows.NOMCLIE}');">
+                                                <i class="fal fa-book"></i>Historial
+                                            </button>   
+                                        </div>
+                                    
+                                        <div class="col-4">
+                                            <button class="btn btn-info btn-sm" onclick="getMenuCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
+                                                <i class="fal fa-shopping-cart"></i>Vender
+                                            </button>
+                                        </div>
+                                    </div>
                                 </td>
-                                <td>
-                                    <button class="btn btn-info btn-sm btn-circle" onclick="getMenuCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
-                                        <i class="fal fa-shopping-cart"></i>
-                                    </button>
-                                </td>
-                                
-                                <td>
-                                    <button class="btn btn-warning btn-sm btn-circle" onclick="getHistorialCliente('${rows.CODIGO}','${rows.NIT}','${rows.NOMCLIE}');">
-                                        <i class="fal fa-book"></i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm btn-circle" onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}');">
-                                        <i class="fal fa-map"></i>
-                                    </button>
-                                </td>   
-                            </tr>`
+                               `
                     }
                     
                     
@@ -257,16 +274,24 @@ let apigen = {
             const data = response.data.recordset;
             
             data.map((rows)=>{                    
-                        strdata = strdata + `<tr class=''>
+                        strdata = strdata + `
+                    <tr class=''>
                         <td>${rows.NOMCLIE}
                             <br>
-                            <small>Cod: ${rows.CODIGO}</small>
-                            <br>
-                            <small>Tel: ${rows.TELEFONO}</small>
+                            <div class="row">
+                                <div class="col-6">
+                                    <small>Cod: ${rows.CODIGO}</small>    
+                                </div>
+                                <div class="col-6">
+                                    <small>Tel: ${rows.TELEFONO}</small>    
+                                </div>
+                            </div>
+                            <small>${rows.DIRCLIE}, ${rows.DESMUNI}<b></b></small>
+                            
                         </td>
-                        <td>${rows.DIRCLIE}
+                        <td>
                             <br>
-                            <small>${rows.DESMUNI}</small>
+                            <small></small>
                             <br>
                             <small class="text-info">Ref:${rows.REFERENCIA}</small>
                         </td>
