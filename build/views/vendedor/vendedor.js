@@ -52,9 +52,9 @@ function getView(){
             <div class="panel-container show">
                 <div class="panel-content bg-white">
                     <ul class="nav nav-pills nav-justified" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#panelNoVisitados">No Visit</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panelVisitados">Visitados</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panelAjenos">Ajenos</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom active" data-toggle="tab" href="#panelNoVisitados">No Visit</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom " data-toggle="tab" href="#panelVisitados">Visitados</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom " data-toggle="tab" href="#panelAjenos">Ajenos</a></li>
                     </ul>
                     <div class="tab-content py-3">
 
@@ -97,9 +97,9 @@ function getView(){
                             
                             <div class="form-group">
                                 <div class="input-group">               
-                                    <input type="text" class="form-control" id="txtClientesAjenosBuscar" placeholder="Escriba para buscar cliente...">    
+                                    <input type="text" class="form-control border-secondary border-top-0 border-right-0 border-left-0" id="txtClientesAjenosBuscar" placeholder="Escriba para buscar cliente...">    
                                     <div class="input-group-append">
-                                        <button class="btn btn-md btn-icon btn-round btn-info" id="btnClientesAjenosBuscar">
+                                        <button class="btn btn-md btn-icon btn-round" id="btnClientesAjenosBuscar">
                                             <i class="fal fa-search"></i>
                                         </button>    
                                     </div>
