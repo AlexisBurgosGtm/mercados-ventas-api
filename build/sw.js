@@ -1,10 +1,10 @@
 
-var CACHE = 'mercadosefectivosoffline8';
+var CACHE = 'mercadosefectivosoffline1';
 const staticAssets = [  
   './css/vendors.bundle.css',
   './css/app.bundle.css',
   './css/.../styles.css',
-  '././css/btn.css',
+  './css/btn.css',
   './libs/leaflet/leaflet.css',
   './libs/leaflet/leaflet.js',
   './libs/noty/noty.min.css',

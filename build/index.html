@@ -463,8 +463,8 @@
         <div class="modal fade js-modal-settings modal-backdrop-transparent" tabindex="-1" role="dialog" aria-hidden="true" id="modalListaPrecios">
             <div class="modal-dialog modal-dialog-right modal-lg">
                 <div class="modal-content">
-                    <div class="dropdown-header bg-info d-flex justify-content-center align-items-center w-100">
-                        <h4 class="m-0 text-center color-white" id="">
+                    <div class="dropdown-header d-flex justify-content-center align-items-center w-100">
+                        <h4 class="m-0 text-center " id="">
                             Lista de Precios
                             <small class="mb-0 opacity-80">Búsqueda rápida de Precios</small>
                         </h4>
@@ -475,9 +475,9 @@
                     <div class="modal-body p-0">
                         
                             <div class="input-group">
-                                <input id="txtBProducto" type="text" ref="txtBusqueda" class="form-control col-7  shadow border-info" placeholder="Buscar código o descripción..." aria-label="" aria-describedby="button-addon4" />
+                                <input id="txtBProducto" type="text" ref="txtBusqueda" class="form-control col-7 shadow border-secondary border-left-0 border-right-0 border-top-0" placeholder="Buscar código o descripción..." aria-label="" aria-describedby="button-addon4" />
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-info waves-effect waves-themed shadow" type="button" id="btnBProducto">
+                                    <button class="btn btn-outline-secondary waves-effect waves-themed shadow" type="button" id="btnBProducto">
                                         <i class="fal fa-search"></i>
                                     </button>
                                 </div>
@@ -485,7 +485,7 @@
                         
                         <div class="" id="">
                             <table class="table table-responsive table-striped table-hover">
-                                <thead class="bg-trans-gradient text-white">
+                                <thead class="bg-secondary text-white">
                                     <tr>
                                         <td>Producto</td>
                                         <td>Precio</td>                         
@@ -509,36 +509,34 @@
             </div>
         </div>
         <!-- DESCARGAS -->
-        <div class="modal fade js-modal-settings modal-backdrop-transparent" tabindex="-1" role="dialog" aria-hidden="true" id="modalSync">
+        <div class="modal fade js-modal-settings card modal-backdrop-transparent border-top-rounded border-bottom-rounded" tabindex="-1" role="dialog" aria-hidden="true" id="modalSync">
             <div class="modal-dialog modal-dialog modal-sm">
                 <div class="modal-content">
-                    <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center w-100">
-                        <h3 class="m-0 text-center color-white">
+                    <div class="dropdown-header d-flex justify-content-center align-items-center w-100">
+                        <img src="./favicon.png" width="40" height="40">
+                        <h3 class="m-0 text-center color-secondary">
                             Descarga de Catálogos
-                            <small class="mb-0 opacity-80">Actualice sus datos para trabajar más rápido</small>
                         </h3>
-                        
+                       
                     </div>
-                    <div class="modal-body p-0">
-                        <br><br><br>
+                    <div class="modal-body p-4">
                         
                             <div class="row">
-                                <div class="col-2"></div>
-                                <div class="col-4">
-                                    <button class="btn btn-success btn-xl" id="btnDownloadProductos">
+                                
+                                <div class="col-6">
+                                    <button class="btn btn-outline-success shadow btn-xl" id="btnDownloadProductos">
                                         <i class="fal fa-shopping-cart"></i>
                                         Bajar <br>
                                         Productos
                                     </button>
                                 </div>                                           
-                                <div class="col-4">
-                                    <button class="btn btn-info btn-xl" style="width: 50; height: 50;" id="btnDownloadClientes">
+                                <div class="col-6">
+                                    <button class="btn btn-outline-info shadow btn-xl" style="width: 50; height: 50;" id="btnDownloadClientes">
                                         <i class="fal fa-user"></i>
                                         Bajar  <br>
                                         Clientes
                                     </button>
                                 </div>
-                                <div class="col-2"></div>
                             </div>
 
                         

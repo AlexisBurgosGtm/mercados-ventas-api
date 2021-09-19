@@ -97,24 +97,25 @@ function getView(){
                     <div class="panel-content">
                         <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
                             <div class="input-group">
-                                <select class="form-control col-3 shadow border-info" id="cmbTipoPrecio">
+                                <select class="form-control col-3 shadow border-secondary negrita border-left-0 border-right-0 border-top-0" id="cmbTipoPrecio">
                                     <option value="P">DET</option>
                                     <option value="C">PreB</option>
                                     <option value="B">PreA</option>
                                     <option value="A">MAY</option>
                                     <option value="K">CAMBIO</option>
                                 </select>
-                                <input id="txtBusqueda" type="text" ref="txtBusqueda" class="form-control col-7  shadow border-info" placeholder="Buscar código o descripción..." aria-label="" aria-describedby="button-addon4" />
+                                <input id="txtBusqueda" type="text" ref="txtBusqueda" class="form-control col-7  shadow border-secondary border-left-0 border-right-0 border-top-0" placeholder="Buscar código o descripción..." aria-label="" aria-describedby="button-addon4" />
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-info waves-effect waves-themed shadow" type="button" id="btnBuscarProducto">
+                                    <button class="btn btn-outline-secondary btn-rounded waves-effect waves-themed shadow" type="button" id="btnBuscarProducto">
                                         <i class="fal fa-search"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <br>
+                        <div class="table-responsive border-top-rounded border-bottom-rounded shadow">
                             <table class="table table-hover table-striped"><!--mt-5-->
-                                <thead class="bg-trans-gradient text-white">
+                                <thead class="bg-secondary text-white">
                                     <tr>
                                         <th class="">Producto</th>
                                         <th class="">Subtotal</th>
