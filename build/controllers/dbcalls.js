@@ -156,66 +156,6 @@ function downloadProductos (){
    
 };
 
-
-function downloadProductos_OLD (){
-    //setLog(`<label>Productos agregados: 0</label>`,'rootWait')
-    //funciones.showToast('Descargando productos')
-    //descargando productos
-    
-     axios.get('/ventas/buscarproductotodos?sucursal=' + GlobalCodSucursal)  
-    .then(async(response) => {
-        const data = response.data;
-        let contador = 1;       
-        let totalrows = 0;
-        if(data.rowsAffected[0]==0){
-            //tabla.innerHTML= 'No existe nada relacionado a: ' + filtro + ', o no hay productos cargados'
-            funciones.AvisoError('No hay productos');
-            $('#modalWait').modal('hide');
-        }else{  
-            totalrows = Number(data.rowsAffected[0]);
-                  
-            data.recordset.map(async(rows)=>{
-                var datosdb = {
-                    CODSUCURSAL:rows.CODSUCURSAL,
-                    CODPROD:rows.CODPROD,
-                    DESPROD:rows.DESPROD,
-                    CODMEDIDA:rows.CODMEDIDA,
-                    EQUIVALE:rows.EQUIVALE,
-                    COSTO:rows.COSTO,
-                    PRECIO:rows.PRECIO,
-                    PRECIOA:rows.PRECIOA,
-                    PRECIOB:rows.PRECIOB,
-                    PRECIOC:rows.PRECIOC,
-                    DESMARCA:rows.DESMARCA,
-                    EXENTO:rows.EXENTO,
-                    EXISTENCIA:rows.EXISTENCIA,
-                    DESPROD3:rows.DESPROD3
-                }                
-                var noOfRowsInserted = await connection.insert({
-                    into: "productos",
-                    values: [datosdb], //you can insert multiple values at a time
-                });
-                if (noOfRowsInserted > 0) {
-                    setLog(`<label>Productos agregados: ${contador} </label>`,'rootWait')
-                    contador += 1;
-                    if(totalrows==contador){
-                        $('#modalWait').modal('hide');
-                        funciones.Aviso('Productos descargados exitosamente!!')
-                    }
-                }
-            });
-            
-        }
-    }, (error) => {
-        console.log(error);
-        funciones.AvisoError('No pude guardar los productos');
-        $('#modalWait').modal('hide');
-    });
-
- 
-   
-};
-
 function deleteProductos(){
     return new Promise((resolve,reject)=>{
         setLog(`<label class="text-danger">Eliminando productos...</label>`,'rootWait');
@@ -233,7 +173,7 @@ function selectProducto(filtro) {
     return new Promise(async(resolve,reject)=>{
         var response = await connection.select({
             from: "productos",
-            limit: 40,
+            limit: 50,
             where: {
                 CODPROD: filtro,
                 or: {
@@ -272,66 +212,6 @@ function downloadClientes (){
    
 };
 
-function downloadClientes_OLD (){
-    //setLog(`<label>Productos agregados: 0</label>`,'rootWait')
-    //funciones.showToast('Descargando productos')
-    //descargando productos
-    
-    axios.post('/clientes/listavendedortodos', {
-        sucursal: GlobalCodSucursal,
-        codven:GlobalCodUsuario
-    })  
-    .then(async(response) => {
-        const data = response.data;
-        let contador = 1;       
-        let totalrows = 0;
-        if(data.rowsAffected[0]==0){
-            //tabla.innerHTML= 'No existe nada relacionado a: ' + filtro + ', o no hay productos cargados'
-            funciones.AvisoError('No hay productos');
-            $('#modalWait').modal('hide');
-        }else{  
-            totalrows = Number(data.rowsAffected[0]);
-                  
-            data.recordset.map(async(rows)=>{
-                var datosdb = {
-                    CODSUCURSAL:rows.CODSUCURSAL,
-                    CODIGO:rows.CODIGO,
-                    DESMUNI:rows.DESMUNI,
-                    DIRCLIE:rows.DIRCLIE,
-                    LASTSALE:rows.LASTSALE,
-                    LAT:rows.LAT,
-                    LONG:rows.LONG,
-                    NIT:rows.NIT,
-                    NOMCLIE:rows.NOMCLIE,
-                    REFERENCIA:rows.REFERENCIA,
-                    STVISITA:rows.STVISITA,
-                    VISITA:rows.VISITA,
-                    TELEFONO:rows.TELEFONO
-                }                
-                var noOfRowsInserted = await connection.insert({
-                    into: "clientes",
-                    values: [datosdb], //you can insert multiple values at a time
-                });
-                if (noOfRowsInserted > 0) {
-                    setLog(`<label>Clientes agregados: ${contador} </label>`,'rootWait')
-                    contador += 1;
-                    if(totalrows==contador){
-                        $('#modalWait').modal('hide');
-                        funciones.Aviso('Clientes descargados exitosamente!!')
-                    }
-                }
-            });
-            
-        }
-    }, (error) => {
-        console.log(error);
-        funciones.AvisoError('No pude guardar los productos');
-        $('#modalWait').modal('hide');
-    });
-
- 
-   
-};
 
 function deleteClientes(){
     return new Promise((resolve,reject)=>{
@@ -350,7 +230,6 @@ function selectCliente(dia) {
     return new Promise(async(resolve,reject)=>{
         var response = await connection.select({
             from: "clientes",
-            limit: 40,
             where: {
                 VISITA: dia
                 }
