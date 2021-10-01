@@ -728,6 +728,92 @@ let apigen = {
         });
            
     },
+    reporteDinero2: async(sucursal,codven,anio,mes,idContenedor,idLbTotal)=>{
+
+        let container = document.getElementById(idContenedor);
+        container.innerHTML = GlobalLoader;
+        
+        let lbTotal = document.getElementById(idLbTotal);
+        lbTotal.innerText = '---';
+
+        let strdata = ''; let strdatadev = '';
+        let tbl = `<table class="table table-bordered">
+                    <thead class="bg-success text-white"><tr>
+                        <td>Fecha</td>
+                        <td>Importe</td>
+                        </tr>
+                    <tbody>`;
+
+        let tblDev = `<table class="table table-bordered">
+        <thead class="bg-danger text-white"><tr>
+            <td>Fecha</td>
+            <td>Importe</td>
+            </tr>
+        <tbody>`;
+
+        let tblfoot = `</tbody></table>`;
+
+        axios.post('/ventas/rptventas_vendedor', {
+            sucursal: sucursal,
+            codven:codven,
+            anio:anio,
+            mes:mes   
+        })
+        .then((response) => {
+            const data = response.data.recordset;
+            let total =0; let pedidos = 0;
+            let totalventa = 0; let totaldevolucion = 0;
+            data.map((rows)=>{
+                    total = total + Number(rows.TOTALPRECIO);
+                   
+                    if(rows.TIPO=='FAC'){
+                        totalventa = totalventa + Number(rows.TOTALPRECIO);
+                        strdata = strdata + `<tr>
+                            <td>
+                                ${rows.FECHA.toString().replace('T00:00:00.000Z','')}
+                            </td>
+                            <td>
+                                ${funciones.setMoneda(rows.TOTALPRECIO,'Q')}
+                            </td>
+                        </tr>`
+                    }else{
+                        totaldevolucion = totaldevolucion + Number(rows.TOTALPRECIO);
+                        strdatadev = strdatadev + `<tr>
+                            <td>
+                                ${rows.FECHA.toString().replace('T00:00:00.000Z','')}
+                            </td>
+                            <td>
+                                ${funciones.setMoneda(rows.TOTALPRECIO,'Q')}
+                            </td>
+                        </tr>`
+                    }
+            })
+            let faltan = Number(GlobalObjetivoVenta)-Number(total);
+            let logro = total / GlobalObjetivoVenta;
+            container.innerHTML =`<div class="row">
+                                    <div class="col-6">
+                                        <label>Facturado: <b class="text-success">${funciones.setMoneda(totalventa,'Q')}</b></label>
+                                        ${tbl + strdata + tblfoot}
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Devuelto: <b class="text-danger">${funciones.setMoneda(totaldevolucion,'Q')}</b></label>
+                                        ${tblDev + strdatadev + tblfoot}
+                                    </div>
+                                </div>`;
+            lbTotal.innerHTML = `Vendido:${funciones.setMoneda(total,'Q ')}
+            <br>Objetivo: ${funciones.setMoneda(GlobalObjetivoVenta,'Q')}
+            <br>Faltan: ${funciones.setMoneda(faltan,'Q')}
+            <br>Logro:${funciones.setMargen((logro*100),'%')}
+            <br>Total Facturado=${funciones.setMoneda(totalventa,'Q')}
+            <br>Total Devolución=${funciones.setMoneda(totaldevolucion,'Q')}`;
+        }, (error) => {
+            funciones.AvisoError('Error en la solicitud');
+            strdata = '';
+            container.innerHTML = '';
+            lbTotal.innerText = 'Q 0.00';
+        });
+           
+    },
     reporteProductos: async(sucursal,codven,anio,mes,idContenedor,idLbTotal)=>{
 
         let container = document.getElementById(idContenedor);

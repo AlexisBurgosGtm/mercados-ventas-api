@@ -233,7 +233,6 @@ function selectCliente(dia) {
             where: {
                 VISITA: dia
                 }
-           
         });
         resolve(response)
     });
