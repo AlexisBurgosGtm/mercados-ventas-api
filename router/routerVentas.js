@@ -2,6 +2,24 @@ const execute = require('./connection');
 const express = require('express');
 const router = express.Router();
 
+
+//REPORTE DE VENTAS Y DEVOLUCIONES
+router.post('/rptventas_vendedor',async(req,res)=>{
+
+    const{sucursal, codven, mes, anio} = req.body;
+
+    let qry = `SELECT DISTINCT       NOMVEN,FECHA, TIPO, SUM(TOTALPRECIO)  AS TOTALPRECIO, LASTUPDATE
+    FROM            ME_RPT_VENTAS
+    GROUP BY NOMVEN,FECHA, TIPO, LASTUPDATE, CODSUCURSAL, ANIO, MES, CODVEN
+    HAVING        (ANIO = ${anio}) AND (MES = ${mes}) AND (CODSUCURSAL = '${sucursal}') AND (CODVEN=${codven})
+    ORDER BY FECHA
+    `;
+
+    execute.Query(res,qry);
+});
+
+
+
 //EDICION DEL PEDIDO
 router.post('/loadpedido',async(req,res)=>{
 

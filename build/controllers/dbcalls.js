@@ -131,6 +131,56 @@ document.getElementById('btnDownloadClientes').addEventListener('click',()=>{
 });
 
 
+//CREDENCIALES
+function deleteDateDownload(){
+    return new Promise(async(resolve,reject)=>{
+        var rowsDeleted = await connection.remove({
+            from: "credenciales"
+        });
+        if(rowsDeleted>0){
+            resolve();
+        }else{
+            resolve();
+        }
+    })            
+};
+
+function updateDateDownload() {
+    let f = new Date();
+    return new Promise((resolve,reject)=>{
+        connection.insert({
+            into: "credenciales",
+            values: [{  DAYUPDATED:Number(f.getDate()),
+                        USUARIO:GlobalUsuario,
+                        CODSUCURSAL:GlobalCodSucursal
+                    }] 
+        })
+        .then(()=>{
+            GlobalSelectedDiaUpdated=Number(f.getDate());
+            resolve();
+        })
+        .catch(()=>{
+            GlobalSelectedDiaUpdated=0;
+            reject();
+        })
+    }) 
+};
+
+function selectDateDownload() {
+
+    return new Promise(async(resolve,reject)=>{
+        var response = await connection.select({
+            from: "credenciales",
+            limit: 1,
+           
+        });
+        response.map((r)=>{
+            GlobalSelectedDiaUpdated = Number(r.DAYUPDATED)
+        })
+        resolve(GlobalSelectedDiaUpdated)
+    });
+};
+
 
 function downloadProductos (){
 
@@ -142,7 +192,8 @@ function downloadProductos (){
             const data = response.data;
             if(data.rowsAffected[0]==0){
                 reject();
-            }else{  
+            }else{
+                deleteDateDownload().then(()=>{updateDateDownload()})  
                 resolve(data);                         
             }
         }, (error) => {
@@ -171,23 +222,28 @@ function deleteProductos(){
 function selectProducto(filtro) {
 
     return new Promise(async(resolve,reject)=>{
-        var response = await connection.select({
-            from: "productos",
-            limit: 50,
-            where: {
-                CODPROD: filtro,
-                or: {
-                    DESPROD: {
-                        like: '%' + filtro + '%'
-                    }   
+        let f = new Date();
+        if(GlobalSelectedDiaUpdated.toString()==f.getDate().toString()){
+            var response = await connection.select({
+                from: "productos",
+                limit: 50,
+                where: {
+                    CODPROD: filtro,
+                    or: {
+                        DESPROD: {
+                            like: '%' + filtro + '%'
+                        }   
+                    }
                 }
-            }
-           
-        });
-        resolve(response)
+               
+            });
+            resolve(response)
+        }else{
+            reject('Debe actualizar su catálogo de productos...');
+        }
+        
     });
 };
-
 
 function downloadClientes (){
     return new Promise((resolve,reject)=>{
@@ -212,7 +268,6 @@ function downloadClientes (){
    
 };
 
-
 function deleteClientes(){
     return new Promise((resolve,reject)=>{
         setLog(`<label class="text-danger">Eliminando Clientes...</label>`,'rootWait');
@@ -230,9 +285,11 @@ function selectCliente(dia) {
     return new Promise(async(resolve,reject)=>{
         var response = await connection.select({
             from: "clientes",
+            limit: 2000,
             where: {
                 VISITA: dia
                 }
+           
         });
         resolve(response)
     });
@@ -252,10 +309,6 @@ async function updateSaleCliente(codigo) {
     console.log('Cliente actualizado, rows: ' + noOfRowsUpdated.toString())
 
 };
-
-
-
-
 
 function insertTempVentas(datos){
     return new Promise((resolve,reject)=>{

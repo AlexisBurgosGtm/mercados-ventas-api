@@ -13,9 +13,8 @@ let lbTipo = document.getElementById('lbTipo');
 divUsuario.innerText = "DESCONECTADO";
 lbTipo.innerText = "Inicie sesión";
 
-let GlobalToken = 'MERCADOSEFECTIVOS';
-let GlobalCodSucursal = '';
 
+let GlobalSelectedDiaUpdated  = 0;
 let GlobalObjetivoVenta = 0;
 let GlobalCodUsuario = 99999;
 let GlobalUsuario = 'MERCADOSEFECTIVOS';
@@ -25,8 +24,6 @@ let GlobalTipoUsuario ='';
 let GlobalSelectedDia ='';
 let GlobalBool = false;
 
-let GlobalEmpnit = '1034261-3';
-let GlobalEmpNombre = 'MERCADOS EFECTIVOS';
 let GlobalSelectedForm = '';
 
 let map; //mapa de leaflet
@@ -72,7 +69,6 @@ let GlobalSelectedApp = '';
 
 let GlobalSistema = 'ISC';
 
-let GlobalVentaMinima = 79.99;
 
 let GlobalLoaderMini = `<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>`;
 

@@ -1,5 +1,6 @@
 let apigen = {
     empleadosLogin : (sucursal,user,pass)=>{
+        let f = new Date();
         return new Promise((resolve,reject)=>{
             axios.get(`/empleados/login?codsucursal=${sucursal}&user=${user}&pass=${pass}`)
             .then((response) => {
@@ -15,7 +16,7 @@ let apigen = {
                             GlobalCodSucursal = sucursal;
                             GlobalSistema = sucursal;
                             GlobalObjetivoVenta = Number(rows.OBJETIVO);
-                               
+                            GlobalSelectedDiaUpdated = Number(f.getDate());
                             classNavegar.inicioVendedor();   
                         }        
                     })
@@ -26,6 +27,7 @@ let apigen = {
                     GlobalTipoUsuario = '';
                     GlobalCoddoc= '';
                     GlobalObjetivoVenta =0;
+                    GlobalSelectedDiaUpdated = 0;
                     funciones.AvisoError('Usuario o Contraseña incorrectos, intente seleccionando la sucursal a la que pertenece');
                     reject();
                 }

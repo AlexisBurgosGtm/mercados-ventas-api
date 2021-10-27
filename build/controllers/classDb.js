@@ -1,4 +1,4 @@
-const DbName = "mercadosefectivosoffline2";
+const DbName = "mercadosefectivosoffline3";
 
 var tblDocumentos = {
     name: 'documentos',
@@ -101,9 +101,12 @@ var tblCredenciales = {
         CODSUCURSAL:{dataType: "string"},
         USUARIO:{dataType: "string"},
         PASS:{dataType: "string"},
-        NIVEL:{dataType: "string"}
+        NIVEL:{dataType: "string"},
+        DAYUPDATED:{dataType: "number"}
     }
 };
+
+
 
 var database = {
     name: DbName,

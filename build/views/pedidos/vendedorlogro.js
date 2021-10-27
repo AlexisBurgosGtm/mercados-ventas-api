@@ -30,7 +30,7 @@ function getView(){
                         <div class="col-3">              
                                 <button class="btn btn-outline-secondary btn-round" id="btnCargarDinero2">
                                     <i class="fal fa-tag"></i>
-                                    Venta Real (Fac y Dev)
+                                    Facturado
                                 </button>
                         </div>
                         <div class="col-3">
