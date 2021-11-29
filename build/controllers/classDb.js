@@ -1,4 +1,4 @@
-const DbName = "mercadosefectivosoffline3";
+const DbName = "mercadosefectivosoffline4";
 
 var tblDocumentos = {
     name: 'documentos',
@@ -90,7 +90,8 @@ var tblTempventas = {
         TOTALPRECIO:{dataType: "number"},       
         EXENTO:{dataType: "number"},
         USUARIO:{dataType: "string"},
-        TIPOPRECIO:{dataType: "string"}
+        TIPOPRECIO:{dataType: "string"},
+        EXISTENCIA:{dataType: "number"}
     }
 };
 

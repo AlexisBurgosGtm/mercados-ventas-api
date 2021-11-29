@@ -830,9 +830,8 @@ router.post('/reportemarcasmes',async(req,res)=>{
 // INSERTA UN PEDIDO EN LAS TABLAS DE DOCUMENTOS Y DOCPRODUCTOS
 router.post("/insertventa", async (req,res)=>{
     
-    const {jsondocproductos,codsucursal,empnit,anio,mes,dia,coddoc,correl,fecha,fechaentrega,formaentrega,codcliente,nomclie,codbodega,totalcosto,totalprecio,nitclie,dirclie,obs,direntrega,usuario,codven,lat,long} = req.body;
+    const {jsondocproductos,codsucursal,empnit,anio,mes,dia,coddoc,correl,fecha,fechaentrega,formaentrega,codcliente,nomclie,codbodega,totalcosto,totalprecio,nitclie,dirclie,obs,direntrega,usuario,codven,lat,long,hora} = req.body;
   
-    
     let app = codsucursal;
   
     let tblDocproductos = JSON.parse(jsondocproductos);
@@ -875,7 +874,6 @@ router.post("/insertventa", async (req,res)=>{
     //obtiene el número del correlativo actual para actualizar luego
     let ncorrelativo = correl;
 
-  
 
     //variables sin asignar
     let concre = 'CRE';
@@ -887,7 +885,6 @@ router.post("/insertventa", async (req,res)=>{
 
   
     let nuevocorrelativo = Number(ncorrelativo) + 1;
-
 
             qry = `INSERT INTO ME_DOCUMENTOS (
                 EMP_NIT, DOC_ANO, DOC_MES, CODDOC, DOC_NUMERO, 
@@ -923,7 +920,7 @@ router.post("/insertventa", async (req,res)=>{
                 '${empnit}', ${anio}, ${mes}, '${coddoc}', '${correlativo}',
                 '', '${fecha}', '', '${nomclie}', '',
                 '${codbodega}', '${usuario}', 'O', ${totalcosto}, ${totalprecio},
-                0, '${fecha}', 0, '${concre}', 0,
+                '${hora}', '${fecha}', 0, '${concre}', 0,
                 0, 0, 0, ${totalprecio}, ${totalprecio},
                 '${nitclie}', 0, '${codven}', 0, ${saldo}, 
                 0, '${nitclie}', 0, '', 1, 

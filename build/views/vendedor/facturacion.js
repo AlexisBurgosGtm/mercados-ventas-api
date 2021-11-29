@@ -486,6 +486,7 @@ function getView(){
                                                 <option value="CONTADO">CONTADO</option>
                                                 <option value="CREDITO">CREDITO</option>
                                                 <option value="VALE">VALE AL VENDEDOR</option>
+                                                <option value="FACTURA">FACTURA CONTABLE</option>
                                             </select>
                                         </div>
 
@@ -836,7 +837,8 @@ async function iniciarVistaVentas(nit,nombre,direccion){
 };
 
 function addEventsModalCambioCantidad(){
- 
+
+
 
     document.getElementById('btnCantGuardar').addEventListener('click',()=>{
         let nuevacantidad = Number(document.getElementById('txtCantNuevaCant').value);
@@ -1014,7 +1016,7 @@ function getDataMedidaProducto(codprod,desprod,codmedida,cantidad,equivale,total
 // agrega el producto a temp_ventas
 async function fcnAgregarProductoVenta(codprod,desprod,codmedida,cantidad,equivale,totalunidades,costo,precio,exento){
    
-    if(Number(GlobalSelectedExistencia)<=Number(totalunidades)){
+    if(Number(GlobalSelectedExistencia)<Number(totalunidades)){
         funciones.AvisoError('No pude agregar una cantidad mayor a la existencia');
         return;
     };
@@ -1045,7 +1047,8 @@ async function fcnAgregarProductoVenta(codprod,desprod,codmedida,cantidad,equiva
                     TOTALPRECIO:totalprecio,
                     EXENTO:exento,
                     USUARIO:GlobalUsuario,
-                    TIPOPRECIO:cmbTipoPrecio.value
+                    TIPOPRECIO:cmbTipoPrecio.value,
+                    EXISTENCIA:GlobalSelectedExistencia
                 };
 
                 insertTempVentas(data)
@@ -1134,7 +1137,7 @@ async function fcnCargarGridTempVentas(idContenedor){
                                 <div class="row">
                                     <div class="col-4"></div>
                                     <div class="col-4 " align="right">
-                                        <button class="btn btn-secondary btn-sm btn-circle" onClick="fcnCambiarCantidad(${rows.ID},${rows.CANTIDAD});">
+                                        <button class="btn btn-secondary btn-sm btn-circle" onClick="fcnCambiarCantidad(${rows.ID},${rows.CANTIDAD},'${rows.CODPROD}',${rows.EXISTENCIA});">
                                             <i class="fal fa-edit"></i>
                                         </button>    
                                     </div>
@@ -1165,7 +1168,14 @@ async function fcnCargarGridTempVentas(idContenedor){
 };
 
 async function fcnUpdateTempRow(id,cantidad){
-    
+
+    //--------------------------
+    if(Number(GlobalSelectedExistencia)<Number(cantidad)){
+        funciones.AvisoError('No pude agregar una cantidad mayor a la existencia');
+        return;
+    };
+    //--------------------------
+
     return new Promise((resolve, reject) => {
             //OBTIENE LOS DATOS DE LA ROW    
             selectDataRowVenta(id,cantidad)
@@ -1181,9 +1191,10 @@ async function fcnUpdateTempRow(id,cantidad){
         });
 };
 
-async function fcnCambiarCantidad(id,cantidad){
+async function fcnCambiarCantidad(id,cantidad,codprod, existencia){
     
     GlobalSelectedId = id;
+    GlobalSelectedExistencia = Number(existencia);
     //$('#ModalCantidad').modal('show');
     document.getElementById('txtCantNuevaCant').value = cantidad;
     $('#modalCambiarCantidadProducto').modal('show');
@@ -1354,6 +1365,7 @@ async function fcnFinalizarPedido(){
     let fecha = anio + '-' + mes + '-' + d; // CAMPO DOC_FECHA
     let dia = d;
 
+    let hora = funciones.getHora();
     
     let fe = txtFecha;// new Date(document.getElementById('txtEntregaFecha').value);
     let ae = fe.getFullYear();
@@ -1418,7 +1430,8 @@ async function fcnFinalizarPedido(){
                                     usuario:GlobalUsuario,
                                     codven:cmbVendedor.value,
                                     lat:latdoc,
-                                    long:longdoc
+                                    long:longdoc,
+                                    hora:hora
                                 })
                                 .then(async(response) => {
                                     const data = response.data;
