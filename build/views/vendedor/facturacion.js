@@ -1346,14 +1346,19 @@ async function fcnFinalizarPedido(){
     
     if(Number(GlobalTotalDocumento)<Number(GlobalVentaMinima)){
         funciones.AvisoError('Pedido menor al mínimo de venta');
-        funciones.hablar('Advertencia. Este pedido es menor al mínimo de venta permitido');
+        try {
+            funciones.hablar('Advertencia. Este pedido es menor al mínimo de venta permitido');    
+        } catch (error) {
+            
+        }
+        
         //socket.emit('avisos','venta menor al minimo', `El vendedor ${GlobalUsuario} ha intentado ingresar un pedido de ${funciones.setMoneda(GlobalTotalDocumento,'Q')}`);
     };
 
     if(GlobalSelectedCodCliente.toString()=='SI'){funciones.AvisoError('Datos del cliente incorrectos, por favor, seleccione cliente nuevamente');return;}
 
-    console.log('cliente: ' + GlobalSelectedCodCliente.toString())
-    
+    console.log('cliente: ' + GlobalSelectedCodCliente.toString());
+
     let codcliente = GlobalSelectedCodCliente;
     let ClienteNombre = document.getElementById('txtNombre').value;
     let dirclie = document.getElementById('txtDireccion').value; // CAMPO DIR_ENTREGA
