@@ -1357,7 +1357,7 @@ async function fcnFinalizarPedido(){
 
     if(GlobalSelectedCodCliente.toString()=='SI'){funciones.AvisoError('Datos del cliente incorrectos, por favor, seleccione cliente nuevamente');return;}
 
-    funciones.Aviso('cliente: ' + GlobalSelectedCodCliente.toString());
+    //funciones.Aviso('cliente: ' + GlobalSelectedCodCliente.toString());
 
     let codcliente = GlobalSelectedCodCliente;
     let ClienteNombre = document.getElementById('txtNombre').value;
