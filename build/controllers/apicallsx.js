@@ -802,12 +802,41 @@ let apigen = {
                                         ${tblDev + strdatadev + tblfoot}
                                     </div>
                                 </div>`;
-            lbTotal.innerHTML = `Vendido:${funciones.setMoneda(total,'Q ')}
-            <br>Objetivo: ${funciones.setMoneda(GlobalObjetivoVenta,'Q')}
-            <br>Faltan: ${funciones.setMoneda(faltan,'Q')}
-            <br>Logro:${funciones.setMargen((logro*100),'%')}
-            <br>Total Facturado=${funciones.setMoneda(totalventa,'Q')}
-            <br>Total Devolución=${funciones.setMoneda(totaldevolucion,'Q')}`;
+            lbTotal.innerHTML = `
+                <div class="card shadow col-12 p-2">
+                    <div class="form-group">
+                        <label>Vendido</label>
+                        <h5>${funciones.setMoneda(total,'Q ')}</h5>
+                    </div>
+                    <div class="form-group">
+                        <label>Objetivo</label>
+                        <h5>${funciones.setMoneda(GlobalObjetivoVenta,'Q')}</h5>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label>Faltan</label>
+                            <h5>${funciones.setMoneda(faltan,'Q')}</h5>
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Logro</label>
+                            <h5>${funciones.setMargen((logro*100),'%')}</h5>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Total Facturado</label>
+                            <h5>${funciones.setMoneda(totalventa,'Q')}</h5>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Total Devolución</label>
+                            <h5 class="text-danger">${funciones.setMoneda(totaldevolucion,'Q')}</h5>
+                        </div>
+                    </div>
+
+                </div>    
+          `;
         }, (error) => {
             funciones.AvisoError('Error en la solicitud');
             strdata = '';
@@ -815,6 +844,9 @@ let apigen = {
             lbTotal.innerText = 'Q 0.00';
         });
            
+    },
+    cardTotales:()=>{
+
     },
     reporteProductos: async(sucursal,codven,anio,mes,idContenedor,idLbTotal)=>{
 

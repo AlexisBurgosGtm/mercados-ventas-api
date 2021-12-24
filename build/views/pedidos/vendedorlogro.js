@@ -73,6 +73,7 @@ function getView(){
                     <b><label class="negrita" id="lbTotal">Q 0.00</label></b>
                 </div>
             </div>
+            <div class="" id="containerTotal"></div>
             <br>
             <div class="row card">
                 <div class="table-responsive" id="tblReport">
@@ -120,7 +121,7 @@ function inicializarVistaLogro(){
 };
 
 function getRptDinero2(mes,anio){
-    apigen.reporteDinero2(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','lbTotal');
+    apigen.reporteDinero2(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','containerTotal');
 };
 function getRptDinero(mes,anio){
     apigen.reporteDinero(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','lbTotal');

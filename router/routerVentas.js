@@ -26,7 +26,7 @@ router.post('/loadpedido',async(req,res)=>{
     const {sucursal, usuario, coddoc, correlativo} = req.body;
     
     let qry='';
-    qry = `SELECT EMP_NIT AS EMPNIT, CODPROD, DESCRIPCION AS DESPROD, 
+    let qryold = `SELECT EMP_NIT AS EMPNIT, CODPROD, DESCRIPCION AS DESPROD, 
         CODMEDIDA, CANTIDAD, EQUIVALE, CANTIDADINV AS TOTALUNIDADES, 
         COSTO, PRECIO, TOTALCOSTO, TOTALPRECIO, 0 AS EXENTO, 
         '${usuario}' AS USUARIO, TIPOPRECIO, '${sucursal}' AS CODSUCURSAL 
@@ -34,6 +34,19 @@ router.post('/loadpedido',async(req,res)=>{
         WHERE CODSUCURSAL='${sucursal}' 
         AND CODDOC='${coddoc}' 
         AND DOC_NUMERO='${correlativo}'; `
+
+
+        qry = `
+        SELECT ME_Docproductos.EMP_NIT AS EMPNIT, ME_Docproductos.CODPROD, ME_Docproductos.DESCRIPCION AS DESPROD, ME_Docproductos.CODMEDIDA, 
+                         ME_Docproductos.CANTIDAD, ME_Docproductos.EQUIVALE, ME_Docproductos.CANTIDADINV AS TOTALUNIDADES, ME_Docproductos.COSTO, ME_Docproductos.PRECIO, 
+                         ME_Docproductos.TOTALCOSTO, ME_Docproductos.TOTALPRECIO, 0 AS EXENTO, '${usuario}' AS USUARIO, ME_Docproductos.TIPOPRECIO, 
+                         '${sucursal}' AS CODSUCURSAL, 
+                         ISNULL(ME_Productos.EXISTENCIA,0) AS EXISTENCIA
+        FROM ME_Docproductos LEFT OUTER JOIN
+                         ME_Productos ON ME_Docproductos.CODSUCURSAL = ME_Productos.CODSUCURSAL AND ME_Docproductos.CODPROD = ME_Productos.CODPROD AND 
+                         ME_Docproductos.EMP_NIT = ME_Productos.EMP_NIT
+        WHERE (ME_Docproductos.CODSUCURSAL = '${sucursal}') AND (ME_Docproductos.CODDOC = '${coddoc}') AND (ME_Docproductos.DOC_NUMERO = '${correlativo}') 
+    `
 
     execute.Query(res, qry);
 
