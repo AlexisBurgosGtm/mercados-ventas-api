@@ -19,10 +19,11 @@ router.get("/login",async(req,res)=>{
 // ACTUALIZA LA UBICACIÓN GPS DEL USUARIO PARA REVISARLO EN UN MAPA
 router.put("/location",async(req,res)=>{
 
-    const {sucursal,codven,lat,long,horamin} = req.body;
+    const {sucursal,codven,lat,long,horamin,fecha} = req.body;
     
     let qry ='';
-    qry = `UPDATE ME_USUARIOS SET LAT=${lat}, LONG=${long}, HORAMIN='${horamin}' WHERE CODSUCURSAL='${sucursal}' AND CODUSUARIO=${codven}`;
+    qry = `UPDATE ME_USUARIOS SET LAT=${lat}, LONG=${long}, HORAMIN='${horamin}', FECHA='${fecha}'
+     WHERE CODSUCURSAL='${sucursal}' AND CODUSUARIO=${codven}`;
     
     execute.Query(res,qry);
 });

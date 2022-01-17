@@ -41,7 +41,8 @@ let classEmpleados = {
                 codven : GlobalCodUsuario,
                 lat : GlobalGpsLat,
                 long : GlobalGpsLong,
-                horamin:momento
+                horamin:momento,
+                fecha:funciones.getFecha()
             })
             .then((response) => {
                 //console.log(response);
