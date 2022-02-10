@@ -2,6 +2,23 @@ const execute = require('./connection');
 const express = require('express');
 const router = express.Router();
 
+// ELIMINA UN USUARIOS
+router.post("/updatepass", async(req,res)=>{
+    
+    const {sucursal, codven, nuevaclave} = req.body;
+        
+    let qry =''; 
+    qry = `UPDATE ME_USUARIOS
+            SET PASS='${nuevaclave}'
+            WHERE CODSUCURSAL='${sucursal}'AND CODUSUARIO=${codven};`;     
+    
+      
+    execute.Query(res, qry);
+
+    
+});
+
+
 // OBTIENE LOS USUARIOS DE UN DETERMINADO TIPO
 router.post("/listado", async(req,res)=>{
     

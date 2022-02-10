@@ -1,4 +1,27 @@
 
+.btn-bottom-right { 
+  position: fixed;
+  z-index: 1088;
+  right: 21px;
+  bottom: 15px;
+  }
+
+.btn-bottom-left { 
+  position: fixed;
+  z-index: 1088;
+  left: 21px;
+  bottom: 15px;
+  }
+
+.btn-bottom-middle { 
+      position: fixed;
+      z-index: 1088;
+      left: 50%;
+      right: 50%;
+      bottom: 15px;
+}
+
+
 .nav-link-custom{
   color: rgb(107, 107, 107);
   background-color:white;
@@ -16,6 +39,13 @@
 .bg-custom-2{
   background: rgb(10,10,10);
 background: radial-gradient(circle, rgba(10,10,10,1) 0%, rgba(85,17,0,1) 97%);
+}
+
+.card-rounded {
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 
 .border-top-rounded{

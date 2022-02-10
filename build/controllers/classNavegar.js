@@ -46,11 +46,11 @@ let classNavegar = {
     inicioVendedor : async ()=>{
         let strFooter =    `<button class="btn btn-sm "  id="btnMenu2VendedorClientesMapa">
                                 <i class="fal fa-map"></i>
-                                Mapa
+                                Map
                             </button> 
                             <button class="btn btn-sm "  id="btnMenu2VendedorClientes">
                                 <i class="fal fa-shopping-cart"></i>
-                                Clientes
+                                Client
                             </button>
                             <button class="btn btn-sm " id="btnMenu2VendedorPedidos">
                                 <i class="fal fa-chart-line"></i>
@@ -62,7 +62,11 @@ let classNavegar = {
                             </button>
                             <button class="btn btn-sm "  id="btnMenu2VendedorSync">
                                 <i class="fal fa-sync"></i>
-                                Descargar
+                                Desc
+                            </button>
+                            <button class="btn btn-sm "  id="btnMenu2VendedorConfig">
+                                <i class="fal fa-cog"></i>
+                                Cnf
                             </button>
         `
         let strMenu =   `
@@ -141,14 +145,17 @@ let classNavegar = {
                         classNavegar.logrovendedor();
                     });
 
-                    let btnMenuVendedorNoticias = document.getElementById('btnMenuVendedorNoticias');
-                    btnMenuVendedorNoticias.addEventListener('click',()=>{
-                        classNavegar.noticias();
-                    });
+                 
                     let btnMenu2VendedorSync = document.getElementById('btnMenu2VendedorSync');
                     btnMenu2VendedorSync.addEventListener('click',()=>{
                         $('#modalSync').modal('show');
                     });
+
+                    let btnMenu2VendedorConfig = document.getElementById('btnMenu2VendedorConfig');
+                    btnMenu2VendedorConfig.addEventListener('click',()=>{
+                        classNavegar.ConfigVendedor();
+                    });
+
                     //actualiza la ubicación del empleado
                     await classEmpleados.updateMyLocation();
 
@@ -470,11 +477,11 @@ let classNavegar = {
             })
         })
     },
-    noticias: ()=>{
-        funciones.loadScript('../views/noticias/index.js','root')
+    ConfigVendedor: ()=>{
+        funciones.loadScript('../views/config.js','root')
         .then(()=>{
-            GlobalSelectedForm='NOTICIAS';
-            inicializarVistaNoticias();
+            GlobalSelectedForm='CONFIG';
+            initView();
         })
     },
     gerenteInicioSucursales: ()=>{

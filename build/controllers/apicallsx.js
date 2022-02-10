@@ -83,6 +83,25 @@ let apigen = {
         
 
     },
+    config_cambiar_clave: (sucursal,codven,nuevaclave)=>{
+        return new Promise((resolve,reject)=>{
+            axios.post('/usuarios/updatepass',{
+               sucursal:sucursal,
+               codven:codven,
+               nuevaclave:nuevaclave
+            })
+            .then((response) => {
+                let data = response.data;
+                if(Number(data.rowsAffected[0])>0){
+                    resolve(data);             
+                }else{
+                    reject();
+                }             
+            }, (error) => {
+                reject();
+            });
+        })
+    },
     clientesVendedor: async(sucursal,codven,dia,idContenedor,idContenedorVisitados)=>{
     
         let container = document.getElementById(idContenedor);
@@ -1202,57 +1221,6 @@ let apigen = {
             lbTotal.innerText = 'Q0.00';
         });
            
-    },
-    noticiaslistado : (sucursal,user,idContenedor)=>{
-
-        let container = document.getElementById(idContenedor);
-        container.innerHTML = GlobalLoader;
-
-        let str = '';
-
-        axios.get('/noticias/listado', {
-            sucursal: sucursal,
-            user:user
-        })
-        .then((response) => {
-            const data = response.data.recordset;
-            data.map((rows)=>{
-                let classprioridad ='';
-                switch (rows.PRIORIDAD) {
-                    case 'ALTA':
-                        classprioridad = 'bg-danger';
-                        break;
-                    case 'MEDIA':
-                        classprioridad = 'bg-warning';
-                        break;
-                    case 'BAJA':
-                        classprioridad = 'bg-info';
-                         break;               
-                    default:
-                        break;
-                }
-                str = str + `
-                    <div class="row">
-                        <div class="card col-12">
-                            <div class="card-header ${classprioridad}">
-                                <label class="text-white">${rows.FECHA.toString().replace('T00:00:00.000Z','')}</label>
-                            </div>
-                            <div class="card-body">
-                                <label>${rows.NOTICIA}</label>
-                            </div>
-                            <div class="card-footer text-right">
-                                <label><i>${rows.USUARIO}</i></label>
-                            </div>
-                        </div>
-                    </div>`        
-            })
-            container.innerHTML = str;
-
-        }, (error) => {
-            funciones.AvisoError('Error en la solicitud');
-            container.innerHTML = 'No se pudo cargar la lista';
-        });
-
     },
     tblVendedores : (sucursal,idContainer)=>{
         let container = document.getElementById(idContainer);
