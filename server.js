@@ -125,11 +125,6 @@ io.on('connection', function(socket){
     io.emit('reparto pedidomarcado', msg,status,vendedor);
   })
 
-
-  socket.on('chat msn', function(msg,status,user){
-	  io.emit('chat msn', msg, status, user);
-  });
-  
   
 });
 
