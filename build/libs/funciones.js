@@ -2,7 +2,7 @@ let funciones = {
     shareApp:async()=>{
         const shareData = {
           title: 'MERCADOS EFECTIVOS',
-          text: 'App para Vendedor (Versión 03-2022',
+          text: `App para Vendedor (${versionapp})`,
           url: window.location.origin
         }
 
@@ -14,6 +14,24 @@ let funciones = {
             console.log('Error al compartir: ' + err);
         }
     },
+    shareAppWhatsapp: ()=>{
+     let url= window.location.origin
+     swal({
+      text: 'Escriba el número a donde se enviará:',
+      content: "input",
+      button: {
+        text: "Whatsapp",
+        closeModal: true,
+      },
+    })
+    .then(numero => {
+      if (!numero) throw null;
+        let stn = '502' + numero.toString();
+        let msg = encodeURIComponent(`Aplicación Ventas Mercados Efectivos ${versionapp} `);
+            window.open('https://api.whatsapp.com/send?phone='+numero+'&text='+msg+url)
+    })   
+
+  },
     enviarPedidoWhatsapp2: function(fecha,coddoc,correlativo){
     swal({
       text: 'Escriba el número a donde se enviará:',

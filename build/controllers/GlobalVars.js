@@ -1,3 +1,5 @@
+let versionapp = 'Versión 03.2022';
+
 let root = document.getElementById('root');
 let rootMenu = document.getElementById('rootMenu');
 let rootMenuFooter = document.getElementById('rootMenuFooter');
