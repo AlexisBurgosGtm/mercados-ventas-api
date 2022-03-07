@@ -13,7 +13,7 @@ function getView(){
                 <div class="card shadow p-2 border-top-rounded border-bottom-rounded">
 
                     <div class="card-header text-center bg-white">
-                        <img src="./favicon.png" width=60 height=60>
+                        <img src="./favicon.png" width="60" height="60" ondblclick="funciones.shareApp();">
                     </div>
                     <div class="card-body">
                         <form class="" id="frmLogin" autocomplete="off">
@@ -54,7 +54,7 @@ function getView(){
                                 </button>
                             </div>
                             <div class="form-group" align="right">
-                                <small class="">Mercados Efectivos - v2.2022</small>
+                                <small class="">Mercados Efectivos - v3.2022</small>
                                 <br>
                                 <small>
                                     <a href="https://apigen.whatsapp.com/send?phone=50257255092&text=Ayudame%20con%20la%20app%20de%20Mercados%20Efectivos...%20">

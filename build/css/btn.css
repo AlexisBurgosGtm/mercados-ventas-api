@@ -1,3 +1,11 @@
+.currSign:before {
+  content: 'Q';
+}
+
+.fontsmall {
+    font-size: 90%;
+
+};
 
 .btn-bottom-right { 
   position: fixed;

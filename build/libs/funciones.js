@@ -1,4 +1,19 @@
 let funciones = {
+    shareApp:async()=>{
+        const shareData = {
+          title: 'MERCADOS EFECTIVOS',
+          text: 'App para Vendedor (Versión 03-2022',
+          url: window.location.origin
+        }
+
+        try {
+            await navigator.share(shareData)
+            //resultPara.textContent = 'MDN shared successfully'
+        } catch(err) {
+            //resultPara.textContent = 'Error: ' + err
+            console.log('Error al compartir: ' + err);
+        }
+    },
     enviarPedidoWhatsapp2: function(fecha,coddoc,correlativo){
     swal({
       text: 'Escriba el número a donde se enviará:',

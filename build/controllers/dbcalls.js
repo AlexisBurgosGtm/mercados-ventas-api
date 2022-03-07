@@ -474,12 +474,17 @@ function dbCargarPedidosPendientes(){
     .then((response)=>{
         let container = document.getElementById('tblPedidosPendientes');
         container.innerHTML = GlobalLoader;
+
+        let containerTotal = document.getElementById('lbTotalVentaPendiente');
+        containerTotal.innerHTML = '--.--';
         
         let str = '';
         let contador = 0;
+        let totalventa = 0;
 
         response.map((rs)=>{
             contador = contador + 1;
+            totalventa += Number(rs.TOTALPRECIO);
             str = str + `<tr class="border-bottom">
                             <td>${rs.FECHA}
                                 <br>
@@ -499,6 +504,8 @@ function dbCargarPedidosPendientes(){
                         </tr>`    
         })
         container.innerHTML = str;
+        containerTotal.innerText = funciones.setMoneda(totalventa,'');
+        
         if(Number(contador)>0){
             btnPedidosPend.className = 'btn btn-danger btn-lg btn-icon rounded-circle shadow';
         }else{
