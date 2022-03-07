@@ -13,7 +13,21 @@ function getView(){
                 <div class="card shadow p-2 border-top-rounded border-bottom-rounded">
 
                     <div class="card-header text-center bg-white">
-                        <img src="./favicon.png" width="60" height="60" ondblclick="funciones.shareApp();">
+                        <div class="row">
+                            <div class="col-4">
+
+                            </div>
+                            <div class="col-4">
+                                <img src="./favicon.png" width="60" height="60">                            
+                            </div>
+                            <div class="col-4" align="right">
+                                <br>
+                                <button class="btn btn-outline-info btn-lg btn-circle shadow" onclick="funciones.shareAppWhatsapp();">
+                                        <i class="fal fa-paper-plane"></i>
+                                </button>
+                            </div>    
+                        </div>
+                        
                     </div>
                     <div class="card-body">
                         <form class="" id="frmLogin" autocomplete="off">

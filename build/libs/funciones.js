@@ -17,10 +17,10 @@ let funciones = {
     shareAppWhatsapp: ()=>{
      let url= window.location.origin
      swal({
-      text: 'Escriba el número a donde se enviará:',
+      text: 'Escriba el número a donde se enviará el link de la aplicación:',
       content: "input",
       button: {
-        text: "Whatsapp",
+        text: "Enviar Whatsapp",
         closeModal: true,
       },
     })
@@ -28,7 +28,7 @@ let funciones = {
       if (!numero) throw null;
         let stn = '502' + numero.toString();
         let msg = encodeURIComponent(`Aplicación Ventas Mercados Efectivos ${versionapp} `);
-            window.open('https://api.whatsapp.com/send?phone='+numero+'&text='+msg+url)
+            window.open('https://api.whatsapp.com/send?phone='+stn+'&text='+msg+url)
     })   
 
     },
