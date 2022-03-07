@@ -31,7 +31,7 @@ let funciones = {
             window.open('https://api.whatsapp.com/send?phone='+numero+'&text='+msg+url)
     })   
 
-  },
+    },
     enviarPedidoWhatsapp2: function(fecha,coddoc,correlativo){
     swal({
       text: 'Escriba el número a donde se enviará:',
