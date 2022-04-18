@@ -412,11 +412,7 @@ function gettempDocproductos(usuario){
         }
     })
     
-
-
-    
-
-}
+};
 
 function deleteTempVenta(usuario){
     return new Promise(async(resolve,reject)=>{
