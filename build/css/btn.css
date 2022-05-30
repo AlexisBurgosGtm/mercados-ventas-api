@@ -39,7 +39,11 @@
   background-color: rgb(107, 107, 107)
 }
 
+
 .bg-gris {
+  background-color: #505050 !important; }
+
+.bg-gris2 {
   background-color: #333333 !important; }
 
 .bg-custom-1{

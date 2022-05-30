@@ -1,5 +1,5 @@
-const staticCacheName = 'pre-cache-v1';
-const dynamicCacheName = 'runtime-cache-v1';
+const staticCacheName = 'pre-cache-v1.3';
+const dynamicCacheName = 'runtime-cache-v1.3';
 
 // Pre Caching Assets
 const precacheAssets = [
@@ -22,6 +22,7 @@ const precacheAssets = [
     './controllers/apicallsx.js',
     './img/usericon.png',
     './img/logo.png',
+    './img/cog.png',
     './img/favicon.png',
     './img/icon-60.png',
     './img/icon-114.png',

@@ -46,11 +46,11 @@ let classNavegar = {
     inicioVendedor : async ()=>{
         let strFooter =    `<button class="btn btn-sm "  id="btnMenu2VendedorClientesMapa">
                                 <i class="fal fa-map"></i>
-                                Map
+                                Mapa
                             </button> 
                             <button class="btn btn-sm "  id="btnMenu2VendedorClientes">
                                 <i class="fal fa-shopping-cart"></i>
-                                Client
+                                Clientes
                             </button>
                             <button class="btn btn-sm " id="btnMenu2VendedorPedidos">
                                 <i class="fal fa-chart-line"></i>
@@ -60,107 +60,74 @@ let classNavegar = {
                                 <i class="fal fa-chart-pie"></i>
                                 Mes
                             </button>
+                            <button class="btn btn-sm " id="btnMenu2Censo">
+                                <i class="fal fa-edit"></i>
+                                Censar
+                            </button>
                             <button class="btn btn-sm "  id="btnMenu2VendedorSync">
                                 <i class="fal fa-sync"></i>
                                 Desc
                             </button>
-                            <button class="btn btn-sm "  id="btnMenu2VendedorConfig">
-                                <i class="fal fa-cog"></i>
-                                Cnf
-                            </button>
-        `
-        let strMenu =   `
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuVendedorClientes">
-                                <span>VENDER(Lista Clientes)</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuVendedorClientesMapa">
-                                <span>VENDER(Mapa Clientes)</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuVendedorReparto">
-                                <span>REPARTO</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuVendedorPedidos">
-                                <span>LOGRO DIA</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuVendedorLogro">
-                                <span>LOGRO MES</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuVendedorNoticias">
-                                <span>NOTICIAS</span>
-                            </a>
-                            <a class="dropdown-item hidden" data-toggle="dropdown" id="btnMenuVendedorCenso">
-                                <span>CENSO</span>
-                            </a>
+                    
                             `
-                    rootMenu.innerHTML = strMenu;
+
                     rootMenuFooter.innerHTML = strFooter;
-           
-                     // handlers del menu
-                    let btnMenuVendedorClientes = document.getElementById('btnMenuVendedorClientes');
-                    btnMenuVendedorClientes.addEventListener('click',()=>{
-                        classNavegar.inicioVendedorListado();
-                    });
+                                                 
                     let btnMenu2VendedorClientes = document.getElementById('btnMenu2VendedorClientes');
                     btnMenu2VendedorClientes.addEventListener('click',()=>{
                         classNavegar.inicioVendedorListado();
                     });
 
-                    
-                    let btnMenuVendedorClientesMapa = document.getElementById('btnMenuVendedorClientesMapa');
-                    btnMenuVendedorClientesMapa.addEventListener('click',()=>{
-                        classNavegar.ventasMapaClientes();
-                    });
+
                     let btnMenu2VendedorClientesMapa = document.getElementById('btnMenu2VendedorClientesMapa');
                     btnMenu2VendedorClientesMapa.addEventListener('click',()=>{
                         classNavegar.ventasMapaClientes();
                     });
 
-
-                    let btnMenuVendedorReparto = document.getElementById('btnMenuVendedorReparto');
-                    btnMenuVendedorReparto.addEventListener('click',()=>{
-                        classNavegar.vendedorReparto();
-                    });
-                    let btnMenuVendedorCenso = document.getElementById('btnMenuVendedorCenso');
-                    btnMenuVendedorCenso.addEventListener('click',()=>{
-                        classNavegar.vendedorCenso();
-                    });
-
-
-                    let btnMenuVendedorPedidos = document.getElementById('btnMenuVendedorPedidos');
-                    btnMenuVendedorPedidos.addEventListener('click',()=>{
-                        classNavegar.pedidos();
-                    });
+             
+                
                     let btnMenu2VendedorPedidos = document.getElementById('btnMenu2VendedorPedidos');
                     btnMenu2VendedorPedidos.addEventListener('click',()=>{
                         classNavegar.pedidos();
                     });
 
 
-                    let btnMenuVendedorLogro = document.getElementById('btnMenuVendedorLogro');
-                    btnMenuVendedorLogro.addEventListener('click',()=>{
-                        classNavegar.logrovendedor();
-                    });
                     let btnMenu2VendedorLogro = document.getElementById('btnMenu2VendedorLogro');
                     btnMenu2VendedorLogro.addEventListener('click',()=>{
                         classNavegar.logrovendedor();
                     });
 
                  
+                    let btnMenu2Censo = document.getElementById('btnMenu2Censo');
+                    btnMenu2Censo.addEventListener('click',()=>{
+
+                        funciones.AvisoError('Próximamente se incluirá el censo en esta sección');
+
+                    });
+
                     let btnMenu2VendedorSync = document.getElementById('btnMenu2VendedorSync');
                     btnMenu2VendedorSync.addEventListener('click',()=>{
                         $('#modalSync').modal('show');
                     });
 
-                    let btnMenu2VendedorConfig = document.getElementById('btnMenu2VendedorConfig');
-                    btnMenu2VendedorConfig.addEventListener('click',()=>{
-                        classNavegar.ConfigVendedor();
-                    });
-
+                 
                     //actualiza la ubicación del empleado
                     await classEmpleados.updateMyLocation();
 
                     //classNavegar.ventasMapaClientes();
                     classNavegar.inicioVendedorListado();
+
+
+                    let btnMConfig = document.getElementById('btnMConfig');
+                    btnMConfig.addEventListener('click',()=>{
+                        if(GlobalSelectedForm=='LOGIN'){
+                            funciones.AvisoError('Debe iniciar sesión para ver esta sección');
+                            return;
+                        };
+                        classNavegar.ConfigVendedor();
+                    });
+
+                  
              
     },
     inicioVendedorListado :async ()=>{
