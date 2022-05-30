@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -169,32 +169,14 @@
                     <main id="js-page-content" role="main" class="page-content">
                       <div id="root">
 
+                            <h1>NO TIENES INTERNET</h1>
+
                       </div>
                     </main>
                         <!-- Internet Connection Status-->
                         <div class="internet-connection-status" id="internetStatus"></div>
 
-                    <div id="" class="shortcut-menu align-left">
-                         <button class="btn btn-danger btn-circle btn-xl shadow" id="btnInstalarApp">
-                             <i class="fal fa-download"></i>
-                         </button>
-                    </div>
-
-                    <div class="leftbutton2">
-                        <div class="row">
-                            <button class="btn btn-outline-secondary btn-lg btn-icon rounded-circle shadow" id="btnPedidosPend">
-                                <i class="fal fa-bell"></i>0
-                            </button>
-                        </div>
-                        <div class="row">
-                            <button class="btn btn-info btn-lg btn-icon rounded-circle shadow" id="btnListaP">
-                                <i class="fal fa-search"></i>
-                            </button>
-                        </div>
-
-                        
-                   
-                   </div>
+                       
                     
                     <!-- this overlay is activated only when mobile menu is triggered -->
                     <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div> <!-- END Page Content -->
@@ -220,172 +202,8 @@
         </div>
         <!-- END Page Wrapper -->
 
-        <!-- MENU LATERAL DERECHO -->
-        <div class="modal fade js-modal-settings modal-backdrop-transparent" tabindex="-1" role="dialog" aria-hidden="true" id="modalMenu">
-            <div class="modal-dialog modal-dialog-right modal-lg">
-                <div class="modal-content">
-                    <div class="dropdown-header bg-danger d-flex justify-content-center align-items-center w-100">
-                        <h4 class="m-0 text-center color-white" id="lbMenuTitulo">
-                            Opciones
-                            <small class="mb-0 opacity-80">Opciones</small>
-                        </h4>
-                        
-                        
-                        <button type="button" class="close text-white position-absolute pos-top pos-right p-2 m-1 mr-2" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                        </button>
-                    </div>
-                    <div class="modal-body p-0">
-                        <div class="" id="rootMenuLateral">
-                                                        
-                            
-                            
-                        </div>
-                        <span id="saving"></span>
-                    </div>
-                    <div class="modal-footer">
-
-                        <button class="btn btn-sm btn-danger position-absolute pos-bottom pos-right " id="btnCerrarModalMenuLateral"><<- Regresar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-             
-        <!-- LISTA DE PRECIOS -->
-        <div class="modal fade js-modal-settings modal-backdrop-transparent" tabindex="-1" role="dialog" aria-hidden="true" id="modalListaPrecios">
-            <div class="modal-dialog modal-dialog-right modal-lg">
-                <div class="modal-content">
-                    <div class="dropdown-header d-flex justify-content-center align-items-center w-100">
-                        <h4 class="m-0 text-center " id="">
-                            Lista de Precios
-                            <small class="mb-0 opacity-80">Búsqueda rápida de Precios</small>
-                        </h4>
-                        <button type="button" class="close text-white position-absolute pos-top pos-right p-2 m-1 mr-2" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                        </button>
-                    </div>
-                    <div class="modal-body p-0">
-                        
-                            <div class="input-group">
-                                <input id="txtBProducto" type="text" ref="txtBusqueda" class="form-control col-7 shadow border-secondary border-left-0 border-right-0 border-top-0" placeholder="Buscar código o descripción..." aria-label="" aria-describedby="button-addon4" />
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary waves-effect waves-themed shadow" type="button" id="btnBProducto">
-                                        <i class="fal fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        
-                        <div class="" id="">
-                            <table class="table table-responsive table-striped table-hover">
-                                <thead class="bg-secondary text-white">
-                                    <tr>
-                                        <td>Producto</td>
-                                        <td>Precio</td>                         
-                                    </tr>
-                                </thead>
-                                <tbody id="tblPre">
-                                
+        
     
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-
-                        <button class="btn btn-sm btn-danger position-absolute pos-bottom pos-right" data-dismiss="modal">
-                            <<- Regresar
-                        </button>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- DESCARGAS -->
-        <div class="modal fade js-modal-settings card modal-backdrop-transparent border-top-rounded border-bottom-rounded" tabindex="-1" role="dialog" aria-hidden="true" id="modalSync">
-            <div class="modal-dialog modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="dropdown-header d-flex justify-content-center align-items-center w-100">
-                        <img src="./favicon.png" width="40" height="40">
-                        <h3 class="m-0 text-center color-secondary">
-                            Descarga de Catálogos
-                        </h3>
-                       
-                    </div>
-                    <div class="modal-body p-4">
-                        
-                            <div class="row">
-                                
-                                <div class="col-6">
-                                    <button class="btn btn-outline-success shadow btn-xl" id="btnDownloadProductos">
-                                        <i class="fal fa-shopping-cart"></i>
-                                        Bajar <br>
-                                        Productos
-                                    </button>
-                                </div>                                           
-                                <div class="col-6">
-                                    <button class="btn btn-outline-info shadow btn-xl" style="width: 50; height: 50;" id="btnDownloadClientes">
-                                        <i class="fal fa-user"></i>
-                                        Bajar  <br>
-                                        Clientes
-                                    </button>
-                                </div>
-                            </div>
-
-                        
-                                    
-                        <br><br><br>
-                        
-                        <span id="saving"></span>
-                    </div>
-                    <div class="moda-footer">
-                        <button class="btn btn-outline-secondary btn-xl col-12" data-dismiss="modal">
-                            <i class="fal fa-check"></i>
-                            Aceptar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-      
-        <!-- PEDIDOS PENDIENTES -->
-        <div class="modal fade" id="ModalPendientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-right" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <label class="modal-title text-info h3" id="">Pedidos Pendientes de Enviar</label>
-                        <small class="negrita text-danger">Para poder editar un pedido, primero debe enviarlo</small>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                        </button>
-                    </div>
-                    
-                    <div class="modal-body">
-                        
-                        <div class="table-reponsive">
-                            <div class="row">
-                                <label class="">Total Pendiente:</label>
-                                <h3 class="text-danger currSign" id="lbTotalVentaPendiente">--.--</h3>
-                            </div>
-                            <table class="table table-responsive table-hover table-striped table-bordered shadow">
-                                <thead class="bg-info text-white">
-                                    <td>Fecha</td>
-                                    <td>Cliente</td>
-                                    <td>Importe</td>
-                                    <td></td>
-                                </thead>
-                                <tbody id="tblPedidosPendientes"></tbody>
-                            </table>
-                        </div>
-                        <button class="btn form-control shadow" data-dismiss="modal">
-                            Cerrar(x)
-                        </button>
-                    </div>
-
-                
-                </div>
-            </div>
-        </div>
 
         <!-- WAIT FORM -->
         <div class="modal fade js-modal-settings modal-backdrop-transparent shadow" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" id="modalWait">
@@ -424,33 +242,6 @@
         <script src="js/vendors.bundle.js"></script>
         <script src="js/app.bundle.js"></script>
         <script src="js/../script.js"></script>
-
-        <script src="./controllers/CustomerVars.js"></script>
-
-        <script src="./libs/funciones.js"></script>
-        
-        <script src="./libs/noty/noty.min.js"></script>
-        
-
-        <script src="./libs/sweetalert.min.js"></script>
-        <script src="./libs/axios.min.js"></script>
-        <script src="./libs/leaflet/leaflet.js"></script>
-        
-       <script src="./libs/jsstore/jsstore.min.js"></script>
-       <script src="./libs/jsstore/jsstore.worker.min.js"></script>
-     
-       <script src="./listaprecios.js"></script>
-
-        <script src="./controllers/classNavegar.js"></script>
-        <script src="./controllers/GlobalVars.js"></script>
-        
-        <script src="./controllers/classDb.js"></script>
-        <script src="./models/classEmpleados.js"></script>
-        <script src="./models/classTipoDocumentos.js"></script>
-        
-        <script src="./index.js"></script>
-        <script src="./controllers/dbcalls.js"></script>
-        <script src="./controllers/apicallsx.js"></script>
 
     </body>
 

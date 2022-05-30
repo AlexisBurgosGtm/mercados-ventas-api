@@ -13,6 +13,7 @@ function InicializarServiceWorkerNotif(){
     .catch(err => 'SW registration failed'));
   };
 
+ 
   requestPermission();
 }
 

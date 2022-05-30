@@ -1,133 +1,115 @@
+const staticCacheName = 'pre-cache-v1';
+const dynamicCacheName = 'runtime-cache-v1';
 
-var CACHE = 'mercadosefectivosoffline1';
-const staticAssets = [  
-  './css/vendors.bundle.css',
-  './css/app.bundle.css',
-  './css/.../styles.css',
-  './css/btn.css',
-  './libs/leaflet/leaflet.css',
-  './libs/leaflet/leaflet.js',
-  './libs/noty/noty.min.css',
-  './manifest.json',
-  './js/vendors.bundle.js',
-  './js/app.bundle.js',
-  './js/../script.js',
-  './libs/noty/noty.min.js',
-  './libs/sweetalert.min.js',
-  './libs/jsstore/jsstore.min.js',
-  './libs/jsstore/jsstore.worker.min.js',
-  './libs/funciones.js',
-  './controllers/classNavegar.js',
-  './controllers/GlobalVars.js',
-  './controllers/classDb.js',
-  './controllers/dbcalls.js',
-  './models/classEmpleados.js',
-  './models/classTipoDocumentos.js',
-  './controllers/apicallsx.js',
-  './index.js',
-  './favicon.png',
-  './index.html',
-   './sw.js',
-   './views/vendedor/facturacion.js',
-   './views/vendedor/vendedor.js',
-   './views/login/index.js'
+// Pre Caching Assets
+const precacheAssets = [
+    '/',
+    './css/vendors.bundle.css',
+    './css/sb-admin-2.css',
+    './css/fa-solid.css',
+    './css/fa-regular.css',
+    './css/fa-brands.css',
+    './css/btn.css',
+    './css/bootstrap.min.css',
+    './css/bootstrap-toggle.css',
+    './css/app.bundle.css.map',
+    './css/app.bundle.css',
+    './controllers/GlobalVars.js',
+    './controllers/dbcalls.js',
+    './controllers/customerVars.js',
+    './controllers/classNavegar.js',
+    './controllers/classDb.js',
+    './controllers/apicallsx.js',
+    './img/usericon.png',
+    './img/logo.png',
+    './img/favicon.png',
+    './img/icon-60.png',
+    './img/icon-114.png',
+    './img/icon-152.png',
+    './js/vendors.bundle.js',
+    './js/script.js',
+    './js/sb-admnin-2.min.js',
+    './js/sb-admin-2.js',
+    './js/holder.js',
+    './js/bootstrap.min.js',
+    './js/bootstrap-toggle.js',
+    './js/app.bundle.js',
+    './libs/jsstore/jsstore.min.js',
+    './libs/jsstore/jsstore.worker.min.js',
+    './libs/leaflet/images/marker-icon.png',
+    './libs/leaflet/leaflet.css',
+    './libs/leaftlet/leaftlet.js',
+    './libs/noty/noty.min.js',
+    './libs/noty/noty.min.css',
+    './libs/chartjs.bundle.js',
+    './libs/funciones.js',
+    './libs/sweetalert.min.js',
+    './libs/toastr.js',
+    './models/classTipoDocumentos.js',
+    './models/classEmpleados.js',
+    './vendor/jquery-easing/jquery.easing.js',
+    './vendor/jquery/jquery.slim.min.map',
+    './vendor/jquery/jquery.slim.min.js',
+    './vendor/jquery/jquery.slim.js',
+    './vendor/jquery/jquery.min.map',
+    './vendor/jquery/jquery.min.js',
+    './vendor/jquery/jquery.js',
+    './vendor/fontawesome-free/css/all.css',
+    './vendor/chart.js/Chart.min.js',
+    './views/vendedor/vendedor.js',
+    './views/vendedor/reparto.js',
+    './views/vendedor/mapaclientes.js',
+    './views/vendedor/facturacion.js',
+    './views/vendedor/censo.js',
+    './views/pedidos/vendedorlogro.js',
+    './views/pedidos/vendedor.js',
+    './views/login/index.js',
+    './views/programador.js',
+    './views/config.js',
+    './favicon.png',
+    './listaprecios.js',
+    './sw.js',
+    './index.html',
+    './index.js',
+    './manifest.json'
 ];
 
-self.addEventListener('install', function(evt) {
-  console.log('Service worker instalado');
-  evt.waitUntil(caches.open(CACHE).then(function (cache) {
-    cache.addAll(staticAssets);
-  }));
-  
-	
-});
-
-self.addEventListener('fetch', async evt => {
-
-  var req = evt.request.clone();
-  if (navigator.onLine){
-    if (req.clone().method == "GET") {
-      //evt.respondWith(fromCache(evt.request));
-      evt.waitUntil(update(evt.request));
-    }
-  }else{
-    if (req.clone().method == "GET") {
-      evt.respondWith(fromCache(evt.request));
-      //evt.waitUntil(update(evt.request));
-    }
-  }
-  
-  /**
-  event.respondWith(
-    caches.open(CACHE).then(function(cache) {
-      return cache.match(event.request).then(function (response) {
-        return response || fetch(event.request).then(function(response) {
-          cache.put(event.request, response.clone());
-          return response;
-        });
-      });
-    })
-  );
-   */
-  
-//carga caché y lo actualiza.. hay que evitar las solicitudes del socket.io
-/*
-  event.respondWith(
-    caches.open(CACHE).then(function(cache) {
-      return cache.match(event.request).then(function(response) {
-        
-        var fetchPromise = fetch(event.request).then(function(networkResponse) {
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
+// INSTALL Event
+self.addEventListener('install', function (event) {
+    event.waitUntil(
+        caches.open(staticCacheName).then(function (cache) {
+            return cache.addAll(precacheAssets);
         })
-        return response || fetchPromise;
-      })
-    })
-  );
-*/
-  
-  /* 
-  event.respondWith(
-    caches.open(cacheName)
-      .then(cache => cache.match(event.request, {ignoreSearch: true}))
-      .then(response => {
-      return response || fetch(event.request);
-    })
-  );
-
-  await event.waitUntil(update(event.request));
-*/
+    );
 });
 
-
-function fromCache(request) {
-  return caches.open(CACHE).then(function (cache) {
-    return cache.match(request);
-  });
-}
-
-async function update(request) {
-  return caches.open(CACHE).then(function (cache) {
-    return fetch(request)
-        .then(function (response) {
-          return cache.put(request, response.clone())
-                      .then(function () {
-                        //console.log('Cache actualizado');
-          return response;
-      });
-    });
-  });
-}
-    
-
-
-//registra el tag del background sync
-self.addEventListener('ready',async function(swRegistration) {
-  return swRegistration.sync.register('sendSalesSync');
+// ACTIVATE Event
+self.addEventListener('activate', function (event) {
+    event.waitUntil(
+        caches.keys().then(keys => {
+            return Promise.all(keys
+                .filter(key => key !== staticCacheName && key !== dynamicCacheName)
+                .map(key => caches.delete(key))
+            );
+        })
+    );
 });
 
-self.addEventListener('sync', function(event) {
-  if (event.tag == 'sendSalesSync') {
-    event.waitUntil(dbSendPedidosBackground(GlobalUsuario).then(()=>{funciones.NotificacionPersistent('Enviando pedidos en background','sincronización sw')  }));
-  }
+// FETCH Event
+self.addEventListener('fetch', function (event) {
+    //return;
+
+    event.respondWith(
+        caches.match(event.request).then(cacheRes => {
+            return cacheRes || fetch(event.request).then(response => {
+                return caches.open(dynamicCacheName).then(function (cache) {
+                    cache.put(event.request, response.clone());
+                    return response;
+                })
+            });
+        }).catch(function() {
+            // Fallback Page, When No Internet Connection
+            return caches.match('offline.html');
+          })
+    );
 });
