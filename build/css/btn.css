@@ -1,3 +1,31 @@
+
+.btn-bottom-ml { 
+  position: fixed;
+  z-index: 1088;
+  left: 20%;
+  right: 80%;
+  bottom: 35px;
+}
+
+.btn-bottom-mr { 
+  position: fixed;
+  z-index: 1088;
+  left: 50%;
+  right: 50%;
+  bottom: 35px;
+}
+
+.btn-bottom-r { 
+  position: fixed;
+  z-index: 1088;
+  left: 80%;
+  right: 20%;
+  bottom: 35px;
+  }
+
+
+
+
 .currSign:before {
   content: 'Q';
 }

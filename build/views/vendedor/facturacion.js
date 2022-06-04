@@ -85,18 +85,17 @@ function getView(){
             <div id="panel-2" class="panel col-12">
 
                 <div class="panel-hdr">
-                    <h2 id="txtTotalVenta" class="text-danger"></h2>
-                    <h2 id="txtTotalItems" class="text-info">0 items</h2>
+                   
+                    <h2 id="txtTotalItems" class="negrita">0 items</h2>
                     <div class="panel-toolbar">
 
-                        <button class="btn btn-sm btn-outline-secondary hand shadow" id="btnCambiarCliente">
-                            <i class="fal fa-sync"></i>Cambiar Cliente
-                        </button>
-                                               
+                                                                   
                         <button class="btn btn-sm btn-outline-secondary hand hidden">
                         </button>
 
-                        <button class="btn btn-outline-warning btn-md shadow" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen" id="btnMaxVenta">
+                        <h1 id="txtTotalVenta" class="text-danger negrita"></h1>
+                        
+                        <button class="btn btn-outline-warning btn-md shadow hidden" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen" id="btnMaxVenta">
                             <i class="fal fa-angle-double-up"></i>
                         </button>
                     </div>
@@ -117,7 +116,19 @@ function getView(){
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-circle btn-xl btn-success shadow btn-bottom-middle hand" id="btnAgregarProd">+</button>
+
+                        <button class="btn btn-xl btn-secondary btn-bottom-ml btn-circle hand shadow" id="btnCambiarCliente">
+                            <i class="fal fa-user-pen"></i>
+                        </button>
+                    
+                        <button class="btn btn-circle btn-xl btn-success shadow btn-bottom-mr hand" id="btnAgregarProd">
+                            <i class="fal fa-search"></i>
+                        </button>
+
+                        <button class="btn btn-danger btn-xl btn-circle btn-bottom-r shadow hand" id="btnCobrar">
+                            <i class="fal fa-save"></i>
+                        </button>
+
                     </div>
                 </div>
                 
@@ -182,14 +193,14 @@ function getView(){
                     <div class="modal-dialog modal-lg modal-dialog-right" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <label class="modal-title text-danger h3" id="">Resultados de la Búsqueda</label>
+                                <label class="modal-title text-danger h3" id="">Búsqueda de Productos</label>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true"><i class="fal fa-times"></i></span>
                                </button>
                             </div>
                             <div class="modal-body">
                             <table class="table table-responsive table-striped table-hover">
-                                <thead>
+                                <thead class="bg-trans-gradient text-white">
                                     <tr>
                                         <td>Producto</td>
                                         <td>Precio</td>                         
@@ -205,7 +216,7 @@ function getView(){
                     </div>
 
                     <div class="shortcut-menu align-left">
-                        <button class="btn btn-danger btn-sm" data-dismiss="modal">
+                        <button class="btn btn-danger btn-md" data-dismiss="modal">
                             <i class="fal fa-angle-double-left"></i>Atrás
                         </button>
                     </div>
@@ -271,7 +282,7 @@ function getView(){
         },
         btnCobrar :()=>{
             return `
-            <div id="fixed-btn2">
+            <div id="btn-bottom-r">
                 <button class="btn btn-outline-danger btn-lg waves-themed waves-effect shadow" id="btnCobrar">
                     <i class="fal fa-search"></i>
                     COBRAR
@@ -285,7 +296,7 @@ function getView(){
                 <div class="modal-dialog modal-lg modal-dialog-right" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <label class="modal-title text-danger h3" id="">Resultados de la Búsqueda</label>
+                            <label class="modal-title text-danger h3" id="">Búsqueda de Productos</label>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
                             </button>
@@ -301,16 +312,16 @@ function getView(){
                                         <option value="A">MAY</option>
                                         <option value="K">CAMBIO</option>
                                     </select>
-                                    <input id="txtBusqueda" type="text" ref="txtBusqueda" class="bg-amarillo form-control col-7  shadow border-secondary border-left-0 border-right-0 border-top-0" placeholder="Buscar código o descripción..." aria-label="" aria-describedby="button-addon4" />
+                                    <input id="txtBusqueda" type="text" ref="txtBusqueda" class="bg-amarillo form-control col-7 shadow" placeholder="Buscar código o descripción..." aria-label="" aria-describedby="button-addon4" />
                                     <div class="input-group-prepend">
-                                        <button class="btn btn-outline-secondary btn-rounded waves-effect waves-themed shadow" type="button" id="btnBuscarProducto">
+                                        <button class="btn btn-success btn-rounded waves-effect waves-themed shadow" type="button" id="btnBuscarProducto">
                                             <i class="fal fa-search"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         <table class="table table-responsive table-striped table-hover">
-                            <thead>
+                            <thead class="bg-secondary text-white">
                                 <tr>
                                     <td>Producto</td>
                                     <td>Precio</td>                         
@@ -651,7 +662,7 @@ function getView(){
     //+ view.cajabusquedaproducto()  antes de gridtempventas
     root.innerHTML = view.encabezadoClienteDocumento() 
                 + view.gridTempVenta() 
-                + view.btnCobrar() 
+                //+ view.btnCobrar() 
                 //+ view.modalBusquedaProductos() 
                 //+ view.modalCantidadProducto()
                 + view.modalBusquedaCliente() 
@@ -718,7 +729,7 @@ async function iniciarVistaVentas(nit,nombre,direccion){
     let btnCobrar = document.getElementById('btnCobrar');
     btnCobrar.addEventListener('click',()=>{
        
-        
+        //ALEXIS REVISAR LOGICA
         if(btnCobrar.innerText=='Terminar'){
             funciones.AvisoError('No puede finalizar un pedido sin productos')
         }else{
@@ -1117,7 +1128,7 @@ async function fcnCargarGridTempVentas(idContenedor){
     let varTotalItems =0;
 
     let btnCobrarTotal = document.getElementById('btnCobrar')
-    btnCobrarTotal.innerText =  'Terminar';
+    btnCobrarTotal.disabled = true; //.innerText =  'Terminar';
    
     let coddoc = document.getElementById('cmbCoddoc').value;
     
@@ -1169,14 +1180,19 @@ async function fcnCargarGridTempVentas(idContenedor){
            GlobalTotalDocumento = varTotalVenta;
            GlobalTotalCostoDocumento = varTotalCosto;
            containerTotalVenta.innerHTML = `${funciones.setMoneda(GlobalTotalDocumento,'Q ')}`;
-           btnCobrarTotal.innerHTML = '<h1>Terminar : ' + funciones.setMoneda(GlobalTotalDocumento,'Q ') + '</h1>';
+           if(GlobalTotalDocumento==0){
+                btnCobrarTotal.disabled = true;
+           }else{
+                btnCobrarTotal.disabled = false;
+           }
+             //innerHTML = '<h1>Terminar : ' + funciones.setMoneda(GlobalTotalDocumento,'Q ') + '</h1>';
            containerTotalItems.innerHTML = `${varTotalItems} items`;
         })
     } catch (error) {
         console.log('NO SE LOGRO CARGAR LA LISTA ' + error);
         tabla.innerHTML = 'No se logró cargar la lista...';
         containerTotalVenta.innerHTML = '0';
-        btnCobrarTotal.innerText =  'Terminar';
+        btnCobrarTotal.disabled = true; //innerText =  'Terminar';
         containerTotalItems.innerHTML = `0 items`;
     }
 };
