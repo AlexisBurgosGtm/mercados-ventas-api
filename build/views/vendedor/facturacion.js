@@ -86,6 +86,7 @@ function getView(){
 
                 <div class="panel-hdr">
                     <h2 id="txtTotalVenta" class="text-danger"></h2>
+                    <h2 id="txtTotalItems" class="text-info">0 items</h2>
                     <div class="panel-toolbar">
 
                         <button class="btn btn-sm btn-outline-secondary hand shadow" id="btnCambiarCliente">
@@ -102,24 +103,7 @@ function getView(){
                 </div>
                 <div class="panel-container show">
                     <div class="panel-content">
-                        <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
-                            <div class="input-group">
-                                <select class="form-control col-3 shadow border-secondary negrita border-left-0 border-right-0 border-top-0" id="cmbTipoPrecio">
-                                    <option value="P">DET</option>
-                                    <option value="C">PreB</option>
-                                    <option value="B">PreA</option>
-                                    <option value="A">MAY</option>
-                                    <option value="K">CAMBIO</option>
-                                </select>
-                                <input id="txtBusqueda" type="text" ref="txtBusqueda" class="form-control col-7  shadow border-secondary border-left-0 border-right-0 border-top-0" placeholder="Buscar código o descripción..." aria-label="" aria-describedby="button-addon4" />
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary btn-rounded waves-effect waves-themed shadow" type="button" id="btnBuscarProducto">
-                                        <i class="fal fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
+                        
                         <div class="table-responsive border-top-rounded border-bottom-rounded shadow">
                             <table class="table table-hover table-striped"><!--mt-5-->
                                 <thead class="bg-secondary text-white">
@@ -131,6 +115,9 @@ function getView(){
                                 <tbody id="tblGridTempVentas"></tbody>
                             </table>
                         </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-circle btn-xl btn-success shadow btn-bottom-middle hand" id="btnAgregarProd">+</button>
                     </div>
                 </div>
                 
@@ -305,6 +292,23 @@ function getView(){
                         </div>
 
                         <div class="modal-body">
+                            <div class="row">
+                                <div class="input-group">
+                                    <select class="form-control col-3 shadow border-secondary negrita border-left-0 border-right-0 border-top-0" id="cmbTipoPrecio">
+                                        <option value="P">DET</option>
+                                        <option value="C">PreB</option>
+                                        <option value="B">PreA</option>
+                                        <option value="A">MAY</option>
+                                        <option value="K">CAMBIO</option>
+                                    </select>
+                                    <input id="txtBusqueda" type="text" ref="txtBusqueda" class="bg-amarillo form-control col-7  shadow border-secondary border-left-0 border-right-0 border-top-0" placeholder="Buscar código o descripción..." aria-label="" aria-describedby="button-addon4" />
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary btn-rounded waves-effect waves-themed shadow" type="button" id="btnBuscarProducto">
+                                            <i class="fal fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         <table class="table table-responsive table-striped table-hover">
                             <thead>
                                 <tr>
@@ -699,16 +703,16 @@ async function iniciarVistaVentas(nit,nombre,direccion){
     document.getElementById('txtBusqueda').addEventListener('keyup',(e)=>{
         if(e.code=='Enter'){
             fcnBusquedaProducto('txtBusqueda','tblResultadoBusqueda','cmbTipoPrecio');
-            $('#ModalBusqueda').modal('show');
+            //$('#ModalBusqueda').modal('show');
         }
         if(e.code=='NumpadEnter'){
             fcnBusquedaProducto('txtBusqueda','tblResultadoBusqueda','cmbTipoPrecio');
-            $('#ModalBusqueda').modal('show');
+            //$('#ModalBusqueda').modal('show');
         }
     });
     document.getElementById('btnBuscarProducto').addEventListener('click',()=>{
         fcnBusquedaProducto('txtBusqueda','tblResultadoBusqueda','cmbTipoPrecio');
-        $('#ModalBusqueda').modal('show');
+        //$('#ModalBusqueda').modal('show');
     });
 
     let btnCobrar = document.getElementById('btnCobrar');
@@ -834,6 +838,9 @@ async function iniciarVistaVentas(nit,nombre,direccion){
     //inicia los eventos de la ventana Cantidad al agregar productos
     fcnIniciarModalCantidadProductos();
 
+    document.getElementById('btnAgregarProd').addEventListener('click',()=>{
+        $('#ModalBusqueda').modal('show');
+    });
 };
 
 function addEventsModalCambioCantidad(){
@@ -1107,6 +1114,7 @@ async function fcnCargarGridTempVentas(idContenedor){
     tabla.innerHTML = GlobalLoader;
 
     let varTotalVenta = 0; let varTotalCosto = 0;
+    let varTotalItems =0;
 
     let btnCobrarTotal = document.getElementById('btnCobrar')
     btnCobrarTotal.innerText =  'Terminar';
@@ -1114,7 +1122,10 @@ async function fcnCargarGridTempVentas(idContenedor){
     let coddoc = document.getElementById('cmbCoddoc').value;
     
     let containerTotalVenta = document.getElementById('txtTotalVenta');
-    containerTotalVenta.innerHTML = '0';
+    containerTotalVenta.innerHTML = '--';
+
+    let containerTotalItems = document.getElementById('txtTotalItems');
+    containerTotalItems.innerHTML = '--'
 
     try {
         selectTempventas(GlobalUsuario)
@@ -1122,6 +1133,7 @@ async function fcnCargarGridTempVentas(idContenedor){
             let idcant = 0;
             let data = response.map((rows)=>{
                 idcant = idcant + 1;
+                varTotalItems += 1;
                 varTotalVenta = varTotalVenta + Number(rows.TOTALPRECIO);
                 varTotalCosto = varTotalCosto + Number(rows.TOTALCOSTO);
                 return `<tr id="${rows.ID.toString()}" class="border-bottom" ondblclick="funciones.hablar('${rows.DESPROD}')">
@@ -1158,12 +1170,14 @@ async function fcnCargarGridTempVentas(idContenedor){
            GlobalTotalCostoDocumento = varTotalCosto;
            containerTotalVenta.innerHTML = `${funciones.setMoneda(GlobalTotalDocumento,'Q ')}`;
            btnCobrarTotal.innerHTML = '<h1>Terminar : ' + funciones.setMoneda(GlobalTotalDocumento,'Q ') + '</h1>';
+           containerTotalItems.innerHTML = `${varTotalItems} items`;
         })
     } catch (error) {
         console.log('NO SE LOGRO CARGAR LA LISTA ' + error);
         tabla.innerHTML = 'No se logró cargar la lista...';
         containerTotalVenta.innerHTML = '0';
         btnCobrarTotal.innerText =  'Terminar';
+        containerTotalItems.innerHTML = `0 items`;
     }
 };
 
@@ -1619,6 +1633,8 @@ async function fcnFinalizarPedido(){
 
                 })
                 .catch(()=>{
+                    console.log('pasa por aqui...');
+                    
                     document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-paper-plane mr-1"></i>Enviar';
                     document.getElementById('btnFinalizarPedido').disabled = false;
 

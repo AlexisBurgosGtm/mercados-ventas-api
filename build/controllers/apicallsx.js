@@ -144,11 +144,16 @@ let apigen = {
                         <td>${rows.NOMCLIE}
                             <br>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <small>Cod: ${rows.CODIGO} - St:${stNomStatus}</small>    
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <small>Tel:${rows.TELEFONO}</small>
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-danger btn-lg btn-circle hand shadow" onclick="getMenuCliente2('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
+                                        <i class="fal fa-cog"></i>
+                                    </button>
                                 </div>
                             </div>
                             
@@ -184,11 +189,16 @@ let apigen = {
                                 <td>${rows.NOMCLIE}
                                     <br>
                                     <div class="row">
-                                        <div class="col-6">
-                                            <small>Cod: ${rows.CODIGO}</small>
+                                        <div class="col-4">
+                                            <small>Cod: ${rows.CODIGO} - St:${stNomStatus}</small>    
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-4">
                                             <small>Tel:${rows.TELEFONO}</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <button class="btn btn-danger btn-lg btn-circle hand shadow" onclick="getMenuCliente2('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
+                                                <i class="fal fa-cog"></i>
+                                            </button>
                                         </div>
                                     </div>
                                     

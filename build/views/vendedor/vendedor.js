@@ -171,35 +171,51 @@ function getView(){
                     </div>
 
                     <div class="col-10" align="right"> 
+                                         
+                        <div class="row">
+                            <div class="col-6">
+                                
+                                <div class="card card-rounded shadow bg-warning text-white" id="btnTiendaCerrada">
+                                    <div class="card-body">
+                                        <button class="btn btn-xl btn-warning btn-rounded hand col-12">
+                                            <i class="fal fa-credit-card-front"></i>
+                                            TIENDA CERRADA
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-6">
+                                    <div class="card card-rounded shadow bg-secondary text-white"  id="btnNoDinero">
+                                        <div class="card-body">
+                                            <button class="btn btn-xl btn-secondary btn-rounded hand col-12">
+                                                <i class="fal fa-credit-card-front"></i>
+                                                NO DINERO
+                                            </button>
+                                        </div>
+                                    </div>
+
+                               
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="row hidden">
+                            <button class="btn btn-lg btn-success col-12" id="btnVenderCliente">
+                                <i class="fal fa-tag"></i>
+                                VENDER
+                            </button>
+                        </div>          
+
+                        <hr class="solid">
+                        <hr class="solid">
+                        
                         <div class="row">
                             <button class="btn btn-lg btn-danger btn-round col-12" id="btnCerrarModalCliente">
                                 <i class="fal fa-times"></i>
                                 CANCELAR
                             </button>
                         </div> 
-                        
-                        <br>
-                        <div class="row">
-                            <button class="btn btn-lg btn-warning btn-rounded col-12" id="btnTiendaCerrada">
-                                <i class="fal fa-credit-card-front"></i>
-                                TIENDA CERRADA
-                            </button>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <button class="btn btn-lg btn-secondary col-12" id="btnNoDinero">
-                                <i class="fal fa-credit-card-front"></i>
-                                NO DINERO
-                            </button>
-                        </div>
-                        <br>
-                        
-                        <div class="row">
-                            <button class="btn btn-lg btn-success col-12" id="btnVenderCliente">
-                                <i class="fal fa-tag"></i>
-                                VENDER
-                            </button>
-                        </div>          
 
                     </div>
                             `
@@ -304,6 +320,32 @@ function getMenuCliente(codigo,nombre,direccion,telefono,lat,long,nit){
     GlobalSelectedNomCliente = nombre;
     GlobalSelectedDirCliente = direccion;
     
+
+    classNavegar.ventas(GlobalSelectedCodCliente,GlobalSelectedNomCliente,GlobalSelectedDirCliente);
+
+    //showMenuLateral('Opciones del Cliente');
+
+};
+
+function getMenuCliente2(codigo,nombre,direccion,telefono,lat,long,nit){
+    
+    
+    //map.remove()
+    //map = Lmap(lat,long,nombre,telefono);
+
+    document.getElementById('lbNombreCliente').innerHTML = nombre;
+    document.getElementById('txtCodClie').value = codigo;
+    document.getElementById('txtNitClie').value = nit;
+    document.getElementById('txtDirClie').value = direccion;
+    document.getElementById('txtTelClie').value = telefono;
+    
+    GlobalSelectedCodCliente = codigo;
+    GlobalSelectedNomCliente = nombre;
+    GlobalSelectedDirCliente = direccion;
+    
+
+    //classNavegar.ventas(GlobalSelectedCodCliente,GlobalSelectedNomCliente,GlobalSelectedDirCliente);
+
     showMenuLateral('Opciones del Cliente');
 
 };
