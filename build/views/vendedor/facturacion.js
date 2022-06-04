@@ -118,7 +118,7 @@ function getView(){
                     <div>
 
                         <button class="btn btn-xl btn-secondary btn-bottom-ml btn-circle hand shadow" id="btnCambiarCliente">
-                            <i class="fal fa-user-pen"></i>
+                            <i class="fal fa-user"></i>
                         </button>
                     
                         <button class="btn btn-circle btn-xl btn-success shadow btn-bottom-mr hand" id="btnAgregarProd">
