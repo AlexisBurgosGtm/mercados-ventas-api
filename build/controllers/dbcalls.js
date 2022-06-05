@@ -554,7 +554,7 @@ function getDbDetallePedido(id, cliente){
                             </td>
                             <td>${rs.CANTIDAD}
                                 <br>
-                                <small>${rs.CODDOC}</small>
+                                <small>${rs.CODMEDIDA}</small>
                             </td>
                             <td>${funciones.setMoneda(rs.TOTALPRECIO,'Q')}
                             </td>
