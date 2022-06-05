@@ -108,7 +108,7 @@ btnPedidosPend.addEventListener('click',()=>{
 });
 
 //deshabilita los mensajes de consola
-logger.disableLogger();
+//logger.disableLogger();
 
 
 //manejador de online, offline

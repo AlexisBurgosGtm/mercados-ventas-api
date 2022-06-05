@@ -493,6 +493,11 @@ function dbCargarPedidosPendientes(){
                             <td>${funciones.setMoneda(rs.TOTALPRECIO,'Q')}
                             </td>
                             <td>
+                                <button class="btn btn-info btn-circle" onclick="getDbDetallePedido(${rs.ID},'${rs.NOMCLIE}');">
+                                    <i class="fal fa-search"></i>
+                                </button>
+                            </td>
+                            <td>
                                 <button class="btn btn-success btn-circle" onclick="dbSendPedido(${rs.ID});">
                                     <i class="fal fa-paper-plane"></i>
                                 </button>
@@ -513,6 +518,57 @@ function dbCargarPedidosPendientes(){
 
     });
 };
+
+function getDbDetallePedido(id, cliente){
+ 
+    $('#ModalPendientesDetalle').modal('show');
+
+    document.getElementById('lbPPenCliente').innerText = funciones.limpiarTexto(cliente);
+
+    getPedidoEnviar(id)
+    .then((response)=>{
+                
+        let container = document.getElementById('tblPPenDetalle');
+        container.innerHTML = GlobalLoader;
+
+        let containerTotal = document.getElementById('lbTotalPPend');
+        containerTotal.innerHTML = '--.--';
+
+        
+        
+        let str = '';
+        let contador = 0;
+        let totalventa = 0;
+
+        let data = JSON.parse(response[0].JSONPRODUCTOS);
+      
+        
+        data.map((rs)=>{
+            contador = contador + 1;
+            totalventa += Number(rs.TOTALPRECIO);
+            str = str + `<tr class="border-bottom">
+                            <td>${rs.DESPROD}
+                                <br>
+                                <small class="negrita">Cod: ${rs.CODPROD}</small>
+                                
+                            </td>
+                            <td>${rs.CANTIDAD}
+                                <br>
+                                <small>${rs.CODDOC}</small>
+                            </td>
+                            <td>${funciones.setMoneda(rs.TOTALPRECIO,'Q')}
+                            </td>
+                           
+                        </tr>`    
+        })
+        container.innerHTML = str;
+        containerTotal.innerText = funciones.setMoneda(totalventa,'');
+
+
+    });
+    
+};
+
 
 function deletePedidoEnviado(id){
     return new Promise(async(resolve,reject)=>{

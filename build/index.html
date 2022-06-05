@@ -376,8 +376,47 @@
                                     <td>Cliente</td>
                                     <td>Importe</td>
                                     <td></td>
+                                    <td></td>
                                 </thead>
                                 <tbody id="tblPedidosPendientes"></tbody>
+                            </table>
+                        </div>
+                        <button class="btn form-control shadow" data-dismiss="modal">
+                            Cerrar(x)
+                        </button>
+                    </div>
+
+                
+                </div>
+            </div>
+        </div>
+
+        <!-- PEDIDOS PENDIENTES DETALLE -->
+        <div class="modal fade" id="ModalPendientesDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-right" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-secondary">
+                        <label class="modal-title text-white h4" id="">Detalle del Pedido</label>
+                      
+                    </div>
+                    
+                    <div class="modal-body">
+                        
+                        <div class="table-reponsive">
+                            <div class="row">
+                                <label class="negrita" id="lbPPenCliente">Consumidor Final</label>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <h3 class="text-danger currSign" id="lbTotalPPend">--.--</h3>
+                            </div>
+                            <table class="table table-responsive table-hover table-striped table-bordered shadow">
+                                <thead class="bg-secondary text-white">
+                                    <td>Producto</td>
+                                    <td>Cantidad</td>
+                                    <td>Importe</td>
+                                </thead>
+                                <tbody id="tblPPenDetalle"></tbody>
                             </table>
                         </div>
                         <button class="btn form-control shadow" data-dismiss="modal">

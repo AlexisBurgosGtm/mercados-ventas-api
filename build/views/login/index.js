@@ -70,7 +70,8 @@ function getView(){
                             <div class="form-group" align="right">
                                 <small class="">Mercados Efectivos - v5.2022</small>
                                 <br>
-                                <small class="text-secondary">Caché: pre-cache-v2.2</small>
+                                <small class="text-secondary">Caché: pre-cache-v2.4</small>
+                                <br>
                                 <small>
                                     <a href="https://apigen.whatsapp.com/send?phone=50257255092&text=Ayudame%20con%20la%20app%20de%20Mercados%20Efectivos...%20">
                                         por Alexis Burgos
@@ -101,7 +102,8 @@ function getView(){
 
 function addListeners(){
     
-
+    console.log('iniciando login... ');
+    
     let frmLogin = document.getElementById('frmLogin');
     let btnIniciar = document.getElementById('btnIniciar');
     frmLogin.addEventListener('submit',(e)=>{
