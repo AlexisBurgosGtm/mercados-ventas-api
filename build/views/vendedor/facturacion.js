@@ -1656,6 +1656,7 @@ async function fcnFinalizarPedido(){
 
                     funciones.AvisoError('No se pudo obtener el número de correlativo del pedido, por favor, revise su conexión a internet')
                     setLog(`<label class="text-info">No se logró Enviar este pedido, se intentará guardarlo en el teléfono</label>`,'rootWait');
+                    $('#modalWait').modal('show');
                                         
                                         //guarda el pedido localmente
                                         var datospedido = {
