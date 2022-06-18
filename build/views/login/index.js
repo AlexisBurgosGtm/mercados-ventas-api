@@ -68,9 +68,9 @@ function getView(){
                                 </button>
                             </div>
                             <div class="form-group" align="right">
-                                <small class="">Mercados Efectivos - v5.2022</small>
+                                <small class="">Mercados Efectivos - v6.2022</small>
                                 <br>
-                                <small class="text-secondary">Caché: pre-cache-v2.10</small>
+                                <small class="text-secondary">Caché: pre-cache-v2.13</small>
                                 <br>
                                 <small>
                                     <a href="https://apigen.whatsapp.com/send?phone=50257255092&text=Ayudame%20con%20la%20app%20de%20Mercados%20Efectivos...%20">

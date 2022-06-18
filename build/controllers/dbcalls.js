@@ -524,9 +524,6 @@ function dbCargarPedidosPendientes(){
                                     </div>
                                 </div>
                                 <small>Gps:${rs.LAT},${rs.LONG}</small>
-                                <br>
-                                <small>${rs[0].stringify()}</small>
-                               
                             </div>
                         </div>
                         <hr class="solid">

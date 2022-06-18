@@ -74,6 +74,38 @@ let classTipoDocumentos = {
         
         return new Promise((resolve,reject)=>{
             let correlativo = '0';
+            let data = {
+                empnit:GlobalEmpnit,
+                tipo:tipodoc,
+                coddoc:coddoc,
+                app:GlobalSistema
+            }
+
+            axios.post('/tipodocumentos/correlativodoc', data)
+            .then((response) => {
+                const data = response.data;        
+                data.recordset.map((rows)=>{
+                    correlativo = `${rows.CORRELATIVO}`
+                })
+                resolve(correlativo.toString());            
+            }, (error) => {
+                console.log(error);
+                reject('0');
+            });
+        })
+        
+    },
+    BACKUP_getCorrelativoDocumento: (tipodoc,coddoc)=>{
+        
+        return new Promise((resolve,reject)=>{
+            let correlativo = '0';
+            let data = {
+                empnit:GlobalEmpnit,
+                tipo:tipodoc,
+                coddoc:coddoc,
+                app:GlobalSistema
+            }
+            
             axios.get('/tipodocumentos/correlativodoc?empnit=' + GlobalEmpnit + '&tipo=' + tipodoc + '&coddoc=' + coddoc  + '&app=' + GlobalSistema)
             .then((response) => {
                 const data = response.data;        

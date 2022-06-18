@@ -63,6 +63,20 @@ router.get("/correlativodoc", async(req,res)=>{
 
 });
 
+
+router.post("/correlativodoc", async(req,res)=>{
+    const {app,empnit,tipo,coddoc} = req.body;
+        
+    let qry ='';
+
+    qry = `SELECT CODDOC,CORRELATIVO FROM ME_TIPODOCUMENTOS WHERE CODSUCURSAL='${app}' AND TIPODOC='${tipo}' AND CODDOC='${coddoc}'`     
+    
+    execute.Query(res,qry);
+
+});
+
+
+
 // OBTIENE LAS SUCURSALES
 router.get("/sucursales", async(req,res)=>{
             
