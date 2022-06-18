@@ -523,6 +523,7 @@ function dbCargarPedidosPendientes(){
                                         </button>
                                     </div>
                                 </div>
+                                <small>Gps:${rs.LAT},${rs.LONG}</small>
                                
                             </div>
                         </div>
