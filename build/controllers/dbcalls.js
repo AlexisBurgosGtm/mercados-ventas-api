@@ -473,6 +473,88 @@ function dbCargarPedidosPendientes(){
 
         let containerTotal = document.getElementById('lbTotalVentaPendiente');
         containerTotal.innerHTML = '--.--';
+
+        let containerPeds = document.getElementById('lbTotalVentaPendientePeds');
+        containerPeds.innerHTML = '--'
+        
+        let str = '';
+        let contador = 0;
+        let totalventa = 0;
+
+        response.map((rs)=>{
+            contador = contador + 1;
+            totalventa += Number(rs.TOTALPRECIO);
+            str = str + `
+
+                        <div class="card card-rounded shadow">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="negrita text-info">${rs.NOMCLIE}</label>
+                                    <br>
+                                    <small>${rs.DIRCLIE}</small>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Fecha</label>
+                                            <br>
+                                            ${rs.FECHA}
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Importe</label>
+                                            <br>
+                                            <label class="negrita text-danger">${funciones.setMoneda(rs.TOTALPRECIO,'Q')}</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-info btn-sm" onclick="getDbDetallePedido(${rs.ID},'${rs.NOMCLIE}');">
+                                            <i class="fal fa-search"></i>Detalles
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-success btn-sm" onclick="dbSendPedido(${rs.ID});">
+                                            <i class="fal fa-paper-plane"></i>Enviar
+                                        </button>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <hr class="solid">
+
+                        `    
+        })
+        container.innerHTML = str;
+        containerTotal.innerText = funciones.setMoneda(totalventa,'');
+        containerPeds.innerHTML = contador;
+        
+        if(Number(contador)>0){
+            btnPedidosPend.className = 'btn btn-danger btn-lg btn-icon rounded-circle shadow';
+        }else{
+            btnPedidosPend.className = 'btn btn-outline-secondary btn-lg btn-icon rounded-circle shadow';
+        }
+        
+        btnPedidosPend.innerHTML = `<i class="fal fa-bell"></i>${contador}`;
+        
+
+    });
+};
+
+function BACKUP_dbCargarPedidosPendientes(){
+    
+    selectVentasPendientes(GlobalUsuario)
+    .then((response)=>{
+        let container = document.getElementById('tblPedidosPendientes');
+        container.innerHTML = GlobalLoader;
+
+        let containerTotal = document.getElementById('lbTotalVentaPendiente');
+        containerTotal.innerHTML = '--.--';
         
         let str = '';
         let contador = 0;

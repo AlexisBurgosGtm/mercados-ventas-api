@@ -352,7 +352,7 @@
         </div>
       
         <!-- PEDIDOS PENDIENTES -->
-        <div class="modal fade" id="ModalPendientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade modal-with-scroll" id="ModalPendientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-right" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -367,10 +367,18 @@
                         
                         <div class="table-reponsive">
                             <div class="row">
-                                <label class="">Total Pendiente:</label>
-                                <h3 class="text-danger currSign" id="lbTotalVentaPendiente">--.--</h3>
+                                <div class="col-6">
+                                    <label class="">Total Pendiente:</label>
+                                    <h3 class="text-danger currSign" id="lbTotalVentaPendiente">--.--</h3>
+                                </div>
+                                <div class="col-6">
+                                    <label class="">Pedidos:</label>
+                                    <h3 class="text-danger" id="lbTotalVentaPendientePeds">0</h3>
+                                </div>
+                                
                             </div>
-                            <table class="table table-responsive table-hover table-striped table-bordered shadow">
+                            <!--
+                                <table class="table table-responsive table-hover table-striped table-bordered shadow">
                                 <thead class="bg-info text-white">
                                     <td>Fecha</td>
                                     <td>Cliente</td>
@@ -380,6 +388,13 @@
                                 </thead>
                                 <tbody id="tblPedidosPendientes"></tbody>
                             </table>
+
+                             -->
+                             <div class="table-responsive" id="tblPedidosPendientes">
+
+                                
+                             </div>
+
                         </div>
                         <button class="btn form-control shadow" data-dismiss="modal">
                             Cerrar(x)
@@ -392,7 +407,7 @@
         </div>
 
         <!-- PEDIDOS PENDIENTES DETALLE -->
-        <div class="modal fade" id="ModalPendientesDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade modal-with-scroll" id="ModalPendientesDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-right" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-secondary">
