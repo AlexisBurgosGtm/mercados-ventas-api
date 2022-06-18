@@ -524,6 +524,8 @@ function dbCargarPedidosPendientes(){
                                     </div>
                                 </div>
                                 <small>Gps:${rs.LAT},${rs.LONG}</small>
+                                <br>
+                                <small>${rs[0].stringify()}</small>
                                
                             </div>
                         </div>
@@ -693,14 +695,14 @@ function dbSendPedido(id){
                     //lee el documento de la base de datos local y lo intenta enviar
                     setLog(`<label class="text-danger">Cargando los datos del documento para intentarlo enviar...</label>`,'rootWait');
                         
-                    let data; 
+                    let datos; 
                     let nit;
                     getPedidoEnviar(id)
                     .then((response)=>{
                         response.map((rs)=>{
                             nit = rs.NITCLIE;
                             GlobalSelectedCodCliente = rs.CODCLIE;
-                            data = {
+                            datos = {
                                 jsondocproductos:rs.JSONPRODUCTOS,
                                 codsucursal:rs.CODSUCURSAL,
                                 empnit: rs.EMPNIT,
@@ -730,7 +732,7 @@ function dbSendPedido(id){
                         
                         setLog(`<label class="text-info">Intentando enviar el pedido...</label>`,'rootWait');
                 
-                        axios.post('/ventas/insertventa', data)
+                        axios.post('/ventas/insertventa', datos)
                         .then(async(response) => {
                             const data = response.data;
                             if (data.rowsAffected[0]==0){
