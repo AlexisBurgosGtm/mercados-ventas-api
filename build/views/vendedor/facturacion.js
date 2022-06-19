@@ -1443,6 +1443,7 @@ async function fcnFinalizarPedido(){
                         
                             gettempDocproductos(GlobalUsuario)
                             .then((response)=>{
+                                let docproductos_ped = response;
                                 
                                 setLog(`<label class="text-info">Pedido creado, enviado pedido...</label>`,'rootWait');
                                 //,,obs,usuario,codven
@@ -1505,7 +1506,7 @@ async function fcnFinalizarPedido(){
                                             CODVEN:Number(cmbVendedor.value),
                                             LAT:latdoc,
                                             LONG:longdoc,
-                                            JSONPRODUCTOS:JSON.stringify(response)
+                                            JSONPRODUCTOS:JSON.stringify(docproductos_ped)
                                         };
                         
                                         insertVenta(datospedido)
@@ -1594,7 +1595,7 @@ async function fcnFinalizarPedido(){
                                                             CODVEN:Number(cmbVendedor.value),
                                                             LAT:latdoc,
                                                             LONG:longdoc,
-                                                            JSONPRODUCTOS:JSON.stringify(response)
+                                                            JSONPRODUCTOS:JSON.stringify(docproductos_ped)
                                                         };
                                         
                                                         insertVenta(datospedido)
