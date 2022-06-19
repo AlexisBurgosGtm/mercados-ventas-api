@@ -433,6 +433,19 @@ function deleteTempVenta(usuario){
 function insertVenta(datos){
     console.log('intentando ingresar en tabla documentos')
     return new Promise((resolve,reject)=>{
+        var response = await connection.insert({
+            into: "documentos",
+            values: [datos], //you can insert multiple values at a time
+        })
+        if(response>0){resolve()}else{resolve()}
+        
+    }) 
+
+};
+
+function BACKUP_insertVenta(datos){
+    console.log('intentando ingresar en tabla documentos')
+    return new Promise((resolve,reject)=>{
         connection.insert({
             into: "documentos",
             values: [datos], //you can insert multiple values at a time

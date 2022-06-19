@@ -1654,7 +1654,7 @@ async function fcnFinalizarPedido(){
                     document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-paper-plane mr-1"></i>Enviar';
                     document.getElementById('btnFinalizarPedido').disabled = false;
 
-                    funciones.AvisoError('No se pudo obtener el número de correlativo del pedido, por favor, revise su conexión a internet')
+                    //funciones.AvisoError('No se pudo obtener el número de correlativo del pedido, por favor, revise su conexión a internet')
                     setLog(`<label class="text-info">No se logró Enviar este pedido, se intentará guardarlo en el teléfono</label>`,'rootWait');
                     $('#modalWait').modal('show');
                                         
@@ -1683,7 +1683,8 @@ async function fcnFinalizarPedido(){
                                             LONG:longdoc,
                                             JSONPRODUCTOS:JSON.stringify(response)
                                         };
-                        
+                                        console.log(datospedido);
+
                                         insertVenta(datospedido)
                                         .then(async()=>{
                                             
