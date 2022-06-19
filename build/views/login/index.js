@@ -70,7 +70,7 @@ function getView(){
                             <div class="form-group" align="right">
                                 <small class="">Mercados Efectivos - v6.2022</small>
                                 <br>
-                                <small class="text-secondary">Caché: pre-cache-v2.15</small>
+                                <small class="text-secondary">Caché: pre-cache-v2.16</small>
                                 <br>
                                 <small>
                                     <a href="https://apigen.whatsapp.com/send?phone=50257255092&text=Ayudame%20con%20la%20app%20de%20Mercados%20Efectivos...%20">

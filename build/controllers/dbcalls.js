@@ -432,7 +432,7 @@ function deleteTempVenta(usuario){
 //INSERTA LOCALMENTE UN PEDIDO
 function insertVenta(datos){
     console.log('intentando ingresar en tabla documentos')
-    return new Promise((resolve,reject)=>{
+    return new Promise(async(resolve,reject)=>{
         var response = await connection.insert({
             into: "documentos",
             values: [datos], //you can insert multiple values at a time
