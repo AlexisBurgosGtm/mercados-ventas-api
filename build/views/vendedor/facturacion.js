@@ -993,8 +993,12 @@ function fcnBusquedaProducto(idFiltro,idTablaResultado,idTipoPrecio){
         console.log(error);
     })
     .catch((error)=>{
-        funciones.AvisoError(error);
+        //funciones.AvisoError(error);
+        tabla.innerHTML ='<label>Debe descargar los productos al menos una vez al día.. Descárguelos nuevamente por favor.</label>';
     })
+
+
+
 
 };
 

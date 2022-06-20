@@ -73,7 +73,8 @@ function fcnBusquedaProducto2(idFiltro,idTablaResultado){
         console.log(error);
     })
     .catch((error)=>{
-        funciones.AvisoError(error);
+        //funciones.AvisoError(error);
+        tabla.innerHTML = '<label>Descargue nuevamente sus productos por favor...</label>'
     })
 
 };
