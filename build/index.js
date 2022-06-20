@@ -30,6 +30,7 @@ function requestPermission() {
   });
 }
 
+
 InicializarServiceWorkerNotif();
 
 // LISTENER DE LOS BOTONES DEL MENU

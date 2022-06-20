@@ -52,14 +52,12 @@ let classNavegar = {
                                 <i class="fal fa-shopping-cart"></i>
                                 Clientes
                             </button>
-                            <button class="btn btn-sm " id="btnMenu2VendedorPedidos">
-                                <i class="fal fa-chart-line"></i>
-                                Logro
-                            </button>
+                          
                             <button class="btn btn-sm " id="btnMenu2VendedorLogro">
                                 <i class="fal fa-chart-pie"></i>
-                                Mes
+                                Logro
                             </button>
+
                             <button class="btn btn-sm " id="btnMenu2Censo">
                                 <i class="fal fa-edit"></i>
                                 Censar
@@ -86,10 +84,10 @@ let classNavegar = {
 
              
                 
-                    let btnMenu2VendedorPedidos = document.getElementById('btnMenu2VendedorPedidos');
-                    btnMenu2VendedorPedidos.addEventListener('click',()=>{
-                        classNavegar.pedidos();
-                    });
+                    //let btnMenu2VendedorPedidos = document.getElementById('btnMenu2VendedorPedidos');
+                    //btnMenu2VendedorPedidos.addEventListener('click',()=>{
+                        //classNavegar.pedidos();
+                    //});
 
 
                     let btnMenu2VendedorLogro = document.getElementById('btnMenu2VendedorLogro');
