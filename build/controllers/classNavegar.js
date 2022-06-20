@@ -83,13 +83,7 @@ let classNavegar = {
                     });
 
              
-                
-                    //let btnMenu2VendedorPedidos = document.getElementById('btnMenu2VendedorPedidos');
-                    //btnMenu2VendedorPedidos.addEventListener('click',()=>{
-                        //classNavegar.pedidos();
-                    //});
-
-
+             
                     let btnMenu2VendedorLogro = document.getElementById('btnMenu2VendedorLogro');
                     btnMenu2VendedorLogro.addEventListener('click',()=>{
                         classNavegar.logrovendedor();

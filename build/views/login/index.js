@@ -117,6 +117,7 @@ function addListeners(){
         .then(()=>{
             //document.body.requestFullscreen();
             //por lo visto se deshabilitan las scroll bars en fullscreen
+            selectDateDownload();
         })
         .catch(()=>{
             btnIniciar.disabled = false;
