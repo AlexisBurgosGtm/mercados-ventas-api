@@ -26,24 +26,27 @@ function getView(){
                     </div>
                 </div>
             </div>
+
             <div class="row">
-                <div class="form-group">
-                    <label>Por Fecha</label>
-                    <input type="date" class="form-control" id="txtFecha">
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label>Por Fecha</label>
+                        <input type="date" class="form-control" id="txtFecha">
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group">
-                    <label>Seleccione un Reporte</label>
-                    <select class="form-control" id="cmbReporte">
-                        <option value="1">PEDIDOS DEL DIA (DIA)</option>
-                        <option value="2">MARCAS VENDIDAS (DIA)</option>
-                        <option value="3">PRODUCTOS VENDIDOS (DIA)</option>
-                        <option value="4">VENTAS POR FECHA (MES)</option>
-                        <option value="5">PRODUCTOS DEL MES (MES)</option>
-                        <option value="6">MARCAS DEL MES (MES)</option>
-                        <option value="7">VENTAS NETAS - OBJETIVO (MES)</option>
-                    </select>
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <div class="form-group">
+                        <label>Seleccione un Reporte</label>
+                        <select class="form-control" id="cmbReporte">
+                            <option value="1">PEDIDOS DEL DIA (DIA)</option>
+                            <option value="2">MARCAS VENDIDAS (DIA)</option>
+                            <option value="3">PRODUCTOS VENDIDOS (DIA)</option>
+                            <option value="4">VENTAS POR FECHA (MES)</option>
+                            <option value="5">PRODUCTOS DEL MES (MES)</option>
+                            <option value="6">MARCAS DEL MES (MES)</option>
+                            <option value="7">VENTAS NETAS - OBJETIVO (MES)</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             `
