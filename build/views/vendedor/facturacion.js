@@ -1659,7 +1659,7 @@ async function fcnFinalizarPedido(){
                     .then((response)=>{
                         let docproductos_ped = response;
 
-                            funciones.AvisoError('No se pudo obtener el número de correlativo del pedido, por favor, revise su conexión a internet')
+                            //funciones.AvisoError('No se pudo obtener el número de correlativo del pedido, por favor, revise su conexión a internet')
                             setLog(`<label class="text-info">No se logró Enviar este pedido, se intentará guardarlo en el teléfono</label>`,'rootWait');
                             $('#modalWait').modal('show');
                                         
@@ -1688,8 +1688,7 @@ async function fcnFinalizarPedido(){
                                             LONG:longdoc,
                                             JSONPRODUCTOS:JSON.stringify(docproductos_ped)
                                         };
-                                        console.log(datospedido);
-
+                                       
                                         insertVenta(datospedido)
                                         .then(async()=>{
                                             

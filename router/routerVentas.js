@@ -595,7 +595,8 @@ router.post('/reportemarcasdia',async(req,res)=>{
 
     let qry = `SELECT  ISNULL(ME_Marcas.DESMARCA, 'SN') AS DESMARCA, 
     ISNULL(SUM(ME_Docproductos.TOTALCOSTO),0) AS TOTALCOSTO, 
-    ISNULL(SUM(ME_Docproductos.TOTALPRECIO),0) AS TOTALPRECIO
+    ISNULL(SUM(ME_Docproductos.TOTALPRECIO),0) AS TOTALPRECIO,
+    ISNULL(SUM(ME_Docproductos.CANTIDADINV),0) AS FARDOS
     FROM            ME_Productos LEFT OUTER JOIN
                              ME_Marcas ON ME_Productos.CODSUCURSAL = ME_Marcas.CODSUCURSAL AND ME_Productos.CODMARCA = ME_Marcas.CODMARCA RIGHT OUTER JOIN
                              ME_Docproductos ON ME_Productos.CODSUCURSAL = ME_Docproductos.CODSUCURSAL AND ME_Productos.CODPROD = ME_Docproductos.CODPROD RIGHT OUTER JOIN

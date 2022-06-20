@@ -28,16 +28,16 @@ function getView(){
             </div>
 
             <div class="row">
-                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                     <div class="form-group">
                         <label>Por Fecha</label>
                         <input type="date" class="form-control" id="txtFecha">
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
                     <div class="form-group">
                         <label>Seleccione un Reporte</label>
-                        <select class="form-control" id="cmbReporte">
+                        <select class="form-control border-danger negrita text-danger" id="cmbReporte">
                             <option value="1">PEDIDOS DEL DIA (DIA)</option>
                             <option value="2">MARCAS VENDIDAS (DIA)</option>
                             <option value="3">PRODUCTOS VENDIDOS (DIA)</option>
@@ -53,14 +53,9 @@ function getView(){
         },
         listado: ()=>{
             return `
-            <div class="row bg-info text-white">
-                             
-                <div class="col-12 text-left">
-                    <b><label class="negrita" id="lbTotal">Q 0.00</label></b>
-                </div>
-            </div>
+                <hr class="solid">
             <div class="" id="containerTotal"></div>
-            <br>
+                <br>
             <div class="row card">
                 <div class="table-responsive" id="tblReport">
                   
@@ -272,26 +267,9 @@ function addListeners(){
     });
 
 
-    apigen.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
+    apigen.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFecha'),'tblReport','containerTotal');
 
-    /*
-    let btnCargarDinero2 = document.getElementById('btnCargarDinero2');
-    btnCargarDinero2.addEventListener('click',()=>{
-        getRptDinero2(cmbMes.value, cmbAnio.value);
-    });
-    let btnCargarDinero = document.getElementById('btnCargarDinero');
-    btnCargarDinero.addEventListener('click',()=>{
-        getRptDinero(cmbMes.value, cmbAnio.value);
-    });
-    let btnCargarProductos = document.getElementById('btnCargarProductos');
-    btnCargarProductos.addEventListener('click',()=>{
-        getRptProductos(cmbMes.value, cmbAnio.value);
-    });
-    let btnCargarMarcas = document.getElementById('btnCargarMarcas');
-    btnCargarMarcas.addEventListener('click',()=>{
-        getRptMarcas(cmbMes.value, cmbAnio.value);
-    });
-    */
+   
 
 };
 
@@ -304,13 +282,13 @@ function getRptDinero2(mes,anio){
     apigen.reporteDinero2(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','containerTotal');
 };
 function getRptDinero(mes,anio){
-    apigen.reporteDinero(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','lbTotal');
+    apigen.reporteDinero(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','containerTotal');
 };
 function getRptProductos(mes,anio){
-    apigen.reporteProductos(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','lbTotal');
+    apigen.reporteProductos(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','containerTotal');
 };
 function getRptMarcas(mes,anio){
-    apigen.reporteMarcas(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','lbTotal');
+    apigen.reporteMarcas(GlobalCodSucursal,GlobalCodUsuario,anio,mes,'tblReport','containerTotal');
 };
 
 

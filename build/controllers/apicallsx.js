@@ -538,12 +538,15 @@ let apigen = {
                             </tr>`
             })
             container.innerHTML = tableheader + strdata + tablefoooter;
-            lbTotal.innerText = `${funciones.setMoneda(total,'Q ')} - Pedidos: ${totalpedidos} - Promedio:${funciones.setMoneda((Number(total)/Number(totalpedidos)),'Q')}`;
+            //lbTotal.innerText = `${funciones.setMoneda(total,'Q ')} - Pedidos: ${totalpedidos} - Promedio:${funciones.setMoneda((Number(total)/Number(totalpedidos)),'Q')}`;
+            lbTotal.innerHTML = `<h3 class="negrita text-danger">Importe: ${funciones.setMoneda(total,'Q ')}</h3>
+                                 <h3 class="negrita text-danger">Pedidos: ${totalpedidos}</h3>
+                                 <h3 class="negrita text-danger">Promedio:${funciones.setMoneda((Number(total)/Number(totalpedidos)),'Q')}</h3>`;
         }, (error) => {
             funciones.AvisoError('Error en la solicitud');
             strdata = '';
             container.innerHTML = '';
-            lbTotal.innerText = 'Q 0.00';
+            lbTotal.innerHTML = '-- --';
         });
            
     },
@@ -613,6 +616,7 @@ let apigen = {
         let tbl = `<table class="table table-responsive table-hover table-striped table-bordered">
                     <thead class="bg-trans-gradient text-white"><tr>
                         <td>Marca</td>
+                        <td>Unidades</td>
                         <td>Importe</td></tr>
                     <tbody>`;
 
@@ -634,17 +638,20 @@ let apigen = {
                                                 ${rows.DESMARCA}
                                             </td>
                                             <td>
+                                                ${rows.FARDOS}
+                                            </td>
+                                            <td>
                                                 ${funciones.setMoneda(rows.TOTALPRECIO,'Q')}
                                             </td>
                                         </tr>`
             })
             container.innerHTML = tbl + strdata + tblfoot;
-            lbTotal.innerText = funciones.setMoneda(total,'Q ');
+            lbTotal.innerHTML =  `<h3 class="negrita text-danger">Importe: ${funciones.setMoneda(total,'Q ')}</h3>` ;
         }, (error) => {
             funciones.AvisoError('Error en la solicitud');
             strdata = '';
             container.innerHTML = '';
-            lbTotal.innerText = 'Q 0.00';
+            lbTotal.innerHTML = '-- --';
         });
            
     },
@@ -691,12 +698,12 @@ let apigen = {
                                         </tr>`
             })
             container.innerHTML = tbl + strdata + tblfoot;
-            lbTotal.innerText = funciones.setMoneda(total,'Q ');
+            lbTotal.innerHTML = `<h3 class="negrita text-danger">Importe: ${funciones.setMoneda(total,'Q ')}</h3>`;
         }, (error) => {
             funciones.AvisoError('Error en la solicitud');
             strdata = '';
             container.innerHTML = '';
-            lbTotal.innerText = 'Q 0.00';
+            lbTotal.innerHTML = '-- --';
         });
            
     },
@@ -709,13 +716,15 @@ let apigen = {
         lbTotal.innerText = '---';
 
         let strdata = '';
-        let tbl = `<table class="table-responsive table-hover table-striped">
-                    <thead class="bg-trans-gradient text-white"><tr>
-                        <td>Fecha</td>
-                        <td>Pedidos</td>
-                        <td>Importe</td>
-                        </tr>
-                    <tbody>`;
+        let tbl = `<table class="table table-responsive table-hover table-striped">
+                        <thead class="bg-trans-gradient text-white">
+                            <tr>
+                                <td>Fecha</td>
+                                <td>Pedidos</td>
+                                <td>Importe</td>
+                            </tr>
+                        </thead>
+                        <tbody>`;
 
         let tblfoot = `</tbody></table>`;
 
@@ -734,7 +743,7 @@ let apigen = {
                     pedidos = pedidos + Number(rows.PEDIDOS);
                     strdata = strdata + `<tr>
                                             <td>
-                                                ${rows.FECHA.toString().replace('T00:00:00.000Z','')}
+                                                ${funciones.convertDateNormal(rows.FECHA.toString().replace('T00:00:00.000Z',''))}
                                             </td>
                                             <td>${rows.PEDIDOS}</td>
                                             <td>
@@ -745,17 +754,22 @@ let apigen = {
             let faltan = Number(GlobalObjetivoVenta)-Number(total);
             let logro = total / GlobalObjetivoVenta;
             container.innerHTML = tbl + strdata + tblfoot;
-            lbTotal.innerHTML = `Vendido:${funciones.setMoneda(total,'Q ')}
-            <br>Pedidos: ${pedidos.toString()} 
-            <br>Objetivo: ${funciones.setMoneda(GlobalObjetivoVenta,'Q')}
-            <br>Faltan: ${funciones.setMoneda(faltan,'Q')}
-            <br>Logro:${funciones.setMargen((logro*100),'%')}
+            lbTotal.innerHTML = `
+                    Vendido: <b class="text-info">${funciones.setMoneda(total,'Q ')}</b>
+                    <br>
+                    Pedidos: <b class="text-info">${pedidos.toString()}</b> 
+                    <br>
+                    Objetivo: <b class="text-danger">${funciones.setMoneda(GlobalObjetivoVenta,'Q')}</b>
+                    <br>
+                    Faltan: <b class="text-danger">${funciones.setMoneda(faltan,'Q')}</b>
+                    <br>
+                    Logro: <b class="text-danger">${funciones.setMargen((logro*100),'%')}</b>
                                 ` ;
         }, (error) => {
             funciones.AvisoError('Error en la solicitud');
             strdata = '';
             container.innerHTML = '';
-            lbTotal.innerText = 'Q 0.00';
+            lbTotal.innerHTML = '-- --';
         });
            
     },
@@ -886,7 +900,7 @@ let apigen = {
         lbTotal.innerText = '---';
 
         let strdata = '';
-        let tbl = `<table class="table-responsive table-hover table-striped">
+        let tbl = `<table class="table table-responsive table-hover table-striped">
                     <thead class="bg-trans-gradient text-white"><tr>
                         <td>Producto</td>
                         <td>Unidades</td>
@@ -921,12 +935,12 @@ let apigen = {
                                         </tr>`
             })
             container.innerHTML = tbl + strdata + tblfoot;
-            lbTotal.innerText = funciones.setMoneda(total,'Q ');
+            lbTotal.innerHTML = `<h3 class="negrita text-danger">Importe: ${funciones.setMoneda(total,'Q ')}</h3>` ;
         }, (error) => {
             funciones.AvisoError('Error en la solicitud');
             strdata = '';
             container.innerHTML = '';
-            lbTotal.innerText = 'Q 0.00';
+            lbTotal.innerHTML = '-- --';
         });
            
     },
@@ -939,11 +953,14 @@ let apigen = {
         lbTotal.innerText = '---';
 
         let strdata = '';
-        let tbl = `<table class="table-responsive table-hover table-striped">
-                    <thead class="bg-trans-gradient text-white"><tr>
-                        <td>Marca</td>
-                        <td>Importe</td></tr>
-                    <tbody>`;
+        let tbl = `<table class="table table-responsive table-hover table-striped">
+                        <thead class="bg-trans-gradient text-white">
+                            <tr>
+                                <td>Marca</td>
+                                <td>Importe</td>
+                            </tr>
+                        </thead>
+                        <tbody>`;
 
         let tblfoot = `</tbody></table>`;
 
@@ -969,12 +986,12 @@ let apigen = {
                                         </tr>`
             })
             container.innerHTML = tbl + strdata + tblfoot;
-            lbTotal.innerText = funciones.setMoneda(total,'Q ');
+            lbTotal.innerHTML = `<h3 class="negrita text-danger">Importe: ${funciones.setMoneda(total,'Q ')}`;
         }, (error) => {
             funciones.AvisoError('Error en la solicitud');
             strdata = '';
             container.innerHTML = '';
-            lbTotal.innerText = 'Q 0.00';
+            lbTotal.innerHTML = '-- --';
         });
            
     },
