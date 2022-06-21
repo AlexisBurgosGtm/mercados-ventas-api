@@ -503,7 +503,7 @@ function dbCargarPedidosPendientes(){
                             <div class="card-body">
                                 <div class="form-group">
                                     <button class="btn btn-sm btn-danger shadow hand" onclick="dbDeletePedido('${rs.ID}');">
-                                        <i class="fal fa-trash"></i> Eliminar
+                                        <i class="fal fa-trash"></i>
                                     </button>
                                     <label class="negrita text-info">${rs.NOMCLIE}</label>
                                     <br>
@@ -672,6 +672,9 @@ function dbDeletePedido(id){
     funciones.Confirmacion('¿Está seguro que desea Eliminar este Pedido?')
     .then((value)=>{
         if(value==true){
+            
+            $('#ModalPendientes').modal('hide');
+
             funciones.solicitarClave()
                 .then((clave)=>{
                     if(clave==GlobalPassUsuario){
