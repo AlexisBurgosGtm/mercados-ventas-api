@@ -502,6 +502,9 @@ function dbCargarPedidosPendientes(){
                         <div class="card card-rounded shadow">
                             <div class="card-body">
                                 <div class="form-group">
+                                    <button class="btn btn-sm btn-danger shadow hand" onclick="dbDeletePedido('${rs.ID}');">
+                                        <i class="fal fa-trash"></i> Eliminar
+                                    </button>
                                     <label class="negrita text-info">${rs.NOMCLIE}</label>
                                     <br>
                                     <small>${rs.DIRCLIE}</small>
@@ -558,6 +561,7 @@ function dbCargarPedidosPendientes(){
 
     });
 };
+
 
 function BACKUP_dbCargarPedidosPendientes(){
     
@@ -664,6 +668,28 @@ function getDbDetallePedido(id, cliente){
     
 };
 
+function dbDeletePedido(id){
+    funciones.Confirmacion('¿Está seguro que desea Eliminar este Pedido?')
+    .then((value)=>{
+        if(value==true){
+            funciones.solicitarClave()
+                .then((clave)=>{
+                    if(clave==GlobalPassUsuario){
+
+                        deletePedidoEnviado(id)
+                        .then(()=>{
+                            dbCargarPedidosPendientes();
+                        })
+
+                    }else{
+                        funciones.AvisoError('Clave incorrecta')
+                    }
+                }
+            )        
+        }
+    });
+
+}
 
 function deletePedidoEnviado(id){
     return new Promise(async(resolve,reject)=>{
