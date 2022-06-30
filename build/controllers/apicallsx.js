@@ -154,6 +154,9 @@ let apigen = {
                                     <button class="btn btn-danger btn-lg btn-circle hand shadow" onclick="getMenuCliente2('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
                                         <i class="fal fa-cog"></i>
                                     </button>
+                                    <button class="btn btn-warning btn-lg btn-circle hand shadow" onclick="getEditCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
+                                        <i class="fal fa-edit"></i>
+                                    </button>
                                 </div>
                             </div>
                             
@@ -198,6 +201,9 @@ let apigen = {
                                         <div class="col-4">
                                             <button class="btn btn-danger btn-lg btn-circle hand shadow" onclick="getMenuCliente2('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
                                                 <i class="fal fa-cog"></i>
+                                            </button>
+                                            <button class="btn btn-warning btn-lg btn-circle hand shadow" onclick="getEditCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
+                                                <i class="fal fa-edit"></i>
                                             </button>
                                         </div>
                                     </div>

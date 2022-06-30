@@ -60,7 +60,7 @@ let classNavegar = {
 
                             <button class="btn btn-sm " id="btnMenu2Censo">
                                 <i class="fal fa-edit"></i>
-                                Censar
+                                .
                             </button>
                             <button class="btn btn-sm "  id="btnMenu2VendedorSync">
                                 <i class="fal fa-sync"></i>
@@ -93,7 +93,7 @@ let classNavegar = {
                     let btnMenu2Censo = document.getElementById('btnMenu2Censo');
                     btnMenu2Censo.addEventListener('click',()=>{
 
-                        funciones.AvisoError('Próximamente se incluirá el censo en esta sección');
+                        funciones.Aviso('Opción no disponible de momento');
 
                     });
 

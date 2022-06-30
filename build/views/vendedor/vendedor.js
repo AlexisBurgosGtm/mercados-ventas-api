@@ -251,29 +251,73 @@ function getView(){
             </div>
             `
         },
-        modalPedidosPendientes: ()=>{
+        modalCambiarDatosCliente: ()=>{
             return `
-            <div class="modal fade" id="ModalPendientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="ModalCambiarDatosCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-right" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <label class="modal-title text-info h3" id="">Pedidos Pendientes de Enviar</label>
+                            <label class="modal-title text-info h3" id="">Cambiar datos Cliente</label>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
                             </button>
                         </div>
 
                         <div class="modal-body">
-                            <div class="table-reponsive">
-                                <table class="table table-responsive table-hover table-striped table-bordered shadow">
-                                    <thead class="bg-info text-white">
-                                        <td>Fecha</td>
-                                        <td>Cliente</td>
-                                        <td>Importe</td>
-                                        <td></td>
-                                    </thead>
-                                    <tbody id="tblPedidosPendientes"></tbody>
-                                </table>
+                            <div class="card p-2">
+                                
+                                <div class="form-group">
+                                    <label>NIT</label>
+                                    <input type="text" id="" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tipo Negocio</label>
+                                    <input type="text" id="" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre Negocio</label>
+                                    <input type="text" id="" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre Cliente</label>
+                                    <input type="text" id="" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Dirección</label>
+                                    <input type="text" id="" class="form-control">
+                                </div>
+
+                                <div class="row">
+                                    
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Latitud</label>
+                                            <input type="text" id="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Longitud</label>
+                                            <input type="text" id="" class="form-control">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-secondary button-circle btn-xl hand shadow" data-dismiss="modal">
+                                            <i class="fal fa-arrow-left"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-success button-circle btn-xl hand shadow" id="btnEnviarCambiosCliente">
+                                            <i class="fal fa-send"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -285,7 +329,7 @@ function getView(){
         }
     }
 
-    root.innerHTML = view.encabezado() + view.tabsClientes() + view.modalHistorialCliente(); //+ view.modalPedidosPendientes(); // view.listaclientes();
+    root.innerHTML = view.encabezado() + view.tabsClientes() + view.modalHistorialCliente() + view.modalCambiarDatosCliente(); // view.listaclientes();
     rootMenuLateral.innerHTML = view.modalMenuCliente();
 };
 
@@ -349,6 +393,31 @@ function getMenuCliente2(codigo,nombre,direccion,telefono,lat,long,nit){
     showMenuLateral('Opciones del Cliente');
 
 };
+
+function getEditCliente(codigo,nombre,direccion,telefono,lat,long,nit){
+    
+    
+    //map.remove()
+    //map = Lmap(lat,long,nombre,telefono);
+
+    document.getElementById('lbNombreCliente').innerHTML = nombre;
+    document.getElementById('txtCodClie').value = codigo;
+    document.getElementById('txtNitClie').value = nit;
+    document.getElementById('txtDirClie').value = direccion;
+    document.getElementById('txtTelClie').value = telefono;
+    
+    GlobalSelectedCodCliente = codigo;
+    GlobalSelectedNomCliente = nombre;
+    GlobalSelectedDirCliente = direccion;
+    
+
+    $("#ModalCambiarDatosCliente").modal('show');
+
+
+
+};
+
+
 
 async function getHistorialCliente(codigo,nit,nombre){
     
