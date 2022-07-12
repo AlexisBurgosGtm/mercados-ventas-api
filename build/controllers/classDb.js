@@ -67,7 +67,8 @@ var tblClientes = {
         STVISITA:{dataType: "string"},
         VISITA:{dataType: "string"},
         TELEFONO:{dataType: "string"},
-        SECTOR:{dataType:"string"}
+        TIPONEGOCIO:{dataType:"string"},
+        NEGOCIO:{dataType:"string"}
     }
 };
 

@@ -96,6 +96,8 @@ window.onpopstate = function(event) {
       case url + '/logromes':
           classNavegar.logrovendedor('SI');    
             break;
+        case url + '/gps':
+            classNavegar.inicio_getgps();
       default:
         classNavegar.login();  
         break;

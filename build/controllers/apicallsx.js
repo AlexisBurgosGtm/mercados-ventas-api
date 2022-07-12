@@ -122,15 +122,15 @@ let apigen = {
                         
                         switch (rows.STVISITA) {
                             case 'VENTA':
-                                stClassClie='bg-success text-white';
+                                stClassClie='bg-success text-white card-rounded border-secondary';
                                 stNomStatus= 'VENDIDO';
                                 break;
                             case 'CERRADO':
-                                stClassClie='bg-warning';
+                                stClassClie='bg-warning card-rounded border-secondary';
                                 stNomStatus= 'CERRADO';        
                                 break;
                             case 'NODINERO':
-                                stClassClie='bg-secondary text-white';
+                                stClassClie='bg-secondary text-white card-rounded border-secondary';
                                 stNomStatus= 'SIN DINERO';
                                 break;
                         
@@ -141,7 +141,7 @@ let apigen = {
 
                         strdataVisitados = strdataVisitados + `
                     <tr class='${stClassClie}'>
-                        <td>${rows.NOMCLIE}
+                        <td>${rows.NEGOCIO} // ${rows.NOMCLIE}
                             <br>
                             <div class="row">
                                 <div class="col-4">
@@ -150,11 +150,14 @@ let apigen = {
                                 <div class="col-4">
                                     <small>Tel:${rows.TELEFONO}</small>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-2">
                                     <button class="btn btn-danger btn-lg btn-circle hand shadow" onclick="getMenuCliente2('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
                                         <i class="fal fa-cog"></i>
                                     </button>
-                                    <button class="btn btn-warning btn-lg btn-circle hand shadow" onclick="getEditCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
+                                    
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-warning btn-lg btn-circle hand shadow" onclick="getEditCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}','${rows.TIPONEGOCIO}','${rows.NEGOCIO}');">
                                         <i class="fal fa-edit"></i>
                                     </button>
                                 </div>
@@ -198,11 +201,14 @@ let apigen = {
                                         <div class="col-4">
                                             <small>Tel:${rows.TELEFONO}</small>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-2">
                                             <button class="btn btn-danger btn-lg btn-circle hand shadow" onclick="getMenuCliente2('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
                                                 <i class="fal fa-cog"></i>
                                             </button>
-                                            <button class="btn btn-warning btn-lg btn-circle hand shadow" onclick="getEditCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}');">
+                                            
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-warning btn-lg btn-circle hand shadow" onclick="getEditCliente('${rows.CODIGO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.TELEFONO}','${rows.LAT}','${rows.LONG}','${rows.NIT}','${rows.TIPONEGOCIO}','${rows.NEGOCIO}');">
                                                 <i class="fal fa-edit"></i>
                                             </button>
                                         </div>

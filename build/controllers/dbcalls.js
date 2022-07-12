@@ -95,7 +95,9 @@ document.getElementById('btnDownloadClientes').addEventListener('click',()=>{
                             REFERENCIA:rows.REFERENCIA,
                             STVISITA:rows.STVISITA,
                             VISITA:rows.VISITA,
-                            TELEFONO:rows.TELEFONO
+                            TELEFONO:rows.TELEFONO,
+                            TIPONEGOCIO:rows.TIPONEGOCIO,
+                            NEGOCIO:rows.NEGOCIO
                         }                
                         var noOfRowsInserted = await connection.insert({
                             into: "clientes",
@@ -188,7 +190,7 @@ function downloadProductos (){
 
         axios.post('/ventas/buscarproductotodos', {sucursal:GlobalCodSucursal})  
         .then(async(response) => {
-            console.log(response);
+           
             const data = response.data;
             if(data.rowsAffected[0]==0){
                 reject();

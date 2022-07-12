@@ -222,7 +222,7 @@ function getView(){
         },
         modalHistorialCliente: ()=>{
             return `
-            <div class="modal fade" id="ModalHistorialCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade modal-with-scroll" id="ModalHistorialCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-right" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -253,72 +253,125 @@ function getView(){
         },
         modalCambiarDatosCliente: ()=>{
             return `
-            <div class="modal fade" id="ModalCambiarDatosCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade modal-with-scroll" id="ModalCambiarDatosCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-right" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <label class="modal-title text-info h3" id="">Cambiar datos Cliente</label>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                            </button>
-                        </div>
-
+                       
                         <div class="modal-body">
-                            <div class="card p-2">
+
+                            <h5 class="negrita text-info3" id="">Cambiar datos Cliente</h5>
+                           
+                            <div class="card card-rounded shadow border-info p-4" style="font-size:80%">
                                 
                                 <div class="form-group">
-                                    <label>NIT</label>
-                                    <input type="text" id="" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>Tipo Negocio</label>
-                                    <input type="text" id="" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>Nombre Negocio</label>
-                                    <input type="text" id="" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>Nombre Cliente</label>
-                                    <input type="text" id="" class="form-control">
+                                    <label class="negrita">NIT</label>
+                                    <input type="text" id="txtEditNit" class="form-control">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Dirección</label>
-                                    <input type="text" id="" class="form-control">
+                                    <label class="negrita">Tipo Negocio</label>
+                                    <select class="form-control" id="cmbEditTipoNegocio"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="negrita">Nombre Negocio</label>
+                                    <input type="text" id="txtEditNegocio" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="negrita">Nombre Cliente</label>
+                                    <input type="text" id="txtEditNombre" class="form-control">
                                 </div>
 
+                                <div class="form-group">
+                                    <label class="negrita">Dirección</label>
+                                    <input type="text" id="txtEditDireccion" class="form-control">
+                                </div>
+                               
                                 <div class="row">
                                     
-                                    <div class="col-6">
+                                    <div class="col-2">
+                                        <button class="btn btn-md btn-info btn-circle hand shadow" id="btnEditGps">
+                                            <i class="fal fa-map"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="col-5">
                                         <div class="form-group">
                                             <label>Latitud</label>
-                                            <input type="text" id="" class="form-control">
+                                            <input type="text" id="txtEditLatitud" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-5">
                                         <div class="form-group">
                                             <label>Longitud</label>
-                                            <input type="text" id="" class="form-control">
+                                            <input type="text" id="txtEditLongitud" class="form-control">
                                         </div>
                                     </div>
 
                                 </div>
 
+                                <hr class="solid">
+
                                 <div class="row">
                                     <div class="col-6">
-                                        <button class="btn btn-secondary button-circle btn-xl hand shadow" data-dismiss="modal">
+                                        <button class="btn btn-secondary btn-circle btn-xl hand shadow" data-dismiss="modal">
                                             <i class="fal fa-arrow-left"></i>
                                         </button>
                                     </div>
                                     <div class="col-6">
-                                        <button class="btn btn-success button-circle btn-xl hand shadow" id="btnEnviarCambiosCliente">
-                                            <i class="fal fa-send"></i>
+                                        <button class="btn btn-info btn-circle btn-xl hand shadow" id="btnEnviarCambiosCliente">
+                                            <i class="fal fa-paper-plane"></i>
                                         </button>
                                     </div>
                                 </div>
 
+                                <hr class="solid">
+
+
                             </div>
+                        </div>
+
+                    
+                    </div>
+                </div>
+            </div>
+            `
+        },
+        modalGps: ()=>{
+            return `
+            <div class="modal fade" id="ModalGps" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-right" role="document">
+                    <div class="modal-content">
+                       
+                        <div class="modal-body">
+
+                            <h5 class="negrita text-info3" id="">Cambiar ubicación Cliente</h5>
+                           
+                            <div class="card card-rounded shadow p-2" id="gpsMap">
+                                
+                               
+                             
+
+                           
+
+
+                            </div>
+                            
+                            <hr class="solid">
+                            
+                            <div class="row">
+                                <div class="col-6">
+                                    <button class="btn btn-secondary btn-circle btn-xl hand shadow" data-dismiss="modal">
+                                        <i class="fal fa-arrow-left"></i>
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-success btn-circle btn-xl hand shadow" id="btnAceptarNuevoGps">
+                                        <i class="fal fa-check"></i>
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
 
                     
@@ -329,23 +382,31 @@ function getView(){
         }
     }
 
-    root.innerHTML = view.encabezado() + view.tabsClientes() + view.modalHistorialCliente() + view.modalCambiarDatosCliente(); // view.listaclientes();
+    root.innerHTML = view.encabezado() + view.tabsClientes() + view.modalHistorialCliente() + view.modalCambiarDatosCliente() +  view.modalGps();
     rootMenuLateral.innerHTML = view.modalMenuCliente();
 };
 
-function Lmap(lat,long,nombre,telefono){
-    //INICIALIZACION DEL MAPA
-                     
+function Lmap(lat,long){
+                      
           var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
           osmAttrib = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           osm = L.tileLayer(osmUrl, {center: [lat, long],maxZoom: 20, attribution: osmAttrib});    
           map = L.map('mapcontainer').setView([lat, long], 18).addLayer(osm);
 
-          L.marker([lat, long])
+          L.marker([lat, long], {draggable:'true'})
             .addTo(map)
-            .bindPopup(nombre + ' - ' + telefono)
+            .bindPopup(`Marque la nueva posición GPS del cliente`, {closeOnClick: false, autoClose: false})
+            .openPopup()
+            .on("dragend",function(e) {
+                    this.openPopup();
+                    var position = e.target._latlng;
+               
+                    GlobalSelectedLat = position.lat.toString();
+                    GlobalSelectedLong = position.lng.toString();                  
+            });
+           
+            return map;
 
-          return map;
 };
 
 function getMenuCliente(codigo,nombre,direccion,telefono,lat,long,nit){
@@ -394,18 +455,20 @@ function getMenuCliente2(codigo,nombre,direccion,telefono,lat,long,nit){
 
 };
 
-function getEditCliente(codigo,nombre,direccion,telefono,lat,long,nit){
+function getEditCliente(codigo,nombre,direccion,telefono,lat,long,nit,tiponegocio,negocio){
     
     
     //map.remove()
     //map = Lmap(lat,long,nombre,telefono);
 
-    document.getElementById('lbNombreCliente').innerHTML = nombre;
-    document.getElementById('txtCodClie').value = codigo;
-    document.getElementById('txtNitClie').value = nit;
-    document.getElementById('txtDirClie').value = direccion;
-    document.getElementById('txtTelClie').value = telefono;
-    
+    document.getElementById('txtEditNit').value = nit;
+    document.getElementById('txtEditNombre').value = nombre;
+    document.getElementById('txtEditDireccion').value = direccion; 
+    document.getElementById('txtEditLatitud').value = lat;
+    document.getElementById('txtEditLongitud').value = long;
+    document.getElementById('cmbEditTipoNegocio').value = tiponegocio;
+    document.getElementById('txtEditNegocio').value = negocio;
+
     GlobalSelectedCodCliente = codigo;
     GlobalSelectedNomCliente = nombre;
     GlobalSelectedDirCliente = direccion;
@@ -452,7 +515,12 @@ async function setRecordatorioVisita(codigo, nit, nombre, direccion){
     
 };
 
+
 async function addListeners(){
+
+    
+    document.getElementById('cmbEditTipoNegocio').innerHTML = funciones.getComboTipoClientes();
+
 
     //handler del dia de la semana
     let cmbDiaVisita = document.getElementById('cmbDiaVisita');
@@ -537,6 +605,58 @@ async function addListeners(){
 
     //verifica si hay pedidos pendientes
     dbCargarPedidosPendientes();
+
+    //BOTON PARA CAMBIAR GPS EN MODAL EDIT CLIENTE
+    document.getElementById('btnEditGps').addEventListener('click',()=>{
+        let latitud = document.getElementById('txtEditLatitud').value;
+        let longitud = document.getElementById('txtEditLongitud').value;
+        let nombre = document.getElementById('txtEditNombre').value;
+
+        let container = document.getElementById('gpsMap');
+        container.innerHTML = GlobalLoader;                 
+        let tbl = `<div class="mapcontainer4" id="mapcontainer"></div>`;        
+        container.innerHTML = tbl;
+
+        var map;
+        map = Lmap(Number(latitud), Number(longitud));
+
+        setTimeout(function(){try { map.invalidateSize(); } catch (error) { }}, 500);            
+          
+        $("#ModalGps").modal('show');
+
+    });
+
+    document.getElementById('btnAceptarNuevoGps').addEventListener('click',()=>{
+
+        document.getElementById('txtEditLatitud').value = GlobalSelectedLat;
+        document.getElementById('txtEditLongitud').value = GlobalSelectedLong;
+        $("#ModalGps").modal('hide');
+
+    });
+
+
+
+    let btnEnviarCambiosCliente = document.getElementById('btnEnviarCambiosCliente');
+    btnEnviarCambiosCliente.addEventListener('click',()=>{
+
+        funciones.Confirmacion('¿Está seguro que desea Enviar esta solicitud de Cambio de Datos?')
+        .then(()=>{
+
+            let nit = document.getElementById('txtEditNit').value || 'SN';
+            let tiponegocio = document.getElementById('cmbEditTipoNegocio').value || 'SN';
+            let negocio = document.getElementById('txtEditNegocio').value || 'SN';
+            let nombre = document.getElementById('txtEditNombre').value || 'SN';
+            let direccion = document.getElementById('txtEditDireccion').value || 'SN';
+            let latitud = document.getElementById('txtEditLatitud').value || 'SN';
+            let longitud = document.getElementById('txtEditLongitud').value || 'SN';
+
+            funciones.Aviso('Esta función aún no está disponible');
+
+        });
+
+    });
+
+
 
     funciones.slideAnimationTabs();
     

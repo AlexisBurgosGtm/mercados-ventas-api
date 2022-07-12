@@ -58,7 +58,7 @@ let classNavegar = {
                                 Logro
                             </button>
 
-                            <button class="btn btn-sm " id="btnMenu2Censo">
+                            <button class="btn btn-sm hidden" id="btnMenu2Censo">
                                 <i class="fal fa-edit"></i>
                                 .
                             </button>
@@ -130,120 +130,13 @@ let classNavegar = {
             window.history.pushState({"page":1}, "clientes", '/clientes');
         })
     },
-    inicioGerente: ()=>{
-                let strMenu =  `
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuGerenteSucursales">
-                                <span>Dashboard Sucursales</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuGerenteInicio">
-                                <span>Dashboard App</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuGerenteTracking">
-                                <span>Tracking de Personal</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuGerenteVendedores">
-                                <span>Vendedores</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuGerenteProductos">
-                                <span>Productos</span>
-                            </a>
-                            
-                            <a class="dropdown-item hidden" data-toggle="dropdown" id="btnMenuGerenteUsuarios">
-                                <span>Usuarios</span>
-                            </a>
-                            <a class="dropdown-item hidden" data-toggle="dropdown" id="btnMenuGerenteNoticias">
-                                <span>Noticias</span>
-                            </a>
-                            `
-                    rootMenu.innerHTML = strMenu;
-                       
-                     // handlers del menu
-                     let btnMenuGerenteSucursales = document.getElementById('btnMenuGerenteSucursales');
-                     btnMenuGerenteSucursales.addEventListener('click',()=>{
-                        classNavegar.gerenteInicioSucursales();
-                    });
-                    let btnMenuGerenteInicio = document.getElementById('btnMenuGerenteInicio');
-                    btnMenuGerenteInicio.addEventListener('click',()=>{
-                        classNavegar.gerenteIniciar();
-                    });
-                    let btnMenuGerenteTracking = document.getElementById('btnMenuGerenteTracking');
-                    btnMenuGerenteTracking.addEventListener('click',()=>{
-                       classNavegar.gerenteTracking(); 
-                    });
-                    let btnMenuGerenteVendedores = document.getElementById('btnMenuGerenteVendedores');
-                    btnMenuGerenteVendedores.addEventListener('click',()=>{
-                        classNavegar.gerenteVendedores();
-                    });
-                    let btnMenuGerenteProductos = document.getElementById('btnMenuGerenteProductos');
-                    btnMenuGerenteProductos.addEventListener('click',()=>{
-                       classNavegar.gerenteProducto(); 
-                    });
-                    let btnMenuGerenteUsuarios = document.getElementById('btnMenuGerenteUsuarios');
-                    btnMenuGerenteUsuarios.addEventListener('click',()=>{
-                        
-                    });
-                    
-                    let btnMenuGerenteNoticias = document.getElementById('btnMenuGerenteNoticias');
-                    btnMenuGerenteNoticias.addEventListener('click',()=>{
-                        
-                    });
-
-                    //classNavegar.gerenteIniciar(); 
-                    classNavegar.gerenteInicioSucursales();
-        
-    },
-    inicioDigitador : ()=>{
-        console.log('inicio digitador');
-          let strMenu =   `
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuDigitadorPendientes">
-                                <span>PEDIDOS PENDIENTES</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuDigitadorEmbarques">
-                                <span>EMBARQUES/PICKING</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuDigitadorUsuarios">
-                                <span>GESTION DE USUARIOS</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuDigitadorClientes">
-                                <span>GESTION DE CLIENTES</span>
-                            </a>
-                            <a class="dropdown-item" data-toggle="dropdown" id="btnMenuDigitadorNoticias">
-                                <span>NOTICIAS</span>
-                            </a>
-                            `
-                rootMenu.innerHTML = strMenu;
-
-                funciones.loadScript('../views/digitador/inicio.js','root')
-                .then(()=>{
-                    GlobalSelectedForm='DIGITACION';
-                    iniciarVistaDigitador();
-                    
-                      // handlers del menu
-                    let btnMenuDigitadorPendientes = document.getElementById('btnMenuDigitadorPendientes');
-                    btnMenuDigitadorPendientes.addEventListener('click',()=>{
-                        classNavegar.inicioDigitador();
-                    });
-                    
-                    let btnMenuDigitadorEmbarques = document.getElementById('btnMenuDigitadorEmbarques');
-                    btnMenuDigitadorEmbarques.addEventListener('click',()=>{
-                        classNavegar.digitadorEmbarques();                  
-                    });
-
-                    let btnMenuDigitadorUsuarios = document.getElementById('btnMenuDigitadorUsuarios');
-                    btnMenuDigitadorUsuarios.addEventListener('click',()=>{
-                        classNavegar.gerenteUsuarios('VENDEDOR');
-                    });
-
-                    let btnMenuDigitadorClientes = document.getElementById('btnMenuDigitadorClientes');
-                    btnMenuDigitadorClientes.addEventListener('click',()=>{
-                        classNavegar.supervisorClientes();
-                    });
-
-                    let btnMenuDigitadorNoticias = document.getElementById('btnMenuDigitadorNoticias');
-                    btnMenuDigitadorNoticias.addEventListener('click',()=>{
-                        classNavegar.noticias();
-                    });
-                })            
+    inicio_getgps :async (latitud,longitud)=>{
+        funciones.loadScript('../views/vendedor/getGpsLocation.js','root')
+        .then(async()=>{
+            GlobalSelectedForm='GPS';
+            InicializarVista(latitud,longitud);
+            window.history.pushState({"page":7}, "gps", '/gps');
+        })
     },
     inicioRepartidor : async()=>{
         let strMenu =  `
@@ -442,54 +335,5 @@ let classNavegar = {
             GlobalSelectedForm='CONFIG';
             initView();
         })
-    },
-    gerenteInicioSucursales: ()=>{
-        funciones.loadScript('../views/gerente/iniciosucursales.js','root')
-        .then(()=>{
-            GlobalSelectedForm='DASHBOARD';
-            InicializarVistaGerenteSucursales();
-        });
-    },
-    gerenteIniciar: ()=>{
-        funciones.loadScript('../views/gerente/inicioapp.js','root')
-        .then(()=>{
-            GlobalSelectedForm='GERENTE';
-            InicializarVistaGerente();
-        });
-    },
-    gerenteTracking: ()=>{
-        funciones.loadScript('../views/gerente/tracking.js','root')
-        .then(()=>{
-            GlobalSelectedForm='GERENTETRACKING';
-            InicializarVistaGerenteTracking();
-        })
-    },
-    gerenteVendedores: ()=>{
-        funciones.loadScript('../views/gerente/vendedores.js','root')
-        .then(()=>{
-            GlobalSelectedForm='GERENTEVENDEDORES';
-            InicializarVistaGerenteVendedores();
-        })
-    },
-    gerenteProducto: ()=>{
-        funciones.loadScript('../views/gerente/productos.js','root')
-        .then(()=>{
-            GlobalSelectedForm='GERENTEPRODUCTOS';
-            inicializarVistaGerenteProductos();
-        })
-    },
-    digitadorEmbarques : ()=>{
-        funciones.loadScript('../views/digitador/embarques.js','root')
-        .then(()=>{
-            GlobalSelectedForm='DIGITADOREMBARQUES';
-            iniciarVistaEmbarques();
-        })
-    },
-    gerenteUsuarios:(tipo)=>{
-        funciones.loadScript('../views/usuarios/inicio.js','root')
-        .then(()=>{
-            GlobalSelectedForm='USUARIOS';
-            inicializarVistaUsuarios(tipo);
-        })          
     }
 }

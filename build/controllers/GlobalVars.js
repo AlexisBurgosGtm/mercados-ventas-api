@@ -31,6 +31,7 @@ let GlobalSelectedForm = '';
 let map; //mapa de leaflet
 let GlobalGpsLat = 0;
 let GlobalGpsLong = 0;
+let GlobalSelectedLat = ''; let GlobalSelectedLong='';
 let GlobalMarkerId = 0;
 let GlobalSelectedId;
 let GlobalSelectedCodigo;
