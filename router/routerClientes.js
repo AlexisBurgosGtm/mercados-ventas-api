@@ -2,6 +2,34 @@ const execute = require('./connection');
 const express = require('express');
 const router = express.Router();
 
+
+
+router.post("/solicitud_cambios_cliente", async(req,res)=>{
+
+    const{sucursal,codclie,nitclie,tiponegocio,negocio,nomclie,dirclie,lat,long} = req.body;
+
+    let qry = `INSERT INTO ME_CENSO_SOLICITUDES (
+            CODSUCURSAL, CODCLIE,NITCLIE,TIPONEGOCIO,NEGOCIO,NOMCLIE,DIRCLIE,LAT,LONG)
+    VALUES ('${sucursal}',${codclie},'${nitclie}','${tiponegocio}','${negocio}','${nomclie}','${dirclie}',${lat},${long});`
+    
+ 
+    
+     execute.Query(res,qry);
+     
+
+     /*
+
+       const{sucursal,codven,fecha,codclie,nitclie,tiponegocio,negocio,nomclie,dirclie,codmun,coddepto,referencia,obs,telefono,visita,lat,long,sector} = req.body;
+
+    let qry = `INSERT INTO ME_CENSO_SOLICITUDES (
+            CODSUCURSAL,   CODVEN,     FECHA, CODCLIE,NITCLIE,TIPONEGOCIO,NEGOCIO,NOMCLIE,DIRCLIE,REFERENCIA,CODMUN,CODDEPTO,OBS,VISITA,LAT,LONG,TELEFONO, STATUS, SECTOR)
+    VALUES ('${sucursal}',${codven},'${fecha}',${codclie},'${nitclie}','${tiponegocio}','${negocio}','${nomclie}','${dirclie}','${referencia}','${codmun}','${coddepto}','${obs}','${visita}',${lat},${long},'${telefono}','PENDIENTE','${sector}');`
+    
+
+      */
+});
+
+
 router.post("/setreminder", async(req,res)=>{
 
     const{sucursal,codclie,nit,nombre,direccion,fecha,hora,minuto,recordatorio} = req.body;

@@ -900,9 +900,6 @@ let apigen = {
         });
            
     },
-    cardTotales:()=>{
-
-    },
     reporteProductos: async(sucursal,codven,anio,mes,idContenedor,idLbTotal)=>{
 
         let container = document.getElementById(idContenedor);
@@ -2626,62 +2623,6 @@ let apigen = {
         });
            
     },
-    digitadorDetallePedido_BACKUP: async(fecha,coddoc,correlativo,idContenedor,idLbTotal)=>{
-
-        let container = document.getElementById(idContenedor);
-        container.innerHTML = GlobalLoader;
-        
-        let lbTotal = document.getElementById(idLbTotal);
-        lbTotal.innerText = '---';
-        
-        let strdata = '';
-
-        GlobalSelectedCoddoc = coddoc;
-        GlobalSelectedCorrelativo = correlativo;
-
-        axios.post('/digitacion/detallepedido', {
-            sucursal: GlobalCodSucursal,
-            fecha:fecha,
-            coddoc:coddoc,
-            correlativo:correlativo
-        })
-        .then((response) => {
-            const data = response.data.recordset;
-            let total =0;
-            data.map((rows)=>{
-                    total = total + Number(rows.IMPORTE);
-                    strdata = strdata + `
-                            <tr id='${rows.DOC_ITEM}'>
-                                <td colspan="3">${rows.DESPROD}
-                                    <br>
-                                    <small class="text-danger">${rows.CODPROD}</small>
-                                    <br>
-                                    <b class="text-info">${rows.CODMEDIDA}</b>-<b>Cant: ${rows.CANTIDAD}</b>
-                                </td>
-                                <td>${rows.PRECIO}</td>
-                                <td>${rows.IMPORTE}
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button class="btn btn-danger btn-md btn-circle"
-                                                onclick="deleteProductoPedido('${rows.DOC_ITEM}','${GlobalSelectedCoddoc}','${GlobalSelectedCorrelativo}',${rows.IMPORTE},${rows.TOTALCOSTO})">
-                                                <i class="fal fa-trash"></i>
-                                            </button>              
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            `
-            })
-            container.innerHTML = strdata;
-            lbTotal.innerText = `${funciones.setMoneda(total,'Q')}`;
-        }, (error) => {
-            funciones.AvisoError('Error en la solicitud');
-            strdata = '';
-            container.innerHTML = '';
-            lbTotal.innerText = 'Q0.00';
-        });
-           
-    },
     digitadorPedidosTipoprecio: async(sucursal,codven,idContenedor)=>{
 
         let container = document.getElementById(idContenedor);
@@ -3241,5 +3182,4 @@ let apigen = {
             });
         });
     }
-    
 }

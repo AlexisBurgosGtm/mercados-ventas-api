@@ -290,21 +290,21 @@ function getView(){
                                 <div class="row">
                                     
                                     <div class="col-2">
-                                        <button class="btn btn-md btn-info btn-circle hand shadow" id="btnEditGps">
-                                            <i class="fal fa-map"></i>
+                                        <button class="btn btn-md btn-danger btn-circle hand shadow" id="btnEditGps">
+                                            <i class="fal fa-location-dot"></i>
                                         </button>
                                     </div>
 
                                     <div class="col-5">
                                         <div class="form-group">
                                             <label>Latitud</label>
-                                            <input type="text" id="txtEditLatitud" class="form-control">
+                                            <input type="number" id="txtEditLatitud" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-5">
                                         <div class="form-group">
                                             <label>Longitud</label>
-                                            <input type="text" id="txtEditLongitud" class="form-control">
+                                            <input type="number" id="txtEditLongitud" class="form-control">
                                         </div>
                                     </div>
 
@@ -647,10 +647,19 @@ async function addListeners(){
             let negocio = document.getElementById('txtEditNegocio').value || 'SN';
             let nombre = document.getElementById('txtEditNombre').value || 'SN';
             let direccion = document.getElementById('txtEditDireccion').value || 'SN';
-            let latitud = document.getElementById('txtEditLatitud').value || 'SN';
-            let longitud = document.getElementById('txtEditLongitud').value || 'SN';
+            let latitud = document.getElementById('txtEditLatitud').value || 0;
+            let longitud = document.getElementById('txtEditLongitud').value || 0;
 
-            funciones.Aviso('Esta función aún no está disponible');
+
+
+            send_solicitud_cliente(GlobalSelectedCodCliente,nit,tiponegocio,negocio,nombre,direccion,latitud,longitud)
+            .then(()=>{
+                funciones.Aviso('Solicitud enviada exitosamente!!');
+                $("#ModalCambiarDatosCliente").modal('hide');
+            })
+            .catch(()=>{
+                funciones.AvisoError('No se pudo enviar la solicitud');
+            })
 
         });
 
@@ -667,3 +676,34 @@ function inicializarVista(){
     addListeners();
 };
 
+
+
+
+function send_solicitud_cliente(codclie,nitclie,tiponegocio,negocio,nomclie,dirclie,lat,long){
+    
+    return new Promise((resolve,reject)=>{
+        axios.post('/clientes/solicitud_cambios_cliente',{
+           sucursal: GlobalCodSucursal,
+           codclie: codclie,
+           nitclie: nitclie,
+           tiponegocio: tiponegocio,
+           negocio: negocio,
+           nomclie: nomclie,
+           dirclie: dirclie,
+           lat: lat,
+           long: long
+        })
+        .then((response) => {
+            console.log(response);
+            const data = response.data;
+            if (data.rowsAffected[0]==0){
+                reject();
+            }else{
+                resolve();
+            }            
+        }, (error) => {
+            reject();
+        });
+    })
+
+}
