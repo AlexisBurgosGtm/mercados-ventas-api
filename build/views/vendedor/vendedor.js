@@ -291,7 +291,7 @@ function getView(){
                                     
                                     <div class="col-2">
                                         <button class="btn btn-md btn-danger btn-circle hand shadow" id="btnEditGps">
-                                            <i class="fal fa-location-dot"></i>
+                                            <i class="fal fa-map"></i>
                                         </button>
                                     </div>
 
