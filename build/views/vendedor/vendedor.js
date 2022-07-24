@@ -642,23 +642,33 @@ async function addListeners(){
         funciones.Confirmacion('¿Está seguro que desea Enviar esta solicitud de Cambio de Datos?')
         .then(()=>{
 
-            let nit = document.getElementById('txtEditNit').value || 'SN';
-            let tiponegocio = document.getElementById('cmbEditTipoNegocio').value || 'SN';
+            btnEnviarCambiosCliente.disabled = true;
+            btnEnviarCambiosCliente.innerHTML = '<i class="fal fa-paper-plane fa-spin"></i>';
+            
+            let nit = document.getElementById('txtEditNit').value || 'CF';
+            let tiponegocio = document.getElementById('cmbEditTipoNegocio').value || 'OTROS';
             let negocio = document.getElementById('txtEditNegocio').value || 'SN';
             let nombre = document.getElementById('txtEditNombre').value || 'SN';
             let direccion = document.getElementById('txtEditDireccion').value || 'SN';
             let latitud = document.getElementById('txtEditLatitud').value || 0;
             let longitud = document.getElementById('txtEditLongitud').value || 0;
 
+            if (negocio=='SN'){funciones.AvisoError('Escriba el nombre del negocio');return;}
+            if (nombre=='SN'){funciones.AvisoError('Escriba el nombre del negocio');return;}
 
 
             send_solicitud_cliente(GlobalSelectedCodCliente,nit,tiponegocio,negocio,nombre,direccion,latitud,longitud)
             .then(()=>{
                 funciones.Aviso('Solicitud enviada exitosamente!!');
+                btnEnviarCambiosCliente.disabled = false;
+                btnEnviarCambiosCliente.innerHTML = '<i class="fal fa-paper-plane"></i>';
+
                 $("#ModalCambiarDatosCliente").modal('hide');
             })
             .catch(()=>{
                 funciones.AvisoError('No se pudo enviar la solicitud');
+                btnEnviarCambiosCliente.disabled = false;
+                btnEnviarCambiosCliente.innerHTML = '<i class="fal fa-paper-plane"></i>';
             })
 
         });
