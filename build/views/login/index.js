@@ -129,6 +129,14 @@ function addListeners(){
     //carga las sucursales directamente desde código
     document.getElementById('cmbSucursal').innerHTML = funciones.getComboSucursales();
 
+    selectDateDownload(); //carga la info inicial
+    try {
+        document.getElementById('cmbSucursal').value = GlobalCodSucursal;
+    } catch (error) {
+        
+    }
+  
+
 };
 
 
@@ -137,7 +145,8 @@ function InicializarVista(){
    addListeners();
 
    //getCredenciales();
-  
+ 
+
 };
 
 

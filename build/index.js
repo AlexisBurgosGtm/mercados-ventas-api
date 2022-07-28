@@ -57,6 +57,7 @@ function setLog(msg,idcontainer){
 
 classNavegar.login();
 
+
 /*
 if (navigator.onLine){
   document.getElementById('btnPedidosPend').classList.add('btn-outline-secondary');

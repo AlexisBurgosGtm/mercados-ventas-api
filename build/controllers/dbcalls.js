@@ -177,7 +177,8 @@ function selectDateDownload() {
            
         });
         response.map((r)=>{
-            GlobalSelectedDiaUpdated = Number(r.DAYUPDATED)
+            GlobalSelectedDiaUpdated = Number(r.DAYUPDATED);
+            GlobalCodSucursal = r.CODSUCURSAL;
         })
         resolve(GlobalSelectedDiaUpdated)
     });
