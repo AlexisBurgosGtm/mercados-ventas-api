@@ -121,7 +121,8 @@ router.post("/listaajenosvendedor", async(req,res)=>{
 
     let qry = '';
     qry = `SELECT TOP 30 ME_Clientes.NITCLIE AS CODIGO, ME_Clientes.NITFACTURA AS NIT, ME_Clientes.NOMCLIE, ME_Clientes.DIRCLIE, ME_Municipios.DESMUNI, ME_Clientes.TELCLIE AS TELEFONO, ISNULL(ME_Clientes.LATITUD, 0) AS LAT, 
-    ISNULL(ME_Clientes.LONGITUD, 0) AS LONG, ISNULL(ME_Clientes.FECHAINGRESO,'2020-04-15') AS LASTSALE, ME_Clientes.FAXCLIE AS STVISITA, ME_Clientes.REFERENCIA
+    ISNULL(ME_Clientes.LONGITUD, 0) AS LONG, ISNULL(ME_Clientes.FECHAINGRESO,'2020-04-15') AS LASTSALE, ME_Clientes.REFERENCIA,
+    ME_Clientes.FAXCLIE AS TIPONEGOCIO, '' AS STVISITA, ME_Clientes.REFERENCIA, ME_Clientes.VISITA, ME_Clientes.NOMFAC AS NEGOCIO
             FROM ME_Clientes LEFT OUTER JOIN
     ME_Municipios ON ME_Clientes.CODSUCURSAL = ME_Municipios.CODSUCURSAL AND ME_Clientes.CODMUNI = ME_Municipios.CODMUNI
             WHERE (ME_Clientes.CODSUCURSAL = '${sucursal}') 
