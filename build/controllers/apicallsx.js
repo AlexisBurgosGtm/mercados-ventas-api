@@ -192,7 +192,7 @@ let apigen = {
                     }else{
                         strdata = strdata + `
                             <tr class='col-12 border-bottom border-info'>
-                                <td>${rows.NOMCLIE}
+                                <td>${rows.NEGOCIO} // ${rows.NOMCLIE}
                                     <br>
                                     <div class="row">
                                         <div class="col-4">
@@ -277,7 +277,7 @@ let apigen = {
                 if(f==funciones.getFecha()){}else{
                     L.marker([rows.LAT, rows.LONG])
                     .addTo(map)
-                    .bindPopup(`${rows.NOMCLIE} <br><small>${rows.DIRCLIE}-Tel:${rows.TELEFONO}</small>`, {closeOnClick: true, autoClose: true})   
+                    .bindPopup(`${rows.NEGOCIO} - ${rows.NOMCLIE} <br><small>${rows.DIRCLIE}-Tel:${rows.TELEFONO}</small>`, {closeOnClick: true, autoClose: true})   
                     .on('click', function(e){
                         //console.log(e.sourceTarget._leaflet_id);
                         GlobalMarkerId = Number(e.sourceTarget._leaflet_id);
@@ -319,7 +319,7 @@ let apigen = {
             data.map((rows)=>{                    
                         strdata = strdata + `
                     <tr class=''>
-                        <td>${rows.NOMCLIE}
+                        <td>${rows.NEGOCIO} // ${rows.NOMCLIE}
                             <br>
                             <div class="row">
                                 <div class="col-6">

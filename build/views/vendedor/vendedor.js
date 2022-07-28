@@ -608,21 +608,26 @@ async function addListeners(){
 
     //BOTON PARA CAMBIAR GPS EN MODAL EDIT CLIENTE
     document.getElementById('btnEditGps').addEventListener('click',()=>{
-        let latitud = document.getElementById('txtEditLatitud').value;
-        let longitud = document.getElementById('txtEditLongitud').value;
-        let nombre = document.getElementById('txtEditNombre').value;
 
-        let container = document.getElementById('gpsMap');
-        container.innerHTML = GlobalLoader;                 
-        let tbl = `<div class="mapcontainer4" id="mapcontainer"></div>`;        
-        container.innerHTML = tbl;
-
-        var map;
-        map = Lmap(Number(latitud), Number(longitud));
-
-        setTimeout(function(){try { map.invalidateSize(); } catch (error) { }}, 500);            
-          
-        $("#ModalGps").modal('show');
+        funciones.Confirmacion('¿Está seguro que desea SOLICITAR CAMBIOS de Datos de este Cliente?')
+        .then(()=>{
+            let latitud = document.getElementById('txtEditLatitud').value;
+            let longitud = document.getElementById('txtEditLongitud').value;
+            let nombre = document.getElementById('txtEditNombre').value;
+    
+            let container = document.getElementById('gpsMap');
+            container.innerHTML = GlobalLoader;                 
+            let tbl = `<div class="mapcontainer4" id="mapcontainer"></div>`;        
+            container.innerHTML = tbl;
+    
+            var map;
+            map = Lmap(Number(latitud), Number(longitud));
+    
+            setTimeout(function(){try { map.invalidateSize(); } catch (error) { }}, 500);            
+              
+            $("#ModalGps").modal('show');
+        })
+     
 
     });
 
