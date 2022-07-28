@@ -132,8 +132,10 @@ function addListeners(){
     selectDateDownload(); //carga la info inicial
     try {
         document.getElementById('cmbSucursal').value = GlobalCodSucursal;
+        console.log(GlobalCodSucursal);
     } catch (error) {
-        
+        console.log('error al cargar sucursal')
+        console.log(error)
     }
   
 
