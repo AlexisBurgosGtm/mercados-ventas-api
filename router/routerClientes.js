@@ -126,7 +126,7 @@ router.post("/listaajenosvendedor", async(req,res)=>{
             FROM ME_Clientes LEFT OUTER JOIN
     ME_Municipios ON ME_Clientes.CODSUCURSAL = ME_Municipios.CODSUCURSAL AND ME_Clientes.CODMUNI = ME_Municipios.CODMUNI
             WHERE (ME_Clientes.CODSUCURSAL = '${sucursal}') 
-            AND (ME_Clientes.NOMCLIE LIKE '%${filtro}%') 
+            AND (CONCAT(ME_Clientes.NOMFAC,'-',ME_Clientes.NOMCLIE) LIKE '%${filtro}%') 
             AND (ME_Clientes.CODCLIE=0) 
             OR
             (ME_Clientes.CODSUCURSAL = '${sucursal}') 
