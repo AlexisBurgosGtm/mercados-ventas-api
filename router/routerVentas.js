@@ -561,6 +561,23 @@ router.post("/listapedidos", async(req,res)=>{
     const {sucursal,codven,fecha}  = req.body;
     
     let qry = '';
+    qry = `SELECT        ME_Documentos.CODDOC, ME_Documentos.DOC_NUMERO AS CORRELATIVO, ME_Documentos.NITCLIE AS CODCLIE, 
+    ME_Clientes.NOMFAC AS NEGOCIO, ME_Documentos.DOC_NOMREF AS NOMCLIE, 
+                             ME_Documentos.DOC_DIRENTREGA AS DIRCLIE, '' AS DESMUNI, ISNULL(ME_Documentos.DOC_TOTALVENTA, 0) AS IMPORTE, ME_Documentos.DOC_FECHA AS FECHA, ME_Documentos.LAT, ME_Documentos.LONG, 
+                             ME_Documentos.DOC_OBS AS OBS, ME_Documentos.DOC_MATSOLI AS DIRENTREGA, ME_Documentos.DOC_ESTATUS AS ST
+    FROM            ME_Documentos LEFT OUTER JOIN
+                             ME_Clientes ON ME_Documentos.NITCLIE = ME_Clientes.NITCLIE AND ME_Documentos.CODSUCURSAL = ME_Clientes.CODSUCURSAL
+    WHERE        (ME_Documentos.CODSUCURSAL = '${sucursal}') AND (ME_Documentos.DOC_FECHA = '${fecha}') AND (ME_Documentos.CODVEN = ${codven}) AND (ME_Documentos.DOC_ESTATUS <> 'A')`
+
+    
+    execute.Query(res,qry);
+});
+
+// LISTA DE PEDIDOS POR UNA FECHA
+router.post("/BACKUP_listapedidos", async(req,res)=>{
+    const {sucursal,codven,fecha}  = req.body;
+    
+    let qry = '';
     qry = `SELECT CODDOC, DOC_NUMERO AS CORRELATIVO, NITCLIE AS CODCLIE, DOC_NOMREF AS NOMCLIE, DOC_DIRENTREGA AS DIRCLIE, '' AS DESMUNI, ISNULL(DOC_TOTALVENTA,0) AS IMPORTE, DOC_FECHA AS FECHA, LAT, LONG, DOC_OBS AS OBS, DOC_MATSOLI AS DIRENTREGA, DOC_ESTATUS AS ST
             FROM ME_Documentos
             WHERE (CODSUCURSAL = '${sucursal}') AND (DOC_FECHA = '${fecha}') AND (CODVEN = ${codven}) AND (DOC_ESTATUS<>'A')`
@@ -568,6 +585,7 @@ router.post("/listapedidos", async(req,res)=>{
     
     execute.Query(res,qry);
 });
+
 
 //reporte de productos del dia y vendedor
 router.post('/reporteproductosdia', async(req,res)=>{
