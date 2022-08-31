@@ -17,7 +17,12 @@ let apigen = {
                             GlobalSistema = sucursal;
                             GlobalObjetivoVenta = Number(rows.OBJETIVO);
                             GlobalSelectedDiaUpdated = Number(f.getDate());
-                            classNavegar.inicioVendedor();   
+                            if(GlobalTipoUsuario=='VENDEDOR'){
+                                classNavegar.inicioVendedor();
+                            }else{
+                                classNavegar.inicio_supervisor();
+                            }
+                               
                         }        
                     })
                     resolve();
@@ -2236,50 +2241,6 @@ let apigen = {
             container.innerHTML = '';
         });
     },
-    supervisorMarcas: async(fecha,idContenedor,idLbTotal)=>{
-
-        let container = document.getElementById(idContenedor);
-        container.innerHTML = GlobalLoader;
-        
-        let lbTotal = document.getElementById(idLbTotal);
-        lbTotal.innerText = '---';
-
-        let strdata = '';
-        let tbl = `<table class="table table-responsive table-striped table-hover table-bordered">
-                        <thead class="bg-trans-gradient text-white">
-                        <tr>
-                            <td>Marca</td>
-                            <td>Importe</td>
-                        </tr>
-                        </thead>
-                        <tbody>`;
-
-        let tblfoot = `</tbody></table>`;
-
-        axios.post('/ventas/reportemarcasfecha', {
-            sucursal: GlobalCodSucursal,
-            fecha:fecha
-        })
-        .then((response) => {
-            const data = response.data.recordset;
-            let total =0;
-            data.map((rows)=>{
-                    total = total + Number(rows.TOTALPRECIO);
-                    strdata = strdata + `<tr>
-                                            <td>${rows.DESMARCA}</td>
-                                            <td>${funciones.setMoneda(rows.TOTALPRECIO,'Q')}</td>
-                                        </tr>`
-            })
-            container.innerHTML = tbl + strdata + tblfoot;
-            lbTotal.innerText = funciones.setMoneda(total,'Q ');
-        }, (error) => {
-            funciones.AvisoError('Error en la solicitud');
-            strdata = '';
-            container.innerHTML = '';
-            lbTotal.innerText = 'Q 0.00';
-        });
-           
-    },
     supervisorMarcasMes: async(anio,mes,idContenedor,idLbTotal)=>{
 
         let container = document.getElementById(idContenedor);
@@ -2349,12 +2310,12 @@ let apigen = {
             const data = response.data.recordset;
             data.map((rows)=>{
                     if(mapcargado==0){
-                        map = Lmap(rows.LAT, rows.LONG, rows.VENDEDOR, rows.TELEFONO,rows.HORAMIN);
+                        map = Lmap(rows.LAT, rows.LONG, rows.VENDEDOR, rows.TELEFONO,rows.HORAMIN,rows.FECHA);
                         mapcargado = 1;
                     }else{
                         L.marker([rows.LAT, rows.LONG])
                         .addTo(map)
-                        .bindPopup(`${rows.VENDEDOR} - Tel:${rows.TELEFONO} - Updated:${rows.HORAMIN}`, {closeOnClick: false, autoClose: false})
+                        .bindPopup(`${rows.VENDEDOR} - Updated:${funciones.convertDateNormal(rows.FECHA)} - ${rows.HORAMIN}`, {closeOnClick: false, autoClose: false})
                         .openPopup()   
                     }
             })
@@ -3264,6 +3225,156 @@ let apigen = {
             }, (error) => {
                 reject();
             });
+        });
+    },
+    supervisor_ventadia: (fecha,idContenedor,idLbTotal)=>{
+        
+        let container = document.getElementById(idContenedor);
+        container.innerHTML = GlobalLoader;
+
+        let lbTotal = document.getElementById(idLbTotal);
+        lbTotal.innerText = '---';
+            
+        let strdata = '';
+      
+
+        axios.post('/ventas/rptrankingvendedoressucursal2', {
+            fecha:fecha,
+            sucursal: GlobalCodSucursal
+        })
+        .then((response) => {
+            const data = response.data.recordset;
+            let total =0;
+            data.map((rows)=>{
+                    total = total + Number(rows.TOTALPRECIO);
+                    let promedio = Number(rows.TOTALPRECIO) / Number(rows.PEDIDOS);
+                    strdata = strdata + `
+                    <tr>
+                        <td>${rows.NOMVEN}</td>
+                        <td>${funciones.setMoneda(rows.TOTALPRECIO,'Q')}</td>
+                        <td>${rows.PEDIDOS}</td>
+                        <td>${funciones.setMoneda(promedio,'Q')}</td>
+                    </tr>
+                    `
+            })
+          
+
+            container.innerHTML = strdata;
+            lbTotal.innerText = funciones.setMoneda(total,'Q ');
+        }, (error) => {
+            funciones.AvisoError('Error en la solicitud');
+            lbTotal.innerText = 'Q 0.00'
+            strdata = '';
+            container.innerHTML = '';
+        });
+    },
+    supervisor_marcasmes: async(mes,anio,idContenedor,idLbTotal)=>{
+
+        let container = document.getElementById(idContenedor);
+        container.innerHTML = GlobalLoader;
+        
+        let lbTotal = document.getElementById(idLbTotal);
+        lbTotal.innerText = '---';
+
+        let strdata = '';
+     
+        axios.post('/ventas/reportemarcasmes', {
+            sucursal: GlobalCodSucursal,
+            mes:mes,
+            anio:anio
+        })
+        .then((response) => {
+            const data = response.data.recordset;
+            let total =0;
+            data.map((rows)=>{
+                    total = total + Number(rows.TOTALPRECIO);
+                    strdata = strdata + `<tr>
+                                            <td>${rows.DESMARCA}</td>
+                                            <td>${funciones.setMoneda(rows.TOTALPRECIO,'Q')}</td>
+                                        </tr>`
+            })
+            container.innerHTML = strdata;
+            lbTotal.innerText = funciones.setMoneda(total,'Q ');
+        }, (error) => {
+            funciones.AvisoError('Error en la solicitud');
+            strdata = '';
+            container.innerHTML = '';
+            lbTotal.innerText = 'Q 0.00';
+        });
+           
+    },
+    supervisor_marcas_dia: async(fecha,idContenedor,idLbTotal)=>{
+
+        let container = document.getElementById(idContenedor);
+        container.innerHTML = GlobalLoader;
+        
+        let lbTotal = document.getElementById(idLbTotal);
+        lbTotal.innerText = '---';
+
+        let strdata = '';
+      
+
+        axios.post('/ventas/reportemarcasfecha', {
+            sucursal: GlobalCodSucursal,
+            fecha:fecha
+        })
+        .then((response) => {
+            const data = response.data.recordset;
+            let total =0;
+            data.map((rows)=>{
+                    total = total + Number(rows.TOTALPRECIO);
+                    strdata = strdata + `<tr>
+                                            <td>${rows.DESMARCA}</td>
+                                            <td>${funciones.setMoneda(rows.TOTALPRECIO,'Q')}</td>
+                                        </tr>`
+            })
+            container.innerHTML = strdata;
+            lbTotal.innerText = funciones.setMoneda(total,'Q ');
+        }, (error) => {
+            funciones.AvisoError('Error en la solicitud');
+            strdata = '';
+            container.innerHTML = '';
+            lbTotal.innerText = 'Q 0.00';
+        });
+           
+    },
+    supervisor_vendedores_mes: (mes,anio,idContenedor, idLbTotal)=>{
+        
+        let container = document.getElementById(idContenedor);
+        container.innerHTML = GlobalLoader;
+
+        let lbTotal = document.getElementById(idLbTotal);
+        lbTotal.innerText = '---';
+            
+        let strdata = '';
+       
+        axios.post('/ventas/rptrankingvendedoressucursalmes', {
+            anio:anio,
+            mes:mes,
+            sucursal: GlobalCodSucursal
+        })
+        .then((response) => {
+            const data = response.data.recordset;
+            let total =0;
+            data.map((rows)=>{
+                    total = total + Number(rows.TOTALPRECIO);
+                    let promedio = Number(rows.TOTALPRECIO) / Number(rows.PEDIDOS);
+                    strdata = strdata + `
+                    <tr>
+                        <td>${rows.NOMVEN}</td>
+                        <td>${funciones.setMoneda(rows.TOTALPRECIO,'Q')}</td>
+                        <td>${rows.PEDIDOS}</td>
+                        <td>${funciones.setMoneda(promedio,'Q')}</td>
+                    </tr>
+                    `
+            })
+            container.innerHTML = strdata;
+            lbTotal.innerText = funciones.setMoneda(total,'Q ');
+        }, (error) => {
+            funciones.AvisoError('Error en la solicitud');
+            lbTotal.innerText = 'Q 0.00'
+            strdata = '';
+            container.innerHTML = '';
         });
     }
 }

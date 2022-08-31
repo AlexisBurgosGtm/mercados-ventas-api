@@ -35,7 +35,7 @@ router.post("/statusempleado",async(req,res)=>{
 
     
     let qry ='';
-    qry = `SELECT CODUSUARIO AS CODIGO, NOMBRE AS VENDEDOR, TELEFONO, isnull(LAT,0) as LAT, isnull(LONG,0) as LONG, HORAMIN
+    qry = `SELECT CODUSUARIO AS CODIGO, NOMBRE AS VENDEDOR, TELEFONO, isnull(LAT,0) as LAT, isnull(LONG,0) as LONG, HORAMIN, FECHA
             FROM ME_USUARIOS 
             WHERE CODSUCURSAL='${sucursal}' AND TIPO='${tipoempleado}' AND LAT<>0`;
     

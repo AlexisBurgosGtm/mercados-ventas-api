@@ -211,5 +211,67 @@ let classNavegar = {
             GlobalSelectedForm='CONFIG';
             initView();
         })
+    },
+    inicio_supervisor : async ()=>{
+        let strFooter =    `<button class="btn btn-sm "  id="btnMenu2SuperMapa">
+                                <i class="fal fa-map"></i>
+                                Mapa vendedores
+                            </button> 
+                            <button class="btn btn-sm "  id="btnMenu2SuperVentas">
+                                <i class="fal fa-shopping-cart"></i>
+                                Reportes de Ventas
+                            </button>
+                          
+                         
+                    
+                            `
+
+                    rootMenuFooter.innerHTML = strFooter;
+                                                 
+                            
+              
+                 
+                    let btnMenu2SuperMapa = document.getElementById('btnMenu2SuperMapa');
+                    btnMenu2SuperMapa.addEventListener('click',()=>{
+
+                            classNavegar.supervisor_mapa();
+
+                    });
+
+                    let btnMenu2SuperVentas = document.getElementById('btnMenu2SuperVentas');
+                    btnMenu2SuperVentas.addEventListener('click',()=>{
+
+                            classNavegar.supervisor_ventas();
+
+                    });
+
+                
+                 
+                    //actualiza la ubicación del empleado
+                    await classEmpleados.updateMyLocation();
+
+                    //actualiza las credenciales
+                    updateDateDownload();
+
+                    classNavegar.supervisor_ventas();
+
+                  
+             
+    },
+    supervisor_ventas:()=>{
+        funciones.loadScript('./views/supervisor/ventas.js','root')
+        .then(()=>{
+            GlobalSelectedForm ='SUPERVISOR';
+            initView();
+            //window.history.pushState({"page":2}, "facturacion", GlobalUrl + '/facturacion')
+        })
+    },
+    supervisor_mapa:()=>{
+        funciones.loadScript('./views/supervisor/mapa.js','root')
+        .then(()=>{
+            GlobalSelectedForm ='SUPERVISORMAPA';
+            initView();
+            //window.history.pushState({"page":2}, "facturacion", GlobalUrl + '/facturacion')
+        })
     }
 }
