@@ -37,6 +37,15 @@ function getView(){
 
                         <hr class="solid">
 
+
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                          
+                            <button class="btn btn-outline-info btn-lg hand shadow" id="btnGps">
+                                <i class="fal fa-map"></i>
+                                Permiso GPS
+                            </button>
+                        </div>
+
                     </div>
                 </div>
                
@@ -114,6 +123,13 @@ function addListeners(){
     });
 
     //--------------------------------
+
+    var noop = function () {};
+    let btnGps = document.getElementById('btnGps');
+    btnGps.addEventListener('click',()=>{
+        navigator.geolocation.getCurrentPosition(noop);
+    })
+
 };
 
 

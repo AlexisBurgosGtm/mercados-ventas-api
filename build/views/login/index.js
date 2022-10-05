@@ -70,7 +70,7 @@ function getView(){
                             <div class="form-group" align="right">
                                 <small class="">Mercados Efectivos - ${versionapp}</small>
                                 <br>
-                                <small class="text-secondary">Caché: pre-cache-v3.0</small>
+                                <small class="text-secondary">Caché: pre-cache-v3.2</small>
                                 <br>
                                 <small>
                                     <a href="https://apigen.whatsapp.com/send?phone=50257255092&text=Ayudame%20con%20la%20app%20de%20Mercados%20Efectivos...%20">
@@ -113,7 +113,7 @@ function addListeners(){
 
         btnIniciar.innerHTML = '<i class="fal fa-unlock fa-spin"></i>';
         btnIniciar.disabled = true;
-        apigen.empleadosLogin(frmLogin.cmbSucursal.value,frmLogin.txtUser.value,frmLogin.txtPass.value)
+        apigen.empleadosLogin(frmLogin.cmbSucursal.value,frmLogin.txtUser.value.trim(),frmLogin.txtPass.value.trim())
         .then(()=>{
             //document.body.requestFullscreen();
             //por lo visto se deshabilitan las scroll bars en fullscreen
@@ -127,7 +127,7 @@ function addListeners(){
 
 
     //carga las sucursales directamente desde código
-    document.getElementById('cmbSucursal').innerHTML = funciones.getComboSucursales();
+    document.getElementById('cmbSucursal').innerHTML = '<option value="" disabled selected hidden>Selecciona una sede</option>' + funciones.getComboSucursales();
 
     selectDateDownload() //carga la info inicial
     .then(()=>{

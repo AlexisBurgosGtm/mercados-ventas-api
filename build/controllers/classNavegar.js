@@ -58,9 +58,9 @@ let classNavegar = {
                                 Logro
                             </button>
 
-                            <button class="btn btn-sm hidden" id="btnMenu2Censo">
+                            <button class="btn btn-sm " id="btnMenu2Censo">
                                 <i class="fal fa-edit"></i>
-                                .
+                                Censo
                             </button>
                             <button class="btn btn-sm "  id="btnMenu2VendedorSync">
                                 <i class="fal fa-sync"></i>
@@ -93,7 +93,7 @@ let classNavegar = {
                     let btnMenu2Censo = document.getElementById('btnMenu2Censo');
                     btnMenu2Censo.addEventListener('click',()=>{
 
-                        funciones.Aviso('Opción no disponible de momento');
+                        classNavegar.inicio_censo();
 
                     });
 
@@ -128,6 +128,14 @@ let classNavegar = {
             GlobalSelectedForm='INICIO';
             InicializarVista();
             window.history.pushState({"page":1}, "clientes", '/clientes');
+        })
+    },
+    inicio_censo :async ()=>{
+        funciones.loadScript('../views/vendedor/censo.js','root')
+        .then(async()=>{
+            GlobalSelectedForm='INICIO';
+            InicializarVista();
+            window.history.pushState({"page":5}, "censo", '/censo');
         })
     },
     ventas: async(nit,nombre,direccion)=>{

@@ -808,7 +808,7 @@ router.post('/rptrankingvendedoressucursalmes', async(req,res)=>{
                 ORDER BY TOTALPRECIO DESC`;
     
 
-                console.log(qry);
+                //console.log(qry);
                 
     execute.Query(res,qry);
 });

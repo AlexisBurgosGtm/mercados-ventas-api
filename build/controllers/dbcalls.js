@@ -133,6 +133,151 @@ document.getElementById('btnDownloadClientes').addEventListener('click',()=>{
 });
 
 
+//CENSO
+
+let classDb = {
+    SelectCenso: async (dia,codven,idContainer)=>{
+        let contenedor = document.getElementById(idContainer);
+        
+        let tbl = `<div class="table-responsive col-12">
+        <table class="table table-responsive table-hover table-striped">
+            <thead class="bg-danger text-white">
+                <tr>
+                    <td>Código/NIT</td>
+                    <td>Cliente/Dirección</td>
+                    <td>Teléfono</td>
+                </tr>
+            </thead>
+            <tbody id="tblListado">`;
+
+        let tblfoot = `</tbody></table></div>`;
+
+        let str = '';
+
+            var response = await connection.select({
+                from: "tempcenso",
+                limit: 2000,
+                Where: {
+                    VISITA: dia,
+                    CODVEN: Number(codven)
+                }
+               
+            });    
+            response.map((rows)=>{
+                str +=  `
+                <tr class="cursormano border-bottom">
+                    <td>${rows.NITCLIE}
+                        <br>
+                        <small>Código: <b>${rows.ID}</b> </small>
+                        <br>
+                        <button class="btn btn-warning btn-sm btn-rounded" 
+                            onclick="getDataCliente('${rows.ID}','${rows.NITCLIE}','${rows.TIPONEGOCIO}','${rows.NEGOCIO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.REFERENCIA}','${rows.CODMUNI}','${rows.CODDEPTO}','${rows.OBS}','${rows.CODVEN}','${rows.VISITA}','${rows.LAT}','${rows.LONG}','${rows.TELEFONO}','NO','${rows.SECTOR}')">
+                            <i class="fal fa-edit"></i>Editar
+                        </button>
+                    </td>
+
+                    <td>${rows.NOMCLIE}
+                            <br>
+                        <small><b>${rows.TIPONEGOCIO}-${rows.NEGOCIO}</b></small>
+                            <br class="border-bottom">
+                        <small>${rows.DIRCLIE},${rows.MUNICIPIO}</small>
+                    </td>
+                        <td>${rows.TELEFONO}
+                        <br>
+                        <button class="btn btn-success btn-sm btn-rounded" onclick="sendCliente(${rows.ID},'${rows.NITCLIE}','${rows.TIPONEGOCIO}','${rows.NEGOCIO}','${rows.NOMCLIE}','${rows.DIRCLIE}','${rows.REFERENCIA}','${rows.CODMUNI}','${rows.CODDEPTO}','${rows.OBS}','${rows.CODVEN}','${rows.VISITA}','${rows.LAT}','${rows.LONG}','${rows.TELEFONO}','${rows.FECHA}','${rows.SECTOR}')">
+                            <i class="fal fa-paper-plane"></i>Enviar
+                        </button>
+                    </td>
+                   
+                </tr>`;
+            })
+            contenedor.innerHTML = tbl + str + tblfoot;
+        
+    },
+    InsertCliente: (data)=>{  
+        return new Promise((resolve,reject)=>{
+            connection.insert({
+                into: "tempcenso",
+                values: [data], //you can insert multiple values at a time
+            })
+            .then(()=>{
+                funciones.Aviso('Cliente registrado exitosamente');
+                resolve();
+            })
+            .catch(()=>{
+                funciones.AvisoError('No se puedo Guardar este Cliente, error de base de datos');
+                reject();
+            })
+        }) 
+        
+        
+    },
+    EditCliente: async(data,id)=>{  
+    
+            var noOfRowsUpdated = await connection.update({ 
+                in: "tempcenso",
+                Set: data,
+                Where: {
+                    ID: Number(id)
+                }
+            });
+            if (Number(noOfRowsUpdated) > 0) {
+                funciones.Aviso('Cliente Actualizado Exitosamente');
+                resolve();
+            }else{
+                reject();
+            }
+        
+    },
+    DeleteCliente: (id)=>{
+        funciones.Confirmacion('¿Está seguro que desea ELIMINAR este cliente?')
+            .then(async(value)=>{
+                if(value==true){
+
+
+                    var rowsDeleted = await connection.remove({
+                        from: "censo",
+                        where: {
+                            ID: id
+                        }
+                    });
+                    if(rowsDeleted>0){
+                        document.getElementById(id).remove();
+                        classCenso.SelectCensoAll(GlobalEmpnit,GlobalCodven,document.getElementById('tblCenso'));
+                        funciones.Aviso("Cliente eliminado con éxito");    
+                    }else{
+                        funciones.AvisoError('No se pudo eliminar')
+                    }
+
+
+                }
+            })
+    },
+    DeleteClienteSilent: async(id)=>{
+        
+        var rowsDeleted = await connection.remove({
+            from: "tempcenso",
+            where: {
+                ID: id
+            }
+        });
+        if(rowsDeleted>0){
+          
+        }else{
+           
+        };
+
+    
+    }
+}
+
+
+//CENSO
+
+
+
+
+
 //CREDENCIALES
 function deleteDateDownload(){
     return new Promise(async(resolve,reject)=>{

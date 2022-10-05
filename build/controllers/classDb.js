@@ -1,4 +1,4 @@
-const DbName = "mercadosefectivosoffline6";
+const DbName = "mercadosefectivosoffline7";
 
 var tblDocumentos = {
     name: 'documentos',
@@ -106,13 +106,37 @@ var tblCredenciales = {
         NIVEL:{dataType: "string"},
         DAYUPDATED:{dataType: "number"}
     }
+
 };
 
+var tempcenso = {
+    name: "tempcenso",
+    columns: { 
+        ID: {primaryKey: true, autoIncrement: true},
+        CODSUCURSAL: {dataType: "string" },
+        CODVEN: {dataType: "number" },
+        FECHA: {dataType: "string" },
+        CODCLIE: {dataType: "number" },
+        NITCLIE: {dataType: "string" },
+        TIPONEGOCIO: {dataType: "string"},
+        NEGOCIO: {dataType: "string"},
+        NOMCLIE: {dataType: "string"},
+        REFERENCIA: {dataType: "string"},
+        CODMUNI: {dataType: "string"},
+        CODDEPTO: {dataType: "string"},
+        OBS: {dataType: "string"},
+        TELEFONO: {dataType: "string"},
+        VISITA: {dataType: "string"},
+        LAT: {dataType: "number" },
+        LONG: {dataType: "number" },
+        SECTOR: {dataType: "string"}
+    }
+};
 
 
 var database = {
     name: DbName,
-    tables: [tblDocumentos,tblProductos,tblClientes,tblTempventas,tblCredenciales]
+    tables: [tblDocumentos,tblProductos,tblClientes,tblTempventas,tblCredenciales,tempcenso]
 };
  
 // initiate jsstore connection

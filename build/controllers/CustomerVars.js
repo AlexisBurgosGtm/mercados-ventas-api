@@ -7,7 +7,7 @@ let GlobalEmpNombre = 'MERCADOS EFECTIVOS';
 
 let GlobalVentaMinima = 79.99;
 
-let dataEmpresas = [
+let dataEmpresas = [ 
     {codsucursal:"ME-ZACAPA",nomsucursal:"SUCURSAL ZACAPA",color:"success"},
     {codsucursal:"ME-IZABAL",nomsucursal:"SUCURSAL IZABAL",color:"primary"},
     {codsucursal:"ME-JUTIAPA",nomsucursal:"SUCURSAL JUTIAPA",color:"info"},
