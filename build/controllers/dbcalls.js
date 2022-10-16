@@ -640,6 +640,7 @@ function dbCargarPedidosPendientes(){
         let totalventa = 0;
 
         response.map((rs)=>{
+            let btnPed = `btnE${r.ID}`;
             contador = contador + 1;
             totalventa += Number(rs.TOTALPRECIO);
             str = str + `
@@ -679,7 +680,7 @@ function dbCargarPedidosPendientes(){
                                         </button>
                                     </div>
                                     <div class="col-6">
-                                        <button class="btn btn-success btn-sm" onclick="dbSendPedido(${rs.ID});">
+                                        <button class="btn btn-success btn-sm" id="${btnPed}" onclick="dbSendPedido(${rs.ID},'${btnPed}');">
                                             <i class="fal fa-paper-plane"></i>Enviar
                                         </button>
                                     </div>
@@ -708,60 +709,7 @@ function dbCargarPedidosPendientes(){
 };
 
 
-function BACKUP_dbCargarPedidosPendientes(){
-    
-    selectVentasPendientes(GlobalUsuario)
-    .then((response)=>{
-        let container = document.getElementById('tblPedidosPendientes');
-        container.innerHTML = GlobalLoader;
 
-        let containerTotal = document.getElementById('lbTotalVentaPendiente');
-        containerTotal.innerHTML = '--.--';
-        
-        let str = '';
-        let contador = 0;
-        let totalventa = 0;
-
-        response.map((rs)=>{
-            contador = contador + 1;
-            totalventa += Number(rs.TOTALPRECIO);
-            str = str + `<tr class="border-bottom">
-                            <td>${rs.FECHA}
-                                <br>
-                                <small class="negrita">${rs.CODDOC}-${rs.ID}</small>
-                            </td>
-                            <td>${rs.NOMCLIE}
-                                <br>
-                                <small>${rs.DIRCLIE}</small>
-                            </td>
-                            <td>${funciones.setMoneda(rs.TOTALPRECIO,'Q')}
-                            </td>
-                            <td>
-                                <button class="btn btn-info btn-circle" onclick="getDbDetallePedido(${rs.ID},'${rs.NOMCLIE}');">
-                                    <i class="fal fa-search"></i>
-                                </button>
-                            </td>
-                            <td>
-                                <button class="btn btn-success btn-circle" onclick="dbSendPedido(${rs.ID});">
-                                    <i class="fal fa-paper-plane"></i>
-                                </button>
-                            </td>
-                        </tr>`    
-        })
-        container.innerHTML = str;
-        containerTotal.innerText = funciones.setMoneda(totalventa,'');
-        
-        if(Number(contador)>0){
-            btnPedidosPend.className = 'btn btn-danger btn-lg btn-icon rounded-circle shadow';
-        }else{
-            btnPedidosPend.className = 'btn btn-outline-secondary btn-lg btn-icon rounded-circle shadow';
-        }
-        
-        btnPedidosPend.innerHTML = `<i class="fal fa-bell"></i>${contador}`;
-        
-
-    });
-};
 
 function getDbDetallePedido(id, cliente){
  
@@ -865,11 +813,17 @@ function getPedidoEnviar(id){
     });
 }
 
-function dbSendPedido(id){
+function dbSendPedido(id,idbtn){
    
+    let btn = document.getElementById(idbtn);
+
+
         funciones.Confirmacion('¿Está seguro que desea Enviar este Pedido')
         .then((value)=>{
             if(value==true){
+
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fal fa-paper-plane fa-spin"></i>';
                 
                 setLog(`<label class="text-danger">Intentando obtener el correlativo de documentos...</label>`,'rootWait');
                 $('#modalWait').modal('show');
@@ -921,7 +875,9 @@ function dbSendPedido(id){
                             const data = response.data;
                             if (data.rowsAffected[0]==0){
                                 hideWaitForm();
-                                funciones.AvisoError('No se logró Enviar este pedido, se intentará guardarlo en el teléfono');   
+                                btn.disabled = false;
+                                btn.innerHTML = '<i class="fal fa-paper-plane"></i>Enviar';
+                                funciones.AvisoError('No se logró Enviar este pedido');   
                             }else{
                                 hideWaitForm();
                                 funciones.Aviso('Pedido Enviado Exitosamente !!!')
@@ -940,12 +896,16 @@ function dbSendPedido(id){
                         }, (error) => {
                             //$('#modalWait').modal('hide'); 
                             hideWaitForm();
+                            btn.disabled = false;
+                            btn.innerHTML = '<i class="fal fa-paper-plane"></i>Enviar';
                             funciones.AvisoError('Ha ocurrido un error y no se pudo enviar');
                            
                         })
                         .catch((error)=>{
                             //$('#modalWait').modal('hide');
                             hideWaitForm();
+                            btn.disabled = false;
+                            btn.innerHTML = '<i class="fal fa-paper-plane"></i>Enviar';
                             funciones.AvisoError('Error: ' + error);
                            
                         })
@@ -957,6 +917,8 @@ function dbSendPedido(id){
                 .catch(()=>{
                     //$('#modalWait').modal('hide');
                     hideWaitForm();
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fal fa-paper-plane"></i>Enviar';
                     funciones.AvisoError('No se pudo obtener el correlativo del documento a generar, revise su conexión a internet')
                 })
                 

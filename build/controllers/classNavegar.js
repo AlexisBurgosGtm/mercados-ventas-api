@@ -8,6 +8,7 @@ let classNavegar = {
         GlobalUsuario = '';
         GlobalPassUsuario = '';
         GlobalTipoUsuario ='';
+        
             funciones.loadScript('../views/login/index.js','root')
             .then(()=>{
                 GlobalSelectedForm='LOGIN';

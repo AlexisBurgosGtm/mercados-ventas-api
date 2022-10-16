@@ -58,16 +58,6 @@ function setLog(msg,idcontainer){
 classNavegar.login();
 
 
-/*
-if (navigator.onLine){
-  document.getElementById('btnPedidosPend').classList.add('btn-outline-secondary');
-  document.getElementById('btnPedidosPend').classList.remove('btn-danger')
-}else{
-  document.getElementById('btnPedidosPend').classList.add('btn-danger')
-  document.getElementById('btnPedidosPend').classList.remove('btn-outline-secondary')
-};
-*/
-
 //manejador de las rutas
 window.onpopstate = function(event) {
   

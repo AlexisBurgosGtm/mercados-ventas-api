@@ -1397,7 +1397,7 @@ async function fcnEliminarTempVentas(usuario){
 
 async function fcnNuevoPedido(){
     
-    classNavegar.inicio(GlobalTipoUsuario);
+    classNavegar.inicio('VENDEDOR');
     
 };
 
@@ -1497,8 +1497,8 @@ async function fcnFinalizarPedido(){
     let longdoc = document.getElementById('lbDocLong').innerText;
 
 
-    document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-paper-plane mr-1"></i>Enviar';
-    document.getElementById('btnFinalizarPedido').disabled = false;
+    document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-paper-plane mr-1 fa-spin"></i>';
+    document.getElementById('btnFinalizarPedido').disabled = true;
 
     gettempDocproductos(GlobalUsuario)
     .then((response)=>{
@@ -1651,8 +1651,7 @@ async function fcnFinalizarPedido(){
 
         })
         .catch(()=>{
-                        
-                    
+                                            
                 setLog(`<label class="text-info">No se logró Enviar este pedido, se intentará guardarlo en el teléfono</label>`,'rootWait');
                 $('#modalWait').modal('show');
                                                                                 
