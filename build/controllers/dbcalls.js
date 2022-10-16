@@ -565,10 +565,7 @@ function gettempDocproductos(usuario){
 function deleteTempVenta(usuario){
     return new Promise(async(resolve,reject)=>{
         var rowsDeleted = await connection.remove({
-            from: "tempventa",
-            where: {
-                USUARIO: usuario
-            }
+            from: "tempventa"
         });
         if(rowsDeleted>0){resolve()}else{resolve()}
     })            

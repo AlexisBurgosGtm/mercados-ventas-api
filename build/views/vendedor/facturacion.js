@@ -856,8 +856,6 @@ async function iniciarVistaVentas(nit,nombre,direccion){
 
 function addEventsModalCambioCantidad(){
 
-
-
     document.getElementById('btnCantGuardar').addEventListener('click',()=>{
         let nuevacantidad = Number(document.getElementById('txtCantNuevaCant').value);
         if(nuevacantidad>0){
@@ -1375,8 +1373,314 @@ async function fcnGuardarNuevoCliente(form){
 };
 
 
+
+
+async function fcnEliminarTempVentas(usuario){
+    let coddoc = document.getElementById('cmbCoddoc').value;
+    axios.post('/ventas/tempVentastodos', {
+        empnit: GlobalEmpnit,
+        usuario:usuario,
+        coddoc:coddoc,
+        app:GlobalSistema
+    })
+    .then((response) => {
+        const data = response.data;
+        if (data.rowsAffected[0]==0){
+            funciones.AvisoError('No se logró Eliminar la lista de productos agregados');
+        }else{
+            
+        }
+    }, (error) => {
+        console.log(error);
+    });
+};
+
+async function fcnNuevoPedido(){
+    
+    classNavegar.inicio(GlobalTipoUsuario);
+    
+};
+
+
+
+async function fcnGetMunicipios(idContainer){
+    let container = document.getElementById(idContainer);
+    container.innerHTML = GlobalLoader;
+
+    let str = ""; 
+    axios.get('/clientes/municipios?empnit=' + GlobalEmpnit + '&app=' + GlobalSistema)
+    .then((response) => {
+        const data = response.data;        
+        data.recordset.map((rows)=>{
+            str += `<option value='${rows.CODMUNICIPIO}'>${rows.DESMUNICIPIO}</option>`
+        })
+        container.innerHTML= str;
+        
+    }, (error) => {
+        console.log(error);
+        container.innerHTML = '';
+    });
+};
+
+async function fcnGetDepartamentos(idContainer){
+    let container = document.getElementById(idContainer);
+    container.innerHTML = GlobalLoader;
+
+    let str = ""; 
+    axios.get('/clientes/departamentos?empnit=' + GlobalEmpnit + '&app=' + GlobalSistema)
+    .then((response) => {
+        const data = response.data;        
+        data.recordset.map((rows)=>{
+            str += `<option value='${rows.CODDEPTO}'>${rows.DESDEPTO}</option>`
+        })
+        container.innerHTML= str;
+        
+    }, (error) => {
+        console.log(error);
+        container.innerHTML = '';
+    });
+};
+
+async function fcnCargarComboTipoPrecio(){
+   let cmbp = document.getElementById('cmbClienteTipoPrecio');
+   if(GlobalSistema=='ISC'){
+    cmbp.innerHTML =`<option value="P">PÚBLICO</option>
+                     <option value="M">MAYORISTA</option>`;
+   }else{
+    cmbp.innerHTML =`<option value="P">PÚBLICO</option>
+                     <option value="C">MAYORISTA C</option>
+                     <option value="B">MAYORISTA B</option>
+                     <option value="A">MAYORISTA A</option>`;
+   }
+   
+};
+
+
+
 //FINALIZAR PEDIDO
 async function fcnFinalizarPedido(){
+    
+    if(Number(GlobalTotalDocumento)<Number(GlobalVentaMinima)){
+        funciones.AvisoError('Pedido menor al mínimo de venta');
+        try {
+            funciones.hablar('Advertencia. Este pedido es menor al mínimo de venta permitido');    
+        } catch (error) {          
+        }      
+    };
+
+    if(GlobalSelectedCodCliente.toString()=='SI'){funciones.AvisoError('Datos del cliente incorrectos, por favor, seleccione cliente nuevamente');return;}
+
+    let codcliente = GlobalSelectedCodCliente;
+    let ClienteNombre = document.getElementById('txtNombre').value;
+    let dirclie = document.getElementById('txtDireccion').value; // CAMPO DIR_ENTREGA
+    let obs = document.getElementById('txtEntregaObs').value; 
+    let direntrega = "SN"; //document.getElementById('txtEntregaDireccion').value; //CAMPO MATSOLI
+    let codbodega = GlobalCodBodega;
+    let cmbTipoEntrega = document.getElementById('cmbEntregaConcre').value; //campo TRANSPORTE
+    let txtFecha = new Date(document.getElementById('txtFecha').value);
+    let anio = txtFecha.getFullYear();
+    let mes = txtFecha.getUTCMonth()+1;
+    let d = txtFecha.getUTCDate() 
+    let fecha = anio + '-' + mes + '-' + d; // CAMPO DOC_FECHA
+    let dia = d;
+    let hora = funciones.getHora();
+    let fe = txtFecha;// new Date(document.getElementById('txtEntregaFecha').value);
+    let ae = fe.getFullYear();
+    let me = fe.getUTCMonth()+1;
+    let de = fe.getUTCDate() 
+    let fechaentrega = ae + '-' + me + '-' + de;  // CAMPO DOC_FECHAENT
+    let coddoc = document.getElementById('cmbCoddoc').value;//GlobalCoddoc;
+    let correlativoDoc = document.getElementById('txtCorrelativo').value;
+    let cmbVendedor = document.getElementById('cmbVendedor');
+    let nit = document.getElementById('txtNit').value;
+    let latdoc = document.getElementById('lbDocLat').innerText;
+    let longdoc = document.getElementById('lbDocLong').innerText;
+
+    //guarda el pedido localmente
+    var datospedido = {
+        CODSUCURSAL:GlobalCodSucursal,
+        EMPNIT: GlobalEmpnit,
+        CODDOC:coddoc,
+        ANIO:anio,
+        MES:mes,
+        DIA:dia,
+        FECHA:fecha,
+        FECHAENTREGA:fechaentrega,
+        FORMAENTREGA:cmbTipoEntrega,
+        CODCLIE: codcliente,
+        NOMCLIE:ClienteNombre,
+        TOTALCOSTO:GlobalTotalCostoDocumento,
+        TOTALPRECIO:GlobalTotalDocumento,
+        NITCLIE:nit,
+        DIRCLIE:dirclie,
+        OBS:obs,
+        DIRENTREGA:direntrega,
+        USUARIO:GlobalUsuario,
+        CODVEN:Number(cmbVendedor.value),
+        LAT:latdoc,
+        LONG:longdoc,
+        JSONPRODUCTOS:JSON.stringify(docproductos_ped)
+    };
+
+    document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-paper-plane mr-1 fa-spin"></i>';
+    document.getElementById('btnFinalizarPedido').disabled = true;
+
+    //OBTIENE EL CORRELATIVO DEL DOCUMENTO
+    classTipoDocumentos.getCorrelativoDocumento('PED',GlobalCoddoc)
+    .then((correlativo)=>{
+        correlativoDoc = correlativo;            
+        
+        document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-paper-plane mr-1"></i>Enviar';
+        document.getElementById('btnFinalizarPedido').disabled = false;
+
+        funciones.Confirmacion('¿Está seguro que desea Finalizar este Pedido')
+        .then((value)=>{
+            if(value==true){
+                setLog(`<label class="text-danger">Creando el pedido a enviar...</label>`,'rootWait');
+                $('#modalWait').modal('show');
+                                            
+                gettempDocproductos(GlobalUsuario)
+                .then((response)=>{
+                    let docproductos_ped = response;            
+                    setLog(`<label class="text-info">Pedido creado, enviado pedido...</label>`,'rootWait');
+                                
+                    axios.post('/ventas/insertventa', {
+                        jsondocproductos:JSON.stringify(response),
+                        codsucursal:GlobalCodSucursal,
+                        empnit: GlobalEmpnit,
+                        coddoc:coddoc,
+                        correl: correlativoDoc,
+                        anio:anio,
+                        mes:mes,
+                        dia:dia,
+                        fecha:fecha,
+                        fechaentrega:fechaentrega,
+                        formaentrega:cmbTipoEntrega,
+                        codbodega:codbodega,
+                        codcliente: codcliente,
+                        nomclie:ClienteNombre,
+                        totalcosto:GlobalTotalCostoDocumento,
+                        totalprecio:GlobalTotalDocumento,
+                        nitclie:nit,
+                        dirclie:dirclie,
+                        obs:obs,
+                        direntrega:direntrega,
+                        usuario:GlobalUsuario,
+                        codven:cmbVendedor.value,
+                        lat:latdoc,
+                        long:longdoc,
+                        hora:hora
+                    })
+                    .then(async(response) => {
+                        const data = response.data;
+                        if (data.rowsAffected[0]==0){
+                            setLog(`<label class="text-info">No se logró Enviar este pedido, se intentará guardarlo en el teléfono</label>`,'rootWait');
+                                              
+                            insertVenta(datospedido)
+                            .then(async()=>{   
+                                hideWaitForm();
+                                document.getElementById('btnEntregaCancelar').click();                                                                                       
+                                //actualiza la ubicación del empleado
+                                await classEmpleados.updateMyLocation();           
+                                //actualiza la última venta del cliente
+                                apigen.updateClientesLastSale(nit,'VENTA');            
+                                //elimina el temp ventas asociado al empleado
+                                deleteTempVenta(GlobalUsuario)
+                                                               
+                                funciones.showToast('El pedido será guardado localmente, recuerde enviarlo');
+                                        
+                                //prepara todo para un nuevo pedido
+                                fcnNuevoPedido();
+                            })
+                            .catch(()=>{
+                                hideWaitForm();                   
+                                funciones.AvisoError('No se pudo guardar este pedido')
+                            })
+
+                        }else{
+                                       
+                            hideWaitForm();
+                            funciones.Aviso('Pedido Generado Exitosamente !!!')
+                            document.getElementById('btnEntregaCancelar').click();                                                           
+                            //actualiza la ubicación del empleado
+                            await classEmpleados.updateMyLocation();            
+                            //actualiza la última venta del cliente
+                            apigen.updateClientesLastSale(nit,'VENTA');
+                            //elimina el temp ventas asociado al empleado
+                            deleteTempVenta(GlobalUsuario)     
+                            //prepara todo para un nuevo pedido
+                            fcnNuevoPedido();
+                        }
+                    }, (error) => {
+                        console.log(error);
+                        setLog(`<label class="text-info">Ha ocurrido un error y no se pudo enviar, se intentará guardar en el teléfono</label>`,'rootWait');
+                                                          
+                        insertVenta(datospedido)
+                        .then(async()=>{
+                            document.getElementById('btnEntregaCancelar').click();
+                            //actualiza la ubicación del empleado
+                            await classEmpleados.updateMyLocation();
+                            //actualiza la última venta del cliente
+                            apigen.updateClientesLastSale(nit,'VENTA');
+                            //elimina el temp ventas asociado al empleado
+                            deleteTempVenta(GlobalUsuario)                                                                                                               
+                            funciones.showToast('El pedido será guardado localmente, recuerde enviarlo');
+                            //prepara todo para un nuevo pedido
+                            fcnNuevoPedido();                                                    
+                            hideWaitForm();
+                        })
+                        .catch(()=>{
+                            hideWaitForm();
+                            funciones.AvisoError('No se pudo guardar este pedido')
+                        }) 
+                    });        
+
+                })
+                .catch((error)=>{
+                    hideWaitForm();
+                    funciones.AvisoError('No pude crear la tabla de productos del pedido ' + error);
+                })
+            }
+        })
+
+    })
+    .catch(()=>{
+        console.log('No logra recuperar el correlativo, por ende lo guarda local...');                
+        document.getElementById('btnFinalizarPedido').innerHTML = '<i class="fal fa-paper-plane mr-1"></i>Enviar';
+        document.getElementById('btnFinalizarPedido').disabled = false;
+
+        gettempDocproductos(GlobalUsuario)
+        .then((response)=>{
+            let docproductos_ped = response;
+            setLog(`<label class="text-info">No se logró Enviar este pedido, se intentará guardarlo en el teléfono</label>`,'rootWait');
+            $('#modalWait').modal('show');
+                                                                            
+            insertVenta(datospedido)
+            .then(async()=>{
+                hideWaitForm();
+                document.getElementById('btnEntregaCancelar').click();                                                                                       
+                //actualiza la ubicación del empleado
+                await classEmpleados.updateMyLocation();
+                //actualiza la última venta del cliente
+                apigen.updateClientesLastSale(nit,'VENTA');
+                //elimina el temp ventas asociado al empleado
+                deleteTempVenta(GlobalUsuario)
+                funciones.showToast('El pedido será guardado localmente, recuerde enviarlo');
+                //prepara todo para un nuevo pedido
+                fcnNuevoPedido();
+            })
+            .catch(()=>{
+                hideWaitForm();
+                funciones.AvisoError('No se pudo guardar este pedido')
+            })
+        })                    
+    })
+};
+
+
+
+//FINALIZAR PEDIDO
+async function BACKUP_fcnFinalizarPedido(){
     
     if(Number(GlobalTotalDocumento)<Number(GlobalVentaMinima)){
         funciones.AvisoError('Pedido menor al mínimo de venta');
@@ -1731,85 +2035,3 @@ async function fcnFinalizarPedido(){
 
     
 };
-
-async function fcnEliminarTempVentas(usuario){
-    let coddoc = document.getElementById('cmbCoddoc').value;
-    axios.post('/ventas/tempVentastodos', {
-        empnit: GlobalEmpnit,
-        usuario:usuario,
-        coddoc:coddoc,
-        app:GlobalSistema
-    })
-    .then((response) => {
-        const data = response.data;
-        if (data.rowsAffected[0]==0){
-            funciones.AvisoError('No se logró Eliminar la lista de productos agregados');
-        }else{
-            
-        }
-    }, (error) => {
-        console.log(error);
-    });
-};
-
-async function fcnNuevoPedido(){
-    
-    classNavegar.inicio(GlobalTipoUsuario);
-    
-};
-
-
-
-async function fcnGetMunicipios(idContainer){
-    let container = document.getElementById(idContainer);
-    container.innerHTML = GlobalLoader;
-
-    let str = ""; 
-    axios.get('/clientes/municipios?empnit=' + GlobalEmpnit + '&app=' + GlobalSistema)
-    .then((response) => {
-        const data = response.data;        
-        data.recordset.map((rows)=>{
-            str += `<option value='${rows.CODMUNICIPIO}'>${rows.DESMUNICIPIO}</option>`
-        })
-        container.innerHTML= str;
-        
-    }, (error) => {
-        console.log(error);
-        container.innerHTML = '';
-    });
-};
-
-async function fcnGetDepartamentos(idContainer){
-    let container = document.getElementById(idContainer);
-    container.innerHTML = GlobalLoader;
-
-    let str = ""; 
-    axios.get('/clientes/departamentos?empnit=' + GlobalEmpnit + '&app=' + GlobalSistema)
-    .then((response) => {
-        const data = response.data;        
-        data.recordset.map((rows)=>{
-            str += `<option value='${rows.CODDEPTO}'>${rows.DESDEPTO}</option>`
-        })
-        container.innerHTML= str;
-        
-    }, (error) => {
-        console.log(error);
-        container.innerHTML = '';
-    });
-};
-
-async function fcnCargarComboTipoPrecio(){
-   let cmbp = document.getElementById('cmbClienteTipoPrecio');
-   if(GlobalSistema=='ISC'){
-    cmbp.innerHTML =`<option value="P">PÚBLICO</option>
-                     <option value="M">MAYORISTA</option>`;
-   }else{
-    cmbp.innerHTML =`<option value="P">PÚBLICO</option>
-                     <option value="C">MAYORISTA C</option>
-                     <option value="B">MAYORISTA B</option>
-                     <option value="A">MAYORISTA A</option>`;
-   }
-   
-};
-
-
