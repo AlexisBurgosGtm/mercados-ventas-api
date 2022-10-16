@@ -311,7 +311,7 @@ function getRptMarcas(mes,anio){
 //POR DIA
 
 function deletePedidoVendedor(fecha,coddoc,correlativo,st){
-    console.log("status del documento: " + st)
+  
     if(st=='O'){
         funciones.Confirmacion('¿Está seguro que desea Eliminar este Pedido?')
         .then((value)=>{
@@ -321,9 +321,11 @@ function deletePedidoVendedor(fecha,coddoc,correlativo,st){
                         if(clave==GlobalPassUsuario){
 
                             apigen.deletePedidoVendedor(GlobalCodSucursal,GlobalCodUsuario,fecha,coddoc,correlativo)
-                            .then(async()=>{
-                                funciones.Aviso('Pedido Eliminado Exitosamente!!')
-                                await apigen.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
+                            .then(()=>{
+                                funciones.Aviso('Pedido Eliminado Exitosamente!!');
+                                console.log('recargandolista');
+                                //apigen.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFechaPedido'),'tblListaPedidos','lbTotalPedidos');
+                                apigen.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFecha'),'tblReport','containerTotal');
                             })
                             .catch(()=>{
                                 funciones.AvisoError('No se pudo eliminar')
