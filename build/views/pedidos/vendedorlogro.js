@@ -206,6 +206,9 @@ function getView(){
 function addListeners(){
 
     document.getElementById('txtFecha').value = funciones.getFecha();
+    document.getElementById('txtFecha').addEventListener('change',()=>{
+        getCargarGrid();
+    })
 
     let f = new Date();
     let cmbMes = document.getElementById('cmbMes');
@@ -220,43 +223,8 @@ function addListeners(){
     //CARGA DE LOS REPORTES
     let cmbReporte = document.getElementById('cmbReporte');
     cmbReporte.addEventListener('change',()=>{
-        switch (cmbReporte.value.toString()) {
-            case '1':
-                //PEDIDOS POR FECHA
-                apigen.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFecha'),'tblReport','containerTotal');
-                break;
         
-            case '2':
-                //MARCAS POR FECHA
-                apigen.reporteDiaMarcas(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFecha'),'tblReport','containerTotal');
-                break;
-
-            case '3':
-                //PRODUCTOS POR FECHA
-                apigen.reporteDiaProductos(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFecha'),'tblReport','containerTotal');
-                break;
-            
-            case '4':
-                //VENTAS POR FECHA
-                getRptDinero(cmbMes.value, cmbAnio.value);
-                break;
-            case '5':
-                //PRODUCTOS DEL MES
-                getRptProductos(cmbMes.value, cmbAnio.value);
-                break;
-            
-            case '6':
-                //MARCAS POR MES
-                getRptMarcas(cmbMes.value, cmbAnio.value);
-                break;
-            
-            case '7':
-                //VENTAS NETAS MES
-                getRptDinero2(cmbMes.value, cmbAnio.value);
-                break;
-            default:
-                break;
-        }
+        getCargarGrid();
 
     });
 
@@ -272,6 +240,53 @@ function addListeners(){
    
 
 };
+
+function getCargarGrid(){
+
+    let cmbReporte = document.getElementById('cmbReporte');
+    let cmbMes = document.getElementById('cmbMes');
+    let cmbAnio = document.getElementById('cmbAnio');
+
+    switch (cmbReporte.value.toString()) {
+        case '1':
+            //PEDIDOS POR FECHA
+            apigen.pedidosVendedor(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFecha'),'tblReport','containerTotal');
+            break;
+    
+        case '2':
+            //MARCAS POR FECHA
+            apigen.reporteDiaMarcas(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFecha'),'tblReport','containerTotal');
+            break;
+
+        case '3':
+            //PRODUCTOS POR FECHA
+            apigen.reporteDiaProductos(GlobalCodSucursal,GlobalCodUsuario,funciones.devuelveFecha('txtFecha'),'tblReport','containerTotal');
+            break;
+        
+        case '4':
+            //VENTAS POR FECHA
+            getRptDinero(cmbMes.value, cmbAnio.value);
+            break;
+        case '5':
+            //PRODUCTOS DEL MES
+            getRptProductos(cmbMes.value, cmbAnio.value);
+            break;
+        
+        case '6':
+            //MARCAS POR MES
+            getRptMarcas(cmbMes.value, cmbAnio.value);
+            break;
+        
+        case '7':
+            //VENTAS NETAS MES
+            getRptDinero2(cmbMes.value, cmbAnio.value);
+            break;
+        default:
+            break;
+    }
+};
+
+
 
 function inicializarVistaLogro(){
     getView();

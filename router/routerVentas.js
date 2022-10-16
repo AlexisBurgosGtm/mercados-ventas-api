@@ -567,7 +567,10 @@ router.post("/listapedidos", async(req,res)=>{
                              ME_Documentos.DOC_OBS AS OBS, ME_Documentos.DOC_MATSOLI AS DIRENTREGA, ME_Documentos.DOC_ESTATUS AS ST
     FROM            ME_Documentos LEFT OUTER JOIN
                              ME_Clientes ON ME_Documentos.NITCLIE = ME_Clientes.NITCLIE AND ME_Documentos.CODSUCURSAL = ME_Clientes.CODSUCURSAL
-    WHERE        (ME_Documentos.CODSUCURSAL = '${sucursal}') AND (ME_Documentos.DOC_FECHA = '${fecha}') AND (ME_Documentos.CODVEN = ${codven}) AND (ME_Documentos.DOC_ESTATUS <> 'A')`
+    WHERE        (ME_Documentos.CODSUCURSAL = '${sucursal}') 
+                AND (ME_Documentos.DOC_FECHA = '${fecha}') AND (ME_Documentos.CODVEN = ${codven}) 
+                AND (ME_Documentos.DOC_ESTATUS <> 'A')
+    ORDER BY ME_Documentos.DOC_NUMERO`
 
     
     execute.Query(res,qry);
