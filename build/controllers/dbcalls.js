@@ -640,7 +640,7 @@ function dbCargarPedidosPendientes(){
         let totalventa = 0;
 
         response.map((rs)=>{
-            let btnPed = `btnE${r.ID}`;
+            let btnPed = `btnE${rs.ID}`;
             contador = contador + 1;
             totalventa += Number(rs.TOTALPRECIO);
             str = str + `
