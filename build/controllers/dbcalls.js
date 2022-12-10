@@ -43,8 +43,7 @@ document.getElementById('btnDownloadProductos').addEventListener('click',()=>{
                                 $('#modalWait').modal('hide');
                                 funciones.Aviso('Productos descargados exitosamente!!');
                                 try {
-                                  
-                                    await getTotalProductos('lbTotalProductos');
+                                    getTotalProductos('lbTotalProductos');
                                 } catch (error) {
                                     
                                 }
@@ -118,7 +117,7 @@ document.getElementById('btnDownloadClientes').addEventListener('click',()=>{
                                 //$('#modalWait').modal('hide');
                                 funciones.Aviso('Clientes descargados exitosamente!!');
                                 try {
-                                    await getTotalClientes('lbTotalClientes');
+                                    getTotalClientes('lbTotalClientes');
                                    
                                 } catch (error) {
                                     

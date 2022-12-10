@@ -1,4 +1,38 @@
 let apigen = {
+    getTotalProductosOnline: ()=>{
+        
+        return new Promise((resolve,reject)=>{
+            let total = '';
+            axios.get(`/ventas/online_productos_subidos?sucursal=${GlobalCodSucursal}`)
+            .then((response) => {
+                const data = response.data.recordset;
+                data.map((rows)=>{
+                    total = rows.PRODUCTOS;
+                })
+                resolve(total)               
+            }, (error) => {
+               reject('----');
+            });
+        })
+        
+    },
+    getTotalClientesOnline: ()=>{
+        
+        return new Promise((resolve,reject)=>{
+            let total = '';
+            axios.get(`/ventas/online_clientes_subidos?sucursal=${GlobalCodSucursal}&codven=${GlobalCodUsuario}`)
+            .then((response) => {
+                const data = response.data.recordset;
+                data.map((rows)=>{
+                    total = rows.CLIENTES;
+                })
+                resolve(total)               
+            }, (error) => {
+               reject('----');
+            });
+        })
+        
+    },
     empleadosLogin : (sucursal,user,pass)=>{
         let f = new Date();
         return new Promise((resolve,reject)=>{

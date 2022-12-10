@@ -53,12 +53,23 @@ function getView(){
                                         
                                         <div class="row">
                                             <div class="col-6">
-                                                <label>Productos Descargados:</label>
+                                                <label>Precios Descargados:</label>
                                                 <h5 class="negrita text-danger" id="lbTotalProductos">0</h5>
                                             </div>
                                             <div class="col-6">
                                                 <label>Clientes Descargados:</label>
                                                 <h5 class="negrita text-danger" id="lbTotalClientes">0</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label>Precios en Nube:</label>
+                                                <h5 class="negrita text-success" id="lbTotalProductosOnline">0</h5>
+                                            </div>
+                                            <div class="col-6">
+                                                <label>Clientes en Nube:</label>
+                                                <h5 class="negrita text-success" id="lbTotalClientesOnline">0</h5>
                                             </div>
                                         </div>
 
@@ -805,7 +816,23 @@ async function addListeners(){
     await getTotalProductos('lbTotalProductos');
 
     //muestra la lista de clientes del día si ya ingresó una vez
-    if(GlobalSelectedClientesDia=='SN'){}else{getListaClientes(GlobalSelectedClientesDia)};
+    //if(GlobalSelectedClientesDia=='SN'){}else{getListaClientes(GlobalSelectedClientesDia)};
+
+    apigen.getTotalProductosOnline()
+    .then((total)=>{
+        document.getElementById('lbTotalProductosOnline').innerText = total;
+    })
+    .catch(()=>{
+        document.getElementById('lbTotalProductosOnline').innerText = '---';
+    })
+
+    apigen.getTotalClientesOnline()
+    .then((total)=>{
+        document.getElementById('lbTotalClientesOnline').innerText = total;
+    })
+    .catch(()=>{
+        document.getElementById('lbTotalClientesOnline').innerText = '---';
+    })
 
     funciones.slideAnimationTabs();
     

@@ -3,6 +3,35 @@ const express = require('express');
 const router = express.Router();
 
 
+
+router.get('/online_productos_subidos',async(req,res)=>{
+
+    const{sucursal} = req.query;
+
+    let qry = `
+                SELECT COUNT(ME_Productos.CODPROD) AS PRODUCTOS 
+            FROM ME_Productos LEFT OUTER JOIN
+                ME_Marcas ON ME_Productos.CODSUCURSAL = ME_Marcas.CODSUCURSAL AND ME_Productos.CODMARCA = ME_Marcas.CODMARCA LEFT OUTER JOIN
+                ME_Precios ON ME_Productos.CODSUCURSAL = ME_Precios.CODSUCURSAL AND ME_Productos.CODPROD = ME_Precios.CODPROD
+            WHERE (ME_Productos.CODSUCURSAL = '${sucursal}') 
+    `;
+
+    execute.Query(res,qry);
+});
+
+
+router.get('/online_clientes_subidos',async(req,res)=>{
+
+    const{sucursal,codven} = req.query;
+
+    let qry = `
+        SELECT COUNT(NITCLIE) AS CLIENTES FROM ME_CLIENTES WHERE CODSUCURSAL='${sucursal}' AND CODVEN=${codven}
+    `;
+
+    execute.Query(res,qry);
+});
+
+
 //REPORTE DE VENTAS Y DEVOLUCIONES
 router.post('/rptventas_vendedor',async(req,res)=>{
 
