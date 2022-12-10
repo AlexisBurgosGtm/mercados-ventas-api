@@ -103,7 +103,7 @@ self.addEventListener('activate', function (event) {
 // FETCH Event
 self.addEventListener('fetch', function (event) {
     
-    return;
+    //return;
 
     event.respondWith(
         caches.match(event.request).then(cacheRes => {
