@@ -1,5 +1,5 @@
-const staticCacheName = 'pre-cache-v4';
-const dynamicCacheName = 'runtime-cache-v4';
+const staticCacheName = 'pre-cache-v12-2022.1';
+const dynamicCacheName = 'runtime-cache-v12-2022.1';
 
 // Pre Caching Assets
 const precacheAssets = [
@@ -57,12 +57,12 @@ const precacheAssets = [
     './vendor/jquery/jquery.js',
     './vendor/fontawesome-free/css/all.css',
     './vendor/chart.js/Chart.min.js',
-    './views/vendedor/vendedor.js',
+    './views/vendedor/clientes.js',
     './views/vendedor/reparto.js',
     './views/vendedor/mapaclientes.js',
     './views/vendedor/facturacion.js',
     './views/vendedor/censo.js',
-    './views/pedidos/vendedorlogro.js',
+    './views/vendedor/logro.js',
     './views/pedidos/vendedor.js',
     './views/login/index.js',
     './views/programador.js',
@@ -78,8 +78,7 @@ const precacheAssets = [
 // INSTALL Event
 self.addEventListener('install', function (event) {
     
-    //return;
-
+  
     event.waitUntil(
         caches.open(staticCacheName).then(function (cache) {
             return cache.addAll(precacheAssets);
@@ -90,8 +89,7 @@ self.addEventListener('install', function (event) {
 // ACTIVATE Event
 self.addEventListener('activate', function (event) {
     
-    //return;
-
+ 
     event.waitUntil(
         caches.keys().then(keys => {
             return Promise.all(keys
@@ -104,6 +102,7 @@ self.addEventListener('activate', function (event) {
 
 // FETCH Event
 self.addEventListener('fetch', function (event) {
+    
     //return;
 
     event.respondWith(

@@ -1,4 +1,4 @@
-let versionapp = 'Versión 10.2022';
+let versionapp = 'Versión 12.2022';
 
 let root = document.getElementById('root');
 let rootMenu = document.getElementById('rootMenu');
@@ -16,6 +16,7 @@ divUsuario.innerText = "DESCONECTADO";
 lbTipo.innerText = "Inicie sesión";
 
 
+let GlobalSelectedClientesDia ='SN';
 let GlobalSelectedDiaUpdated  = 0;
 let GlobalObjetivoVenta = 0;
 let GlobalCodUsuario = 99999;

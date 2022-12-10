@@ -10,7 +10,7 @@ function getView(){
 
             <div class="col-md-4 col-sm-12 col-lg-4 col-lx-4">
    
-                <div class="card shadow p-2 border-top-rounded border-bottom-rounded">
+                <div class="card shadow p-2 card-rounded border-info">
 
                     <div class="card-header text-center bg-white">
                         <div class="row">
@@ -70,7 +70,7 @@ function getView(){
                             <div class="form-group" align="right">
                                 <small class="">Mercados Efectivos - ${versionapp}</small>
                                 <br>
-                                <small class="text-secondary">Caché: pre-cache-v4</small>
+                                <small class="text-secondary">Revisión:12-2022.1</small>
                                 <br>
                                 <small>
                                     <a href="https://apigen.whatsapp.com/send?phone=50257255092&text=Ayudame%20con%20la%20app%20de%20Mercados%20Efectivos...%20">
@@ -81,7 +81,7 @@ function getView(){
                         </form>
                     </div>
 
-                
+            
     
 
                 </div>
@@ -89,8 +89,14 @@ function getView(){
 
             <div class="col-md-4 col-sm-12 col-lg-4 col-lx-4"></div>
 
-            
-     
+       
+           
+                <div class="footer-banner">   
+                    <img src="./img/footer.png" width="600" height="200">
+                </div> 
+                       
+
+       
             `
         }
     };

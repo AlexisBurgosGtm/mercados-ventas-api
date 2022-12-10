@@ -29,8 +29,7 @@ function getView(){
                                     </div>
                                     
                                 </div>
-                                <input class="form-control" id="txtNombre" placeholder="Nombre de cliente..">
-                                <input class="form-control" id="txtDireccion" placeholder="Dirección cliente">
+                                
                             </div>
                         </div>
                     </div>
@@ -280,16 +279,6 @@ function getView(){
         </div>  
             `
         },
-        btnCobrar :()=>{
-            return `
-            <div id="btn-bottom-r">
-                <button class="btn btn-outline-danger btn-lg waves-themed waves-effect shadow" id="btnCobrar">
-                    <i class="fal fa-search"></i>
-                    COBRAR
-                </button>
-            </div>
-            `
-        },
         modalBusquedaProductos :()=>{
             return `
             <div class="modal fade  modal-with-scroll" id="ModalBusqueda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -492,7 +481,20 @@ function getView(){
                             </div>
                 
                             <div class="modal-body shadow">
-                                    <div class="">            
+                                    <div class="">      
+                                    
+                                        <div class="form-group">
+                                            <label>Cliente:</label>
+                                            <input class="form-control" style="font-size:80%" id="txtNombre" disabled="true">
+                                            <label>Dirección:</label>
+                                            <input class="form-control" style="font-size:80%" id="txtDireccion" disabled="true">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Total Venta:</label>
+                                            <h3 class="negrita text-danger" id="lbTotalPedido2"></h3>
+                                            
+                                        </div>
                                         
 
                                         <div class="form-group">
@@ -507,7 +509,7 @@ function getView(){
 
                                         <div class="form-group">
                                             <label>Observaciones</label>
-                                            <textarea rows="4" cols="80" class="form-control" id="txtEntregaObs" placeholder="Escriba aqui sus observaciones..."></textarea>
+                                            <textarea rows="3" cols="80" class="form-control" id="txtEntregaObs" placeholder="Escriba aqui sus observaciones..."></textarea>
                                         </div>                                                              
                                             
                                     </div>
@@ -659,14 +661,10 @@ function getView(){
         }
     }
 
-    //+ view.cajabusquedaproducto()  antes de gridtempventas
+
     root.innerHTML = view.encabezadoClienteDocumento() 
                 + view.gridTempVenta() 
-                //+ view.btnCobrar() 
-                //+ view.modalBusquedaProductos() 
-                //+ view.modalCantidadProducto()
                 + view.modalBusquedaCliente() 
-                //+ view.modalCobro() 
                 + view.modalNuevoCliente() 
                 + view.modalTerminar(); 
                 //+ view.modalCantidadCalculadora();
@@ -729,6 +727,8 @@ async function iniciarVistaVentas(nit,nombre,direccion){
     let btnCobrar = document.getElementById('btnCobrar');
     btnCobrar.addEventListener('click',()=>{
        
+        fcnCargarGridTempVentas('tblGridTempVentas');
+        
         //ALEXIS REVISAR LOGICA
         if(btnCobrar.innerText=='Terminar'){
             funciones.AvisoError('No puede finalizar un pedido sin productos')
@@ -736,18 +736,12 @@ async function iniciarVistaVentas(nit,nombre,direccion){
            if(txtNit.value==''){
                funciones.AvisoError('Especifique el cliente a quien se carga la venta');
            }else{
+
                funciones.ObtenerUbicacion('lbDocLat','lbDocLong')
-                switch (GlobalTipoCobro) {
-                    case 'COBRO':
-                    
-                        break;
-                    case 'TERMINAR':
-                        $('#ModalFinalizarPedido').modal('show');   
-                        break;
-            
-                    default:
-                        break;
-                }                 
+               document.getElementById('lbTotalPedido2').innerText = funciones.setMoneda(GlobalTotalDocumento,'Q');
+
+               $('#ModalFinalizarPedido').modal('show');   
+                               
            }
        }
        
@@ -989,6 +983,7 @@ function fcnBusquedaProducto(idFiltro,idTablaResultado,idTipoPrecio){
         
     }, (error) => {
         console.log(error);
+        tabla.innerHTML ='<label>Debe descargar los productos al menos una vez al día.. Descárguelos nuevamente por favor.</label>';
     })
     .catch((error)=>{
         //funciones.AvisoError(error);

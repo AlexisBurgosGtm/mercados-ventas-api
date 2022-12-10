@@ -124,7 +124,7 @@ let classNavegar = {
              
     },
     inicioVendedorListado :async ()=>{
-        funciones.loadScript('../views/vendedor/vendedor.js','root')
+        funciones.loadScript('../views/vendedor/clientes.js','root')
         .then(async()=>{
             GlobalSelectedForm='INICIO';
             InicializarVista();
@@ -192,7 +192,7 @@ let classNavegar = {
         })             
     },
     logrovendedor: (historial)=>{
-        funciones.loadScript('../views/pedidos/vendedorlogro.js','root')
+        funciones.loadScript('../views/vendedor/logro.js','root')
             .then(()=>{
                 GlobalSelectedForm='LOGROVENDEDOR';
                 inicializarVistaLogro();

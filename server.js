@@ -52,6 +52,10 @@ app.get("/login",function(req,res){
   res.redirect('/');
 }); 
 
+app.get("/test_service",function(req,res){
+  res.send('ONLINE')
+}); 
+
 
 //Router para SUCURSALES
 app.use('/sucursales', routerSucursales);

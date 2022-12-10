@@ -41,7 +41,13 @@ document.getElementById('btnDownloadProductos').addEventListener('click',()=>{
                             contador += 1;
                             if(totalrows==contador){
                                 $('#modalWait').modal('hide');
-                                funciones.Aviso('Productos descargados exitosamente!!')
+                                funciones.Aviso('Productos descargados exitosamente!!');
+                                try {
+                                  
+                                    await getTotalProductos('lbTotalProductos');
+                                } catch (error) {
+                                    
+                                }
                             }
                         }
                     });
@@ -110,7 +116,13 @@ document.getElementById('btnDownloadClientes').addEventListener('click',()=>{
                             if(totalrows==contador){
                                 hideWaitForm();
                                 //$('#modalWait').modal('hide');
-                                funciones.Aviso('Clientes descargados exitosamente!!')
+                                funciones.Aviso('Clientes descargados exitosamente!!');
+                                try {
+                                    await getTotalClientes('lbTotalClientes');
+                                   
+                                } catch (error) {
+                                    
+                                }
                             }
                         }
                     });
@@ -442,6 +454,31 @@ function selectCliente(dia) {
         resolve(response)
     });
 };
+
+async function getTotalClientes(idLbTotal) {
+
+
+        var response = await connection.count({
+            from: "clientes"
+        });
+        document.getElementById(idLbTotal).innerText = response;
+};
+
+async function getTotalProductos(idLbTotal) {
+
+ 
+    let f = new Date();
+    if(GlobalSelectedDiaUpdated.toString()==f.getDate().toString()){
+        var response = await connection.count({
+            from: "productos"
+        });
+        document.getElementById(idLbTotal).innerText = response;
+    }else{
+        document.getElementById(idLbTotal).innerText = '0';
+    }
+
+};
+
 
 async function updateSaleCliente(codigo) {
 
