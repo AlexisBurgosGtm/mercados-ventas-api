@@ -88,6 +88,47 @@ function getView(){
 
 function addListeners(){
 
+
+
+    classTipoDocumentos.getCorrelativoDocumento('',GlobalCoddoc)
+    .then((correlativo)=>{
+        document.getElementById('txtCorrelativo').value = Number(correlativo.replace(' ',''));
+    })
+    .catch(()=>{
+        document.getElementById('txtCorrelativo').value = '0';
+    });
+
+    let btnActualizarCorrelativo = document.getElementById('btnActualizarCorrelativo');
+    btnActualizarCorrelativo.addEventListener('click',()=>{
+        funciones.Confirmacion('¿Está seguro que desea actualizar este Correlativo?')
+        .then((value)=>{
+            if(value==true){
+
+                btnActualizarCorrelativo.disabled = true;
+                btnActualizarCorrelativo.innerHTML = `<i class="fal fa-save"></i>
+                                                    Actualizando...`
+
+                let nuevo = Number(document.getElementById('txtCorrelativo').value)
+                classTipoDocumentos.updateCorrelativoDocumento(GlobalCoddoc,nuevo)
+                .then(()=>{
+                    funciones.Aviso('Correlativo actualizado Exitosamente!!');
+                    btnActualizarCorrelativo.disabled = false;
+                    btnActualizarCorrelativo.innerHTML = `<i class="fal fa-save"></i>
+                                                        Actualizar Correlativo`
+                })
+                .catch(()=>{
+                    funciones.AvisoError('No se pudo actualizar');
+                    btnActualizarCorrelativo.disabled = false;
+                    btnActualizarCorrelativo.innerHTML = `<i class="fal fa-save"></i>
+                                                        Actualizar Correlativo`
+                });
+
+            }
+        })
+    });
+
+    
+
     //cambio de clave de usuario
     //--------------------------------
     let txtPassNueva = document.getElementById('txtPassNueva');

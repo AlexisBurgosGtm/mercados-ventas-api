@@ -54,10 +54,12 @@ function getView(){
                                         <div class="row">
                                             <div class="col-6">
                                                 <label>Precios Descargados:</label>
+                                                <button class="btn btn-sm btn-info btn-circle" id="btnDescargarP"><i class="fal fa-download"></i></button>
                                                 <h5 class="negrita text-danger" id="lbTotalProductos">0</h5>
                                             </div>
                                             <div class="col-6">
                                                 <label>Clientes Descargados:</label>
+                                                <button class="btn btn-sm btn-info btn-circle" id="btnDescargarC"><i class="fal fa-download"></i></button>
                                                 <h5 class="negrita text-danger" id="lbTotalClientes">0</h5>
                                             </div>
                                         </div>
@@ -832,7 +834,167 @@ async function addListeners(){
     })
     .catch(()=>{
         document.getElementById('lbTotalClientesOnline').innerText = '---';
-    })
+    });
+
+
+
+    //botones para actualizar
+    let btnDescargarP = document.getElementById('btnDescargarP')
+    btnDescargarP.addEventListener('click',()=>{
+        funciones.Confirmacion('¿Está seguro que desea Descargar el catálogo de Productos?')
+        .then((value)=>{
+            if(value==true){
+                
+                btnDescargarP.disabled = true;
+                btnDescargarP.innerHTML = `<i class="fal fa-sync fa-spin"></i>`;
+
+                downloadProductos()
+                .then((data)=>{
+                    funciones.showToast(`Productos descargados, guardándolos localmente`);
+                    deleteProductos()
+                    .then(()=>{
+                        let contador = 1;
+                        let totalrows = Number(data.rowsAffected[0]);
+                          
+                        data.recordset.map(async(rows)=>{
+                            var datosdb = {
+                                CODSUCURSAL:rows.CODSUCURSAL,
+                                CODPROD:rows.CODPROD,
+                                DESPROD:rows.DESPROD,
+                                CODMEDIDA:rows.CODMEDIDA,
+                                EQUIVALE:rows.EQUIVALE,
+                                COSTO:rows.COSTO,
+                                PRECIO:rows.PRECIO,
+                                PRECIOA:rows.PRECIOA,
+                                PRECIOB:rows.PRECIOB,
+                                PRECIOC:rows.PRECIOC,
+                                DESMARCA:rows.DESMARCA,
+                                EXENTO:rows.EXENTO,
+                                EXISTENCIA:rows.EXISTENCIA,
+                                DESPROD3:rows.DESPROD3
+                            }                
+                            var noOfRowsInserted = await connection.insert({
+                                into: "productos",
+                                values: [datosdb], //you can insert multiple values at a time
+                            });
+                            if (noOfRowsInserted > 0) {
+                                let porc = (Number(contador) / Number(totalrows)) * 100;
+                                //setLog(`<label>Productos agregados: ${contador} de ${totalrows} (${porc.toFixed(2)}%)</label>`,'rootWait')
+                                contador += 1;
+                                if(totalrows==contador){
+                                   
+                                    funciones.Aviso('Productos descargados exitosamente!!');
+                                   
+                                    btnDescargarP.disabled = false;
+                                    btnDescargarP.innerHTML = `<i class="fal fa-download"></i>`;
+
+                                    try {
+                                        getTotalProductos('lbTotalProductos');
+                                    } catch (error) {
+                                        
+                                    }
+                                }
+                            }
+                        });
+                    })
+                    .catch(()=>{
+                      
+                       funciones.AvisoError('No se pudieron eliminar los productos previos');
+                       btnDescargarP.disabled = false;
+                       btnDescargarP.innerHTML = `<i class="fal fa-download"></i>`;
+
+                    })
+                })
+                .catch(()=>{
+                   
+                    funciones.AvisoError('No se pudieron descargar los productos');
+                    btnDescargarP.disabled = false;
+                    btnDescargarP.innerHTML = `<i class="fal fa-download"></i>`;
+
+                })
+    
+                
+                
+            }
+        })
+    });
+
+    let btnDescargarC = document.getElementById('btnDescargarC');
+    btnDescargarC.addEventListener('click',()=>{
+        funciones.Confirmacion('¿Está seguro que desea Descargar el catálogo de Clientes?')
+        .then((value)=>{
+            if(value==true){
+    
+                btnDescargarC.disabled = true;
+                btnDescargarC.innerHTML = `<i class="fal fa-sync fa-spin"></i>`;
+    
+                downloadClientes()
+                .then((data)=>{
+                    funciones.showToast(`Clientes descargados, ahora se guardarán localmente`)
+                    deleteClientes()
+                    .then(()=>{
+                        let totalrows = Number(data.rowsAffected[0]);
+                        let contador = 1;
+    
+                        data.recordset.map(async(rows)=>{
+                            var datosdb = {
+                                CODSUCURSAL:rows.CODSUCURSAL,
+                                CODIGO:rows.CODIGO,
+                                DESMUNI:rows.DESMUNI,
+                                DIRCLIE:rows.DIRCLIE,
+                                LASTSALE:rows.LASTSALE,
+                                LAT:rows.LAT,
+                                LONG:rows.LONG,
+                                NIT:rows.NIT,
+                                NOMCLIE:rows.NOMCLIE,
+                                REFERENCIA:rows.REFERENCIA,
+                                STVISITA:rows.STVISITA,
+                                VISITA:rows.VISITA,
+                                TELEFONO:rows.TELEFONO,
+                                TIPONEGOCIO:rows.TIPONEGOCIO,
+                                NEGOCIO:rows.NEGOCIO
+                            }                
+                            var noOfRowsInserted = await connection.insert({
+                                into: "clientes",
+                                values: [datosdb], //you can insert multiple values at a time
+                            });
+                            if (noOfRowsInserted > 0) {
+                                let porc = (Number(contador)/Number(totalrows))*100;
+                                //setLog(`<label>Clientes agregados: ${contador} de ${totalrows} (${porc.toFixed(2)} %)</label>`,'rootWait')
+                                contador += 1;
+                                if(totalrows==contador){
+                                   
+                                    funciones.Aviso('Clientes descargados exitosamente!!');
+                                    btnDescargarC.disabled = false;
+                                    btnDescargarC.innerHTML = `<i class="fal fa-download"></i>`;
+                                    try {
+                                        getTotalClientes('lbTotalClientes');
+                                       
+                                    } catch (error) {
+                                        
+                                    }
+                                }
+                            }
+                        });
+                    })
+                    .catch(()=>{
+                       
+                        funciones.AvisoError('No se pudieron eliminar los Clientes previos');
+                        btnDescargarC.disabled = false;
+                        btnDescargarC.innerHTML = `<i class="fal fa-download"></i>`;
+                    })
+                })
+                .catch(()=>{
+                   
+                    funciones.AvisoError('No se pudieron descargar los clientes');
+                    btnDescargarC.disabled = false;
+                    btnDescargarC.innerHTML = `<i class="fal fa-download"></i>`;
+                })
+                      
+                
+            }
+        })
+    });
 
     funciones.slideAnimationTabs();
     

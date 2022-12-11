@@ -8,7 +8,9 @@ router.post("/updatecorrelativo", async(req,res)=>{
     let qry ='';
 
     qry = `UPDATE ME_TIPODOCUMENTOS SET CORRELATIVO=${correlativo} 
-            WHERE CODSUCURSAL='${sucursal}' AND CODDOC='${coddoc}' `     
+            WHERE CODSUCURSAL='${sucursal}' AND CODDOC='${coddoc}';
+            UPDATE ME_USUARIOS SET CORRELATIVO=${correlativo} 
+            WHERE CODSUCURSAL='${sucursal}' AND CODDOC='${coddoc}'; `     
   
     execute.Query(res,qry);
 
@@ -57,7 +59,7 @@ router.get("/correlativodoc", async(req,res)=>{
         
     let qry ='';
 
-    qry = `SELECT CODDOC,CORRELATIVO FROM ME_TIPODOCUMENTOS WHERE CODSUCURSAL='${app}' AND TIPODOC='${tipo}' AND CODDOC='${coddoc}'`     
+    qry = `SELECT CODDOC,CORRELATIVO FROM ME_TIPODOCUMENTOS WHERE CODSUCURSAL='${app}' AND CODDOC='${coddoc}'`     
     
     execute.Query(res,qry);
 
@@ -69,7 +71,7 @@ router.post("/correlativodoc", async(req,res)=>{
         
     let qry ='';
 
-    qry = `SELECT CODDOC,CORRELATIVO FROM ME_TIPODOCUMENTOS WHERE CODSUCURSAL='${app}' AND TIPODOC='${tipo}' AND CODDOC='${coddoc}'`     
+    qry = `SELECT CODDOC,CORRELATIVO FROM ME_TIPODOCUMENTOS WHERE CODSUCURSAL='${app}' AND CODDOC='${coddoc}'`     
     
     execute.Query(res,qry);
 

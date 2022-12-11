@@ -63,7 +63,7 @@ let classNavegar = {
                                 <i class="fal fa-edit"></i>
                                 Censo
                             </button>
-                            <button class="btn btn-sm "  id="btnMenu2VendedorSync">
+                            <button class="btn btn-sm hidden"  id="btnMenu2VendedorSync">
                                 <i class="fal fa-sync"></i>
                                 Desc
                             </button>

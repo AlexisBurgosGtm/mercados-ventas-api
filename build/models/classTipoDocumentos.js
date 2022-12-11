@@ -95,6 +95,31 @@ let classTipoDocumentos = {
         })
         
     },
+    updateCorrelativoDocumento: (coddoc,nuevocorrelativo)=>{
+        
+        return new Promise((resolve,reject)=>{
+           
+            let data = {
+                sucursal:GlobalCodSucursal,
+                coddoc:coddoc,
+                correlativo:nuevocorrelativo
+            }
+
+            axios.post('/tipodocumentos/updatecorrelativo', data)
+            .then((response) => {
+                let data = response.data;
+                if(Number(data.rowsAffected[0])>0){
+                    resolve(nuevocorrelativo);             
+                }else{
+                    reject('0');
+                }            
+            }, (error) => {
+                console.log(error);
+                reject('0');
+            });
+        })
+        
+    },
     BACKUP_getCorrelativoDocumento: (tipodoc,coddoc)=>{
         
         return new Promise((resolve,reject)=>{
