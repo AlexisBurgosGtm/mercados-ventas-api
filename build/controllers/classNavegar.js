@@ -224,34 +224,33 @@ let classNavegar = {
     inicio_supervisor : async ()=>{
         let strFooter =    `<button class="btn btn-sm "  id="btnMenu2SuperMapa">
                                 <i class="fal fa-map"></i>
-                                Mapa vendedores
+                                Gps Ventas
                             </button> 
                             <button class="btn btn-sm "  id="btnMenu2SuperVentas">
                                 <i class="fal fa-shopping-cart"></i>
-                                Reportes de Ventas
+                                Reportes
                             </button>
-                          
-                         
-                    
+                            <button class="btn btn-sm "  id="btnMenu2SuperHorarios">
+                                <i class="fal fa-clock"></i>
+                                Horarios
+                            </button>
                             `
-
                     rootMenuFooter.innerHTML = strFooter;
-                                                 
-                            
-              
-                 
+                                               
+                                        
                     let btnMenu2SuperMapa = document.getElementById('btnMenu2SuperMapa');
                     btnMenu2SuperMapa.addEventListener('click',()=>{
-
                             classNavegar.supervisor_mapa();
-
                     });
 
                     let btnMenu2SuperVentas = document.getElementById('btnMenu2SuperVentas');
                     btnMenu2SuperVentas.addEventListener('click',()=>{
-
                             classNavegar.supervisor_ventas();
+                    });
 
+                    let btnMenu2SuperHorarios = document.getElementById('btnMenu2SuperHorarios');
+                    btnMenu2SuperHorarios.addEventListener('click',()=>{
+                            classNavegar.supervisor_horarios();
                     });
 
                 
@@ -279,6 +278,14 @@ let classNavegar = {
         funciones.loadScript('./views/supervisor/mapa.js','root')
         .then(()=>{
             GlobalSelectedForm ='SUPERVISORMAPA';
+            initView();
+            //window.history.pushState({"page":2}, "facturacion", GlobalUrl + '/facturacion')
+        })
+    },
+    supervisor_horarios:()=>{
+        funciones.loadScript('./views/supervisor/horarios.js','root')
+        .then(()=>{
+            GlobalSelectedForm ='SUPERVISORHORARIOS';
             initView();
             //window.history.pushState({"page":2}, "facturacion", GlobalUrl + '/facturacion')
         })

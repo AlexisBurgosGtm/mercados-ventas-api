@@ -1463,6 +1463,11 @@ async function fcnFinalizarPedido(){
         }      
     };
 
+    if(GlobalTotalDocumento==0){
+        funciones.AvisoError('Este pedido no tiene productos, revise por favor');
+        return;
+    };
+
     if(GlobalSelectedCodCliente.toString()=='SI'){funciones.AvisoError('Datos del cliente incorrectos, por favor, seleccione cliente nuevamente');return;}
 
     let codcliente = GlobalSelectedCodCliente;

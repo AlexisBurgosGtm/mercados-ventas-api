@@ -1,11 +1,18 @@
-﻿const config = {
+﻿const configBackup = {
+	user: 'db_a6478c_prueba_admin',
+	password: 'razors1805',
+	server: 'sql5079.site4now.net',
+	database: 'db_a6478c_prueba',
+	pool: {	max: 100,	min: 0,	idleTimeoutMillis: 30000}
+};
+
+const config = {
 	user: 'DB_A6478C_mercadosv2_admin',
 	password: 'razors1805',
 	server: 'sql5060.site4now.net',
 	database: 'DB_A6478C_mercadosv2',
 	pool: {	max: 100,	min: 0,	idleTimeoutMillis: 30000}
 };
-
 
 
 const sql = require('mssql');
@@ -17,6 +24,31 @@ let execute = {
 
 		try {
 		  const pool1 = new sql.ConnectionPool(config, err => {
+			new sql.Request(pool1)
+			.query(sqlqry, (err, result) => {
+				if(err){
+					res.send(err.message)
+				}else{
+					res.send(result);
+				}					
+			})
+			sql.close();  
+		  })
+		  pool1.on('error', err => {
+			  console.log('error sql = ' + err);
+			  sql.close();
+		  })
+		} catch (error) {
+		  res.send('Error al ejecutar la consulta: ' + error)   
+		  sql.close();
+		}
+	},
+	QueryBackup : (res,sqlqry)=>{	
+		
+		//console.log('ejecutando consulta... ' + sqlqry);		
+
+		try {
+		  const pool1 = new sql.ConnectionPool(configBackup, err => {
 			new sql.Request(pool1)
 			.query(sqlqry, (err, result) => {
 				if(err){

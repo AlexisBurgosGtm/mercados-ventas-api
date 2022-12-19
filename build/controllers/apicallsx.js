@@ -3356,5 +3356,76 @@ let apigen = {
                 reject();
             });
         })
-    }
+    },
+    supervisor_pedidos_vendedor_horarios: async(sucursal,codven,fecha,idContenedor,idLbTotal)=>{
+
+        let container = document.getElementById(idContenedor);
+        container.innerHTML = GlobalLoader;
+        
+        let lbTotal = document.getElementById(idLbTotal);
+        lbTotal.innerText = '---';
+
+        let tableheader = `<table class="table table-responsive table-hover table-striped table-bordered">
+                            <thead class="bg-secondary text-white">
+                                <tr>
+                                    <td>Documento</td>
+                                    <td>Cliente</td>
+                                    <td>Importe</td>
+                                    <td>Hora</td>
+                                </tr>
+                            </thead>
+                            <tbody id="tblListaPedidos">`;
+        let tablefoooter ='</tbody></table>';
+
+        let strdata = '';
+        let totalpedidos = 0;
+        axios.post('/ventas/listapedidos', {
+            app:GlobalSistema,
+            sucursal: sucursal,
+            codven:codven,
+            fecha:fecha   
+        })
+        .then((response) => {
+            const data = response.data.recordset;
+            let total =0;
+            data.map((rows)=>{
+                    total = total + Number(rows.IMPORTE);
+                    totalpedidos = totalpedidos + 1;
+                    strdata = strdata + `<tr>
+                                <td colspan="2">
+                                        <b class="text-danger">${rows.CODDOC + '-' + rows.CORRELATIVO}</b>
+                                    <br>
+                                        ${rows.NEGOCIO} // ${rows.NOMCLIE}
+                                    <br>
+                                        <small class="text-secondary">${rows.DIRCLIE + ', ' + rows.DESMUNI}</small>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button class="btn btn-outline-success btn-sm btn-circle"
+                                                onclick="funciones.gotoGoogleMaps('${rows.LAT}','${rows.LONG}')">
+                                                <i class="fal fa-map"></i>
+                                            </button>    
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <b>${funciones.setMoneda(rows.IMPORTE,'Q')}</b>
+                                </td>
+                                <td>
+                                    <b>${rows.HORA}</b>
+                                </td>
+                            </tr>`
+            })
+            container.innerHTML = tableheader + strdata + tablefoooter;
+            //lbTotal.innerText = `${funciones.setMoneda(total,'Q ')} - Pedidos: ${totalpedidos} - Promedio:${funciones.setMoneda((Number(total)/Number(totalpedidos)),'Q')}`;
+            lbTotal.innerHTML = `<h3 class="negrita text-danger">Importe: ${funciones.setMoneda(total,'Q ')}</h3>
+                                 <h3 class="negrita text-danger">Pedidos: ${totalpedidos}</h3>
+                                 <h3 class="negrita text-danger">Promedio:${funciones.setMoneda((Number(total)/Number(totalpedidos)),'Q')}</h3>`;
+        }, (error) => {
+            funciones.AvisoError('Error en la solicitud');
+            strdata = '';
+            container.innerHTML = '';
+            lbTotal.innerHTML = '-- --';
+        });
+           
+    },
 }
