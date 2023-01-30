@@ -19,7 +19,7 @@ let routerCenso = require('./router/routerCenso');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-const PORT = process.env.PORT || 4300;
+const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 
@@ -43,16 +43,14 @@ router.use(function (req,res,next) {
   next();
 });
 
+
 app.get("/",function(req,res){
-  execute.start();
-	res.sendFile(path + 'index.html');
+  //execute.start();
+	//res.sendFile(path + 'index.html');
 }); 
 
-app.get("/login",function(req,res){
-  res.redirect('/');
-}); 
 
-app.get("/test_service",function(req,res){
+app.post("/test_service",function(req,res){
   res.send('ONLINE')
 }); 
 
@@ -94,8 +92,9 @@ app.use('/usuarios', routerUsuarios);
 app.use("/",router);
 
 app.use("*",function(req,res){
-  res.redirect('/');
+  //res.redirect('/');
   //res.send('<h1 class="text-danger">NO DISPONIBLE</h1>');
+  res.send('NO DISPONIBLE')
 });
 
 
